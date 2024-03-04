@@ -1,0 +1,70 @@
+<section class="carrinho-list">
+  <div class="container">
+    <header class="controls-section">
+      <button mat-flat-button color="warn" (click)="voltar()"><mat-icon>arrow_back</mat-icon><span>Voltar</span></button>
+      <h2>Saída</h2>
+    </header>
+    <div class="content-container">
+      <section class="items-container">
+        <ng-container *ngIf="temItens else noItems">
+          <section class="item-section servicos-section" *ngIf="temServico">
+            <mat-toolbar class="title">Serviço</mat-toolbar>
+            <app-list-item-preview [itemCarrinho]="servico"></app-list-item-preview>
+          </section>
+          <section class="item-section produtos-section" *ngIf="temProdutos">
+            <mat-toolbar class="title">Produtos</mat-toolbar>
+            <ng-container>
+              <app-list-item-preview *ngFor="let i of produtos" [itemCarrinho]="i"></app-list-item-preview>
+            </ng-container>
+          </section>
+        </ng-container>
+        <ng-template #noItems>
+          <section class="no-items-section">
+            <div class="linha">
+              <div class="coluna">
+                <h1>Não tem items no carrinho</h1>
+              </div>
+            </div>
+          </section>
+        </ng-template>
+      </section>
+      <section class="summary-container">
+        <header class="coluna">
+          <div class="linha has-controls">
+            <ng-container *ngIf="hasCliente else selecionarCliente">
+              <p>
+                <span>Cliente</span>
+                <span>{{nomeCompleto}}</span>
+              </p>
+              <mat-icon mat-icon-button color="accent" class="mat-elevation-z0" (click)="selectCliente()" *ngIf="!isCliente">change_circle</mat-icon>
+            </ng-container>
+            <ng-template #selecionarCliente><button mat-flat-button (click)="selectCliente()" color="accent" [disabled]="!isSignedIn">Selecionar Cliente</button></ng-template>
+          </div>
+          <div class="linha">
+            <p>
+              <span>Operação</span>
+              <span>{{nomeTipoOperacao}}</span>
+            </p>
+          </div>
+          <div class="linha">
+            <p>
+              <span>Itens</span>
+              <span>{{itensNoCarrinho | number:"1.0-0"}}</span>
+            </p>
+          </div>
+          <div class="linha">
+            <p>
+              <span>Total</span>
+              <span>{{totalAPagar | number:"1.2-3"}} Kz</span>
+            </p>
+          </div>
+        </header>
+        <footer class="coluna controls">
+          <div class="linha"><button mat-flat-button color="accent" (click)="adicionarItens()" [disabled]="!isSignedIn"><div class="coluna">Adicionar Itens</div></button></div>
+          <div class="linha"><button mat-flat-button color="warn" (click)="esvaziarCarrinho()" [disabled]="!temItens"><div class="coluna">Esvaziar Carrinho</div></button></div>
+          <div class="linha"><button mat-flat-button color="accent" [disabled]="!podeConfirmar" (click)="confirmar()"><div class="coluna">Confirmar</div></button></div>
+        </footer>
+      </section>
+    </div>
+  </div>
+</section>

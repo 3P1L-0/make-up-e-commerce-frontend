@@ -1,0 +1,64 @@
+<mat-card class="list-item-preview">
+  <section class="preview">
+    <div class="left-content"><img [src]="img"></div>
+    <div class="middle-content">
+      <h3 class="title">{{nome}}</h3>
+      <div class="bottom-content-wrapper">
+        <span><span class="detail">Estado</span><span>{{estado}}</span></span>
+        <ng-container *ngIf="isProduto else servico">
+          <span><span  class="detail">Estoque</span><span>{{stock}}</span></span>
+          <span><span  class="detail">Código</span><span>{{codigo}}</span></span>
+        </ng-container>
+        <ng-template #servico><span><span class="detail">Duração</span><span>{{duracao}}</span></span></ng-template>
+        <span><span class="detail">Preço</span><span>{{preco}} Kz</span></span>
+      </div>
+      <div class="dados-carrinho" *ngIf="hideShopping && isProduto">
+        <span><span class="detail">Quantidade no carrinho</span><span>{{quantidade}}</span></span>
+        <span><span class="detail">Total</span><span>{{total}} Kz</span></span>
+      </div>
+      <span class="info" [class.show]="showInfo">{{descricao}}</span>
+    </div>
+    <div class="controls-container">
+      <span class="item-type" *ngIf="isDialog">{{itemType}}</span>
+      <ng-container *ngIf="!isDialog">
+        <ng-container *ngIf="!isCliente && !hideShopping && isLogado">
+          <div class="delete">
+            <button mat-mini-fab color="warn" class="mat-elevation-z0" [class.viewing]="!isDeleting" (click)="toggleIsDeleting()"
+              matTooltip="Apagar" [matTooltipPosition]="tipPosition" [matTooltipShowDelay]="tipShowDelay" [matTooltipHideDelay]="tipHideDelay">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+            <div [class.deleting]="isDeleting" class="deleting-controls">
+              <button mat-flat-button color="warn" (click)="confirmDelete()">Eliminar</button>
+              <button mat-flat-button color="accent" (click)="toggleIsDeleting()">Cancelar</button>
+            </div>
+            <button mat-mini-fab color="accent" class="mat-elevation-z0 viewing" (click)="editItem()" matTooltip="Editar"
+              [matTooltipShowDelay]="tipShowDelay" [matTooltipPosition]="tipPosition" [matTooltipHideDelay]="tipHideDelay">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div class="cart-controls">
+        <button mat-mini-fab class="mat-elevation-z0" (click)="adicionarItemCarrinho()" *ngIf="!showAddToCart else removeItem" matTooltip="Adicionar ao carrinho"
+        [matTooltipHideDelay]="tipHideDelay" [matTooltipShowDelay]="tipShowDelay" [matTooltipPosition]="tipPosition" [disabled]="isNotSelectedService">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+        <ng-template #removeItem>
+          <button mat-mini-fab (click)="removerItemCarrinho()" color="warn" class="mat-elevation-z0" matTooltip="Remover do carrinho"
+            [matTooltipHideDelay]="tipHideDelay" [matTooltipShowDelay]="tipShowDelay" [matTooltipPosition]="tipPosition">
+            <mat-icon>remove_shopping_cart</mat-icon>
+          </button>
+        </ng-template>
+        <div class="container" *ngIf="hideShopping && isProduto">
+          <button mat-mini-fab color="warn" (click)="subtrair(qtd.value)" class="mat-elevation-z0" matTooltip="Reduzir quantidade"
+            [matTooltipShowDelay]="tipShowDelay" [matTooltipHideDelay]="tipHideDelay" [matTooltipPosition]="tipPosition"><mat-icon>remove</mat-icon></button>
+          <mat-form-field appearance="outline" color="accent"><input type="number" value="1" matInput #qtd/></mat-form-field>
+          <button mat-mini-fab color="accent" (click)="somar(qtd.value)" class="mat-elevation-z0" matTooltip="Aumentar quantidade"
+          [matTooltipShowDelay]="tipShowDelay" [matTooltipHideDelay]="tipHideDelay" [matTooltipPosition]="tipPosition"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+      <button mat-mini-fab class="mat-elevation-z0" (click)="toggleInfo()" matTooltip="Ver descrição" *ngIf="hasDescription"
+        [matTooltipPosition]="tipPosition" [matTooltipShowDelay]="tipShowDelay" [matTooltipHideDelay]="tipHideDelay"><mat-icon>info</mat-icon></button>
+    </div>
+  </section>
+</mat-card>

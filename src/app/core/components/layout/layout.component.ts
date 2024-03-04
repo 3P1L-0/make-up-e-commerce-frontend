@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, inject } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, inject } from "@angular/core";
 import { MatSidenavContainer } from "@angular/material/sidenav";
 import { ConfigOptions } from "src/app/shared/components/scroll-top/scroll-top.component";
 import { HeaderComponent } from "./header/header.component";
-import { LayoutService } from "./layout.service";
 import { SCRTOP_POSITION, SCRTOP_COLOR } from "src/app/shared/config/consts/types";
 import { ThemeService } from "../../services/theme.service";
-import { ScrollDispatcher } from "@angular/cdk/scrolling";
+import { fromEvent, tap } from "rxjs";
+import { CarrinhoService } from "../carrinho/carrinho.service";
 
 @Component({
   selector: 'app-layout',
@@ -15,6 +15,7 @@ import { ScrollDispatcher } from "@angular/cdk/scrolling";
 export class LayoutComponent implements OnInit {
   /* DEPENDENCIES */
   private readonly _themeService = inject(ThemeService);
+  private readonly _carrinhoService = inject(CarrinhoService);
 
   /* MEMBERS */
   public isAdminLoggedIn: boolean;
@@ -28,18 +29,25 @@ export class LayoutComponent implements OnInit {
   @ViewChild(MatSidenavContainer, { static: true }) sidenavContainer: MatSidenavContainer;
   @ViewChild(HeaderComponent, { read: ElementRef }) theHeader: ElementRef<HTMLElement>;
 
+  constructor() {
+    fromEvent(window, 'beforeunload').subscribe(() => {
+      if(this._carrinhoService.temItens) this._carrinhoService.reterEstado();
+    });
+  }
+
   ngOnInit(): void {
     // options for the scrolltop button
     this.config = {
       anchor: SCRTOP_POSITION.bottomRight,
-      opacity: 0.36,
+      opacity: 0.25,
       scrollHeight: 100,
       icon: 'north',
-      color: SCRTOP_COLOR.secondary,
+      color: SCRTOP_COLOR.accent,
       positioning: 'fixed',
       scrollComponent: this.sidenavContainer,
     };
 
     this._themeService.init();
+    this._carrinhoService.restaurarEstado();
   }
 }

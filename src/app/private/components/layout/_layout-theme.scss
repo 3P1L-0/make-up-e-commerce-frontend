@@ -1,0 +1,9 @@
+@use "./components/header/header-theme" as header;
+@use "./components/main-menu/main-menu-theme" as menu;
+@use "./components/footer/footer-theme" as footer;
+
+@mixin theme($theme) {
+  @include header.theme($theme);
+  @include menu.theme($theme);
+  @include footer.theme($theme);
+}

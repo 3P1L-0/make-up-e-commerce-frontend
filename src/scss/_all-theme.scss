@@ -1,8 +1,8 @@
-@use '/src/app/core/core-theme' as core;
-@use '/src/app/shared/shared-theme' as shared;
+@use '/src/app/private/private-theme' as private;
+@use '/src/app/public/public-theme' as public;
 
 // applies theme configurations to all custom components
 @mixin themefy($theme) {
-  @include core.theme($theme);
-  @include shared.theme($theme);
+  @include private.theme($theme);
+  @include public.theme($theme);
 }

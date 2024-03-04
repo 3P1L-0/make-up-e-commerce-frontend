@@ -1,5 +1,0 @@
-@use './landing-page/landing-page.component' as landing;
-
-@mixin theme($theme) {
-  @include landing.theme($theme);
-}

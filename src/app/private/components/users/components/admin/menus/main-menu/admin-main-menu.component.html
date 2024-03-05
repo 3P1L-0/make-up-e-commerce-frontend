@@ -1,0 +1,14 @@
+<mat-nav-list>
+  <!-- DASHBOARD -->
+  <mat-list-item>
+    <a [routerLink]="routes.home" [routerLinkActive]="activeLinkClasses.child" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+  </mat-list-item>
+  <!-- PRODUCTS -->
+  <mat-list-item>
+    <a [routerLink]="routes.products" [routerLinkActive]="activeLinkClasses.child" [routerLinkActiveOptions]="{exact: true}">Produtos</a>
+  </mat-list-item>
+  <!-- SERVICES -->
+  <mat-list-item>
+    <a [routerLink]="routes.services" [routerLinkActive]="activeLinkClasses.child" [routerLinkActiveOptions]="{exact: true}">Serviços</a>
+  </mat-list-item>
+</mat-nav-list>

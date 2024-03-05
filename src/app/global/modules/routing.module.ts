@@ -17,7 +17,7 @@ const _routes: Routes = [
       }
     ]
   },
-  { path: '', redirectTo: "app/private", pathMatch: "full" },
+  { path: '', redirectTo: "app", pathMatch: "full" },
   { path: '**', redirectTo: '' }
 ];
 

@@ -2,6 +2,7 @@
 
 @use '@angular/material' as mat;
 @use '../config/theme' as theme;
+@use '../config/variables/variables' as vars;
 
 // define the typography configuration; since no configuration is passed, the default is emitted
 $typography: mat.define-typography-config();
@@ -16,7 +17,7 @@ $_theme: mat.define-light-theme((
   ),
   typography: $typography
 ));
-.light-theme-mode {
+.#{vars.$light-mode-class} {
   color-scheme: only light;
   @include theme.theme($_theme);
 }
@@ -31,7 +32,7 @@ $_theme: mat.define-dark-theme((
   ),
   typography: $typography
 ));
-.dark-theme-mode {
+.#{vars.$dark-mode-class} {
   color-scheme: dark;
   @include theme.theme($_theme);
 }

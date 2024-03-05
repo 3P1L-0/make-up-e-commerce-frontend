@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { AppLayoutModule } from "./components/layout/modules/layout.module";
+import { AppUsersModule } from "./components/users/users.module";
 
 @NgModule({
   exports: [
-    AppLayoutModule
-  ],
-  imports: [],
-  providers: []
+    AppLayoutModule,
+    AppUsersModule
+  ]
 })
 export class PrivateModule {}

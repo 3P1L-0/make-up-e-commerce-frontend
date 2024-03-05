@@ -6,6 +6,7 @@ import { AppHeaderComponent } from "../components/header/header.component";
 import { AppMainMenuComponent } from "../components/main-menu/main-menu.component";
 import { AppFooterComponent } from "../components/footer/footer.component";
 import { MaterialModule } from "src/app/global/modules/material.module";
+import { AppUsersModule } from "../../users/users.module";
 
 const declarations = [
   AppLayoutComponent,
@@ -19,7 +20,8 @@ const declarations = [
   imports: [
     CommonModule,
     AppLayoutRoutingModule,
-    MaterialModule
+    MaterialModule,
+    AppUsersModule
   ],
   exports: [
     ...declarations,

@@ -9,9 +9,9 @@ const routes: Routes = [
     component: AppLayoutComponent,
     canActivate:  [UserGuard],
     canLoad: [UserGuard],
-    children: [
+    /* children: [
       {path: "home"}
-    ]
+    ] */
   }
 ];
 

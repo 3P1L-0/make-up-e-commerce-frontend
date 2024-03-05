@@ -1,9 +1,59 @@
-@use "./components/header/header-theme" as header;
-@use "./components/main-menu/main-menu-theme" as menu;
-@use "./components/footer/footer-theme" as footer;
+@use "sass:map";
+@use "/src/scss/utility/utilities" as utils;
+@use '/src/scss/config/variables/layout/private/menus';
+@use '/src/scss/config/variables/layout/private/headers';
+@use "./components/components-theme" as components;
+
+@mixin _layout($theme) {
+  /* SCROLL CONTAINERS AND CHILDREN */
+  .web-app,
+  .main-content-wrapper,
+  .content-body,
+  .main-content {
+    box-sizing: border-box;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .web-app {
+    @include utils.make-flex($direction: "column");
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+
+    .main-content-wrapper {
+      @include utils.make-flex();
+      box-shadow: rgba(128, 128, 128, .5) 0px 1px 0px 0px;
+
+      .main-menu {
+        width: menus.$main-menu;
+        border-right: 1px solid gray;
+
+        &-sm{
+          width: menus.$main-menu-sm;
+        }
+      }
+
+      .content-body {
+        @include utils.make-flex($direction: "column");
+        flex: 1 0;
+
+        .header {
+          position: sticky;
+          top: 0;
+          height: headers.$top-header;
+        }
+
+        .main-content {
+          min-height: calc(100vh - headers.$top-header);
+          flex: 1 0;
+        }
+      }
+    }
+  }
+}
 
 @mixin theme($theme) {
-  @include header.theme($theme);
-  @include menu.theme($theme);
-  @include footer.theme($theme);
+  @include _layout($theme);
+  @include components.theme($theme);
 }

@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+@use "/src/scss/utility/utilities" as utils;
+
+@mixin _layout($theme) {
+  @include utils.make-flex($direction: "column");
+  height: 100vh;
+
+  .logo-section {
+    box-sizing: border-box;
+    height: 80px;
+    padding: 10px;
+    @include utils.make-flex($gap: '10px', $justContent: 'space-between');
+
+    & > * {
+      height: 100%;
+    }
+
+    .logo {
+      width: 60px;
+    }
+
+    .name {
+      flex: 1 0;
+      position: relative;
+
+      & > :first-child {
+        margin: 0;
+        position: absolute;
+        top: 50%; // sends the box to the end of it's container
+        transform: translateY(-50%); // brings the box to the center of it's container
+      }
+    }
+  }
+
+  .navs-section {
+    flex: 1 0;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+
+    .menu-trigger {
+      display: none;
+    }
+
+    .mat-list-item:not(:last-of-type) {
+      border-bottom: 1px solid gray;
+    }
+  }
+
+  .toggler-section {
+    @include utils.make-flex($justContent: "flex-end", $alignItems: "center");
+    box-sizing: border-box;
+    height: 50px;
+    padding-right: 10px;
+
+    .icon {
+      transform: rotate(-180deg);
+    }
+  }
+
+  &.shrinked {
+    .navs-section {
+
+    }
+
+    .toggler .icon {
+      transform: none;
+    }
+  }
+}
+
+@mixin theme($theme) {
+  .app-main-menu-module {
+    @include _layout($theme);
+  }
+}

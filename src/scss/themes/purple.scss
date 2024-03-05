@@ -1,5 +1,7 @@
+@charset "UTF-8";
+
 @use '@angular/material' as mat;
-@use '../application-theme' as appT;
+@use '../config/theme' as theme;
 
 // define the typography configuration; since no configuration is passed, the default is emitted
 $typography: mat.define-typography-config();
@@ -16,7 +18,7 @@ $_theme: mat.define-light-theme((
 ));
 .light-theme-mode {
   color-scheme: only light;
-  @include appT.theme($_theme);
+  @include theme.theme($_theme);
 }
 
 // Define the dark theme.
@@ -31,5 +33,5 @@ $_theme: mat.define-dark-theme((
 ));
 .dark-theme-mode {
   color-scheme: dark;
-  @include appT.theme($_theme);
+  @include theme.theme($_theme);
 }

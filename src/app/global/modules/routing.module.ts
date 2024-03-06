@@ -7,9 +7,7 @@ const _routes: Routes = [
     children: [
       {
         path: "private",
-        canActivate: [],
-        canLoad: [],
-        loadChildren: () => import("../../private/components/layout/modules/layout.module").then(m => m.AppLayoutModule)
+        loadChildren: () => import("../../private/modules/private.module").then(m => m.AppPrivateModule)
       },
       {
         path: "public",

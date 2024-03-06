@@ -1,9 +1,8 @@
 import { NgModule } from "@angular/core";
 import { AppAdminMainMenuComponent } from "./menus/main-menu/admin-main-menu.component";
-import { CommonModule } from "@angular/common";
-import { MaterialModule } from "src/app/global/modules/material.module";
-import { RouterModule } from "@angular/router";
 import { AppAdminTopNavigation } from "./menus/top-navigation/admin-top-navigation/admin-top-navigation.component";
+import { AppCommomImportsModule } from "src/app/global/modules/commom-imports.module";
+import { RouterModule } from "@angular/router";
 
 const declarations = [
   AppAdminMainMenuComponent,
@@ -13,9 +12,8 @@ const declarations = [
 @NgModule({
   declarations: declarations,
   imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule
+    AppCommomImportsModule,
+    RouterModule
   ],
   exports: [
     ...declarations

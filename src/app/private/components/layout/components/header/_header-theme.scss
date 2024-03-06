@@ -1,2 +1,40 @@
+@charset "UTF-8";
 
-@mixin theme($theme) {}
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '/src/scss/utility/utilities' as utils;
+@use '/src/scss/config/variables/private/headers';
+
+
+@mixin _layout($theme) {
+  @include utils.make-flex($direction: "column");
+  box-sizing: border-box;
+  border-bottom: 1px solid gray;
+
+  .header-row {
+    box-sizing: border-box;
+    height: headers.$top-header-row;
+    @include utils.make-flex($alignItems: "center");
+    padding: 10px;
+
+    &:first-child {
+      justify-content: flex-end;
+      gap: 8px;
+      border-bottom: 1px solid gray;
+    }
+
+    &:last-child {
+      justify-content: space-between;
+
+      .breadcrumbs {
+        flex: 1 0;
+      }
+    }
+  }
+}
+
+@mixin theme($theme) {
+  .app-header-module {
+    @include _layout($theme);
+  }
+}

@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "/src/scss/utility/utilities" as utils;
-@use '/src/scss/config/variables/layout/private/menus';
-@use '/src/scss/config/variables/layout/private/headers';
+@use '/src/scss/config/variables/private/menus';
+@use '/src/scss/config/variables/private/headers';
 @use "./components/components-theme" as components;
 
 @mixin _layout($theme) {
@@ -26,7 +26,6 @@
       box-shadow: rgba(128, 128, 128, .5) 0px 1px 0px 0px;
 
       .main-menu {
-        width: menus.$main-menu;
         border-right: 1px solid gray;
 
         &-sm{

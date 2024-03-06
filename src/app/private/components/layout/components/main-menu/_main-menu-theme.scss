@@ -1,14 +1,21 @@
 @charset "UTF-8";
 
 @use "/src/scss/utility/utilities" as utils;
+@use '/src/scss/config/variables/private/menus';
+@use '/src/scss/config/variables/global/layers';
+@use '/src/scss/config/variables/global/classes';
 
 @mixin _layout($theme) {
-  @include utils.make-flex($direction: "column");
+  @include utils.make-flex($direction: "column", $justContent: "space-between");
+  width: menus.$main-menu;
   height: 100vh;
+  margin-right: 1px;
+  border-right: 1px solid gray;
+  position: relative;
 
   .logo-section {
     box-sizing: border-box;
-    height: 80px;
+    height: menus.$brand-section;
     padding: 10px;
     @include utils.make-flex($gap: '10px', $justContent: 'space-between');
 
@@ -42,6 +49,10 @@
       display: none;
     }
 
+    .mat-list-base {
+      padding-top: 0;
+    }
+
     .mat-list-item:not(:last-of-type) {
       border-bottom: 1px solid gray;
     }
@@ -54,17 +65,74 @@
     padding-right: 10px;
 
     .icon {
-      transform: rotate(-180deg);
+      transform: rotate(180deg);
     }
   }
 
-  &.shrinked {
-    .navs-section {
+  &#{classes.$shrink-item} {
+    width: menus.$main-menu-sm;
+    margin-right: 0;
+    border-right: none;
 
+    .logo-section {
+      .name {
+        display: none;
+      }
     }
 
-    .toggler .icon {
-      transform: none;
+    .navs-section {
+      .menu-trigger {
+        display: block;
+        margin: 10px auto 0;
+        transform: rotate(180deg);
+      }
+
+      .overlay,
+      .menu-wrapper {
+        position: absolute;
+        top: 0;
+        left: calc(100% + 1px);
+        height: 100%;
+      }
+
+      .overlay {
+        width: calc(100vw - menus.$main-menu-sm - 1px);
+        z-index: layers.$main-menu-container-z-idx;
+        display: none;
+      }
+
+      .menu-wrapper {
+        background-color: #303030;
+        width: menus.$main-menu;
+        border-right: 1px solid gray;
+        z-index: layers.$main-menu-wrapper-z-idx;
+        display: none;
+      }
+
+      &#{classes.$show-item} {
+        .menu-trigger {
+          transform: none;
+        }
+
+        .overlay,
+        .menu-wrapper {
+          display: block;
+        }
+      }
+    }
+
+    .toggler-section {
+      justify-content: stretch;
+      align-items: stretch;
+      padding: 0;
+
+      .toggler {
+        width: 100%;
+
+        .icon {
+          transform: none;
+        }
+      }
     }
   }
 }

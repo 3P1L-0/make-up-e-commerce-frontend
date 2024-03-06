@@ -3,6 +3,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 @use '../variables/variables' as vars;
+@use '../variables/global/classes';
 
 body, html {
   height: 100vh;
@@ -18,9 +19,16 @@ img {
   height: 100%;
 }
 
-.material-symbols-outlined {
-  will-change: font-variation-settings;
-  transition: all .4s ease;
+#{classes.$show-item} {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+#{classes.$hide-item} {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .ms-filled,
@@ -28,62 +36,6 @@ img {
   font-variation-settings: 'FILL' 1;
 }
 
-.content-container {
-  min-height: vars.$body-height;
-}
-
-@mixin _color($config) {
-  $is-dark: map.get($config, is-dark);
-
-  /* for mat-dialog backdrop */
-  .cdk-overlay-container {
-    .cdk-overlay-backdrop {
-      background-color: if($is-dark, vars.$bright-overlay, vars.$dark-overlay);
-    }
-  }
-
-  .table-container {
-    .notifications-container ,
-    .controls-container {
-      @if($is-dark) {
-        color: black;
-        background-color: vars.$bright-overlay;
-      } @else {
-        color: white;
-        background-color: vars.$dark-overlay;
-      }
-    }
-  }
-
-  .section-header,
-  .content-summary-wrapper,
-  .content-container .content-navigation-container {
-    background-color: map.get($config, background, card);
-  }
-
-  .section-header {
-    .process-consignatario {
-      color: map.get($config, foreground, secondary-text);
-    }
-  }
-
-  .content-container {
-    .content-navigation-container {
-      .btn-container.active {
-        background-color: map.get($config, background, background);
-      }
-    }
-
-      /********** DIALOGS **********/
-      .content-title + .content-wrapper {
-        .content-line.secondary {
-          color: map.get($config, foreground, secondary-text);
-        }
-      }
-  }
-}
-
 @mixin theme($theme) {
   $color: mat.get-color-config($theme);
-  @include _color($color);
 }

@@ -1,4 +1,14 @@
-<nav class="app-header-module">
-  <section class="row">First Row</section>
-  <section class="row">Second Row</section>
-</nav>
+<div class="app-header-module">
+  <section class="header-row">
+    <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
+    <button mat-icon-button><mat-icon>account_circle</mat-icon></button>
+    <button mat-icon-button><mat-icon>store</mat-icon></button>
+    <button mat-icon-button><mat-icon>add_circle</mat-icon></button>
+    <mat-slide-toggle color="accent">Escuro</mat-slide-toggle>
+  </section>
+  <section class="header-row">
+    <button mat-flat-button class="back-btn"><mat-icon class="ms-filled">line_start_arrow</mat-icon></button>
+    <app-breadcrumb class="breadcrumbs"></app-breadcrumb>
+    <div id="controls-container" #controlsContainer class="controls-container"></div>
+  </section>
+</div>

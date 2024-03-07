@@ -11,7 +11,6 @@
   height: 100vh;
   margin-right: 1px;
   border-right: 1px solid gray;
-  position: relative;
 
   .logo-section {
     box-sizing: border-box;
@@ -87,25 +86,14 @@
         transform: rotate(180deg);
       }
 
-      .overlay,
       .menu-wrapper {
-        position: absolute;
-        top: 0;
         left: calc(100% + 1px);
-        height: 100%;
-      }
-
-      .overlay {
-        width: calc(100vw - menus.$main-menu-sm - 1px);
-        z-index: layers.$main-menu-container-z-idx;
-        display: none;
       }
 
       .menu-wrapper {
         background-color: #303030;
         width: menus.$main-menu;
         border-right: 1px solid gray;
-        z-index: layers.$main-menu-wrapper-z-idx;
         display: none;
       }
 
@@ -114,9 +102,13 @@
           transform: none;
         }
 
-        .overlay,
         .menu-wrapper {
           display: block;
+        }
+
+        .menu-wrapper {
+          top: 0;
+          bottom: 0;
         }
       }
     }

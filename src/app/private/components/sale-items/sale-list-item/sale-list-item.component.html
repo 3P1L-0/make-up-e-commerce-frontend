@@ -1,0 +1,20 @@
+<mat-card class="app-sale-list-item-module">
+  <section class="controls-container">
+    <div class="on-sale">On Sale</div>
+    <div class="controls">
+      <button mat-icon-button><mat-icon>settings</mat-icon></button>
+      <button mat-icon-button><mat-icon>delete_forever</mat-icon></button>
+      <button mat-icon-button><mat-icon>stylus</mat-icon></button>
+      <button mat-icon-button><mat-icon>info</mat-icon></button>
+    </div>
+  </section>
+  <section class="body-wrapper">
+    <div class="img-container"><img [src]="img"></div>
+    <div class="body-content">
+      <div class="line"><div>{{name}}</div></div>
+      <div class="line"><div>{{code}}</div></div>
+      <div class="line"><div>{{state}}</div></div>
+      <div class="line"><div>{{price}}</div></div>
+    </div>
+  </section>
+</mat-card>

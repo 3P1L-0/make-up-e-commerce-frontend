@@ -1,0 +1,41 @@
+@charset 'UTF-8';
+
+@use '/src/scss/config/variables/private/headers';
+@use '/src/scss/utility/utilities' as utils;
+
+$controls-section: 200px;
+
+@mixin _layout($theme) {
+  height: calc(100vh - calc(headers.$top-header + 120px));
+  height: 100vh;
+  overflow-y: auto;
+
+  .controls-section,
+  .search-container,
+  .filters,
+  form {
+    @include utils.make-flex($alignItems: 'center');
+  }
+
+  .controls-section {
+    position: sticky;
+    top: headers.$top-header;
+    top: 5px;
+    z-index: 1;
+    margin: 40px 0;
+
+    .search-container {
+
+    }
+  }
+
+  .content-section{
+    @include utils.make-flex($direction: 'column', $gap: '20px');
+  }
+}
+
+@mixin theme($theme) {
+  .app-product-list-module {
+    @include _layout($theme);
+  }
+}

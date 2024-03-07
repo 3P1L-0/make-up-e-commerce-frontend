@@ -4,6 +4,7 @@ export enum PRIVATE_ROUTES {
 
   /* ------- PRODUCTS ------- */
   products = "/app/private/products",
+  productsForm = "/app/private/products/form",
 
   /* ------- SERVICES ------- */
   services = "/app/private/services",

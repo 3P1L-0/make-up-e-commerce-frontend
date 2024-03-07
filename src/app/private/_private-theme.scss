@@ -1,5 +1,7 @@
 @use "./components/layout/layout-theme" as layout;
+@use './components/sale-items/sale-items-theme' as saleItems;
 
 @mixin theme($theme) {
   @include layout.theme($theme);
+  @include saleItems.theme($theme);
 }

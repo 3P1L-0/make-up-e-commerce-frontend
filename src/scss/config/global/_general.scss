@@ -4,6 +4,8 @@
 @use '@angular/material' as mat;
 @use '../variables/variables' as vars;
 @use '../variables/global/classes';
+@use '../variables/global/layers';
+@use '../../utility/utilities' as utils;
 
 *::before, *::after {
   box-sizing: inherit;
@@ -16,6 +18,18 @@ body, html {
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   box-sizing: border-box;
+}
+
+.overlay {
+  position: absolute;
+  z-index: layers.$overlay-z-idx;
+  inset: 0;
+  width: 100vw;
+  display: none;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 img {
@@ -31,7 +45,13 @@ img {
   }
 }
 
-#{classes.$show-item} {
+#{classes.$show-item} .overlay-content {
+  position: absolute;
+  z-index: layers.$overlay-content-z-idx;
+}
+
+#{classes.$show-item},
+#{classes.$show-item} .overlay {
   display: block;
   visibility: visible;
   opacity: 1;
@@ -50,4 +70,8 @@ img {
 
 @mixin theme($theme) {
   $color: mat.get-color-config($theme);
+
+  .rst-frm-fld {
+    @include utils.reset-form-field($theme);
+  }
 }

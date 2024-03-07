@@ -1,4 +1,4 @@
-<aside [id]="menuParts.menu" class="app-main-menu-module shrinked">
+<aside [id]="menuParts.menu" class="app-main-menu-module">
   <!-- LOGO -->
   <section class="logo-section">
     <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div>
@@ -7,8 +7,8 @@
   <!-- MENU NAVIGATION AREA -->
   <section [id]="menuParts.navSection" class="navs-section">
     <button mat-flat-button class="menu-trigger" (click)="toggleHide($event)"><mat-icon>menu_open</mat-icon></button>
-    <div class="menu-wrapper"><app-admin-main-menu></app-admin-main-menu></div>
-    <div class="overlay" (click)="toggleHide($event)"></div>
+    <div class="menu-wrapper overlay-content"><app-admin-main-menu></app-admin-main-menu></div>
+    <div class="overlay" aria-hidden="true" tabindex="-1" (click)="toggleHide($event)"></div>
   </section>
   <!-- Button Toggle -->
   <section class="toggler-section"><button mat-flat-button class="toggler" (click)="toggleShrink()"><mat-icon class="icon ms-filled">line_end_arrow</mat-icon></button></section>

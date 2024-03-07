@@ -15,14 +15,13 @@ const _routes: Routes = [
       }
     ]
   },
-  { path: '', redirectTo: "app", pathMatch: "full" },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'app/private/products' }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(_routes, {
-      useHash: false,
+      useHash: true,
       preloadingStrategy: PreloadAllModules,
       relativeLinkResolution: 'corrected'
     })

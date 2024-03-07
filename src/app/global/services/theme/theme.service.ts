@@ -19,8 +19,7 @@ export class AppThemeService {
   /** Reads the currently set theme */
   public get getCurrentThemeLS(): THEME_MODE {
     try {
-      const currTheme = localStorage.getItem(LOCAL_STORAGE.theme);
-      return currTheme as THEME_MODE;
+      return localStorage.getItem(LOCAL_STORAGE.theme) as THEME_MODE;
     } catch(err) {
       alert('Epa, faltam-nos palavras...! Um erro aconteceu e pedimos que volte a iniciar sessão. Obrigado');
       localStorage.clear();
@@ -28,7 +27,27 @@ export class AppThemeService {
     }
   }
 
-  public isDarkMode(): boolean { return this.getCurrentThemeLS == THEME_MODE.dark; }
+  public isDarkMode(): boolean { return this.getCurrentThemeLS === THEME_MODE.dark; }
+
+  /**
+  * This method simply changes a theme to it's dark or light mode, to change to a different
+  * theme, use {@link setTheme}
+  */
+  public toggleDarkMode(): boolean {
+    this.setTheme(this.isDarkMode() ? THEME_MODE.light : THEME_MODE.dark);
+    return this.isDarkMode();
+  }
+
+  public setTheme(theme: THEME_MODE): void { this._activateMode(theme); }
+
+  /** activates new theme mode */
+  private _activateMode(theme: THEME_MODE): void {
+    this._deactivateMode();
+
+    this._renderer.addClass(document.body, theme);
+    this._overLayContainer.getContainerElement().classList.add(theme);
+    localStorage.setItem(LOCAL_STORAGE.theme, theme);
+  }
 
   /** Deactivate old theme mode */
   private _deactivateMode(): void {
@@ -38,35 +57,6 @@ export class AppThemeService {
 
     this._renderer.removeClass(document.body, theme);
     this._overLayContainer.getContainerElement().classList.remove(theme);
-  }
-
-  /** activates new theme mode */
-  private _activateMode(theme: THEME_MODE): void {
-    this._deactivateMode();
-
-    console.log("setting the theme to " + theme);
-    this._renderer.addClass(document.body, theme);
-    this._overLayContainer.getContainerElement().classList.add(theme);
-  }
-
-  /**
-  * @description Checks whether the currently set theme is dark or light
-  * @returns `true` if the currently set theme is dark and `false`if it is not.
-  */
-  public isDarkThemeMode(): boolean { return this.getCurrentThemeLS == THEME_MODE.dark; }
-
-  /**
-  * This method simply changes a theme to it's dark or light mode, to change to a different
-  * theme, use {@link setTheme}
-  */
-  public toggleDarkMode(): void {
-    var themeMode = this.isDarkMode ? THEME_MODE.light : THEME_MODE.dark;
-
-    this.setTheme(themeMode);
-  }
-
-  public setTheme(theme: THEME_MODE): void {
-    this._activateMode(theme);
-    localStorage.setItem(LOCAL_STORAGE.theme, theme);
+    localStorage.removeItem(LOCAL_STORAGE.theme);
   }
 }

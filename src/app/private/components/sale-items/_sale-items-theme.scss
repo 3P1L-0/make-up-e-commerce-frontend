@@ -1,0 +1,9 @@
+@charset 'UTF-8';
+
+@use './products/product-theme' as products;
+@use './sale-list-item/sale-list-item-theme' as saleItem;
+
+@mixin theme($theme) {
+  @include products.theme($theme);
+  @include saleItem.theme($theme);
+}

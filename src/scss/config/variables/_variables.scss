@@ -1,0 +1,26 @@
+@use 'sass:math';
+
+$min-width: 350px;
+
+/* ------ Media breakpoints ------ */
+$media-sm: 250px;
+
+/* ------ layout variables ------ */
+$switcher-form-fields-height: 40px;
+$header-height: 80px;
+$footer-height: 314px;
+$body-height: calc(100vh - calc($header-height + $footer-height));
+
+// others
+$z-scroll-top: 800; // overlays are placed 1000
+
+// colors
+$white: #fff;
+$black: #000;
+$dark-overlay: rgba(0,0,0,.6);
+$bright-overlay: rgba(188,188,188,.6);
+
+// others
+$form-field-min-height: 78px;
+$dark-mode-class: 'dark-mode';
+$light-mode-class: 'light-mode';

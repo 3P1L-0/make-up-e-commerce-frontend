@@ -1,0 +1,30 @@
+<article class="app-product-list-module">
+  <div class="overlay" aria-hidden="true" tabindex="-1"></div>
+  <section class="controls-section overlay-content">
+    <div class="search-container anchor">
+      <button mat-icon-button class="trigger"><mat-icon>search</mat-icon></button>
+      <div class="content">
+        <form>
+          <mat-form-field appearance="fill" class="rst-frm-fld">
+            <input matInput type="text">
+          </mat-form-field>
+          <div class="filters">
+            <button mat-icon-button class="filter-trigger"><mat-icon>filter_list</mat-icon></button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <button mat-icon-button><mat-icon>construction</mat-icon></button>
+    <a mat-icon-button [routerLink]="routes.productsForm"><mat-icon>add_circle</mat-icon></a>
+  </section>
+  <section class="content-section">
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+    <app-sale-list-item></app-sale-list-item>
+  </section>
+</article>

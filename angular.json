@@ -100,7 +100,7 @@
               "./node_modules/font-awesome/scss/font-awesome.scss",
               "src/scss/themes/purple.scss"
             ],
-            "scripts": []
+            "scripts": [ ]
           }
         }
       }

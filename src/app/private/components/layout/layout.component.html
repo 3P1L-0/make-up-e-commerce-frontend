@@ -1,12 +1,9 @@
-<article class="layout-module">
-  <div class="main-container">
-    <section class="body-container">
-      <app-main-menu></app-main-menu>
-      <section class="body-wrapper">
-        <app-header></app-header>
-        <main><router-outlet></router-outlet></main>
-      </section>
-    </section>
-    <app-footer></app-footer>
-  </div>
-</article>
+<section class="main-content-wrapper">
+  <app-main-menu class="main-menu"></app-main-menu>
+  <section class="content-body">
+    <app-header class="header"></app-header>
+    <main class="main-content"><router-outlet></router-outlet></main>
+  </section>
+</section>
+<!-- Footer start -->
+<app-footer class="footer"></app-footer>

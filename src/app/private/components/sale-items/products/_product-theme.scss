@@ -1,0 +1,7 @@
+@charset 'uTF-8';
+
+@use './components/list/product-list-theme' as list;
+
+@mixin theme($theme) {
+  @include list.theme($theme);
+}

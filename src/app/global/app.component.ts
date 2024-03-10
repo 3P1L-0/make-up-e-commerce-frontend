@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   constructor() {
     document.head.getElementsByTagName('title')[0].innerText = this.title;
-    this._matIconRegistry.setDefaultFontSetClass('material-symbols-outlined');
+    this._matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
   }
 
   ngOnInit(): void {

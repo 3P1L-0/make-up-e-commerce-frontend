@@ -25,6 +25,19 @@
   gap: string.unquote($gap);
 }
 
+@mixin center-vert() {
+  margin: 0;
+  position: absolute;
+  top: 50%; // sends the box to the end of it's container
+  transform: translateY(-50%); // brings the box to the center of it's container
+}
+
+@mixin center-all() {
+  @include center-vert();
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @mixin make-square($length) {
   width: $length;
   height: $length;

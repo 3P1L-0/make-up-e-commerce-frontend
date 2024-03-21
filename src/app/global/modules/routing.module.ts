@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AppGlobalLayoutComponent } from '../components/layout/layout.component';
 
 const _routes: Routes = [
   {
     path: "app",
+    component: AppGlobalLayoutComponent,
     children: [
       {
         path: "private",
@@ -11,10 +13,11 @@ const _routes: Routes = [
       },
       {
         path: "public",
-        loadChildren: () => import("../../public/public.module").then(m => m.AppPublicModule)
+        loadChildren: () => import("../../public/modules/public.module").then(m => m.AppPublicModule)
       }
     ]
   },
+  { path: '', redirectTo: '/app/public', pathMatch: 'full' },
   { path: '**', redirectTo: 'app/private/products' }
 ];
 

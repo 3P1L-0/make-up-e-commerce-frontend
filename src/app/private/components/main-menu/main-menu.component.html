@@ -1,0 +1,94 @@
+<aside [id]="menuParts.menu" class="main-menu-container">
+  <!-- MENU NAVIGATION AREA -->
+  <section [id]="menuParts.navSection" class="navs-section">
+    <button mat-flat-button class="menu-trigger" (click)="toggleHide($event)"><mat-icon>menu_open</mat-icon></button>
+    <div class="menu-wrapper overlay-content">
+      <mat-nav-list>
+        <!-- Dashboard -->
+        <a mat-list-item>
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <!-- Despesas -->
+        <mat-list-item>
+          <div class="trigger">
+            <div class="label-container">
+              <mat-icon matListIcon>monetization_on</mat-icon>
+              <span>Despesas</span>
+            </div>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </div>
+          <mat-list>
+            <a mat-list-item>Agendamentos</a>
+            <a mat-list-item>Compras</a>
+            <a mat-list-item>Encomendas</a>
+            <a mat-list-item>Reembolsos</a>
+          </mat-list>
+        </mat-list-item>
+        <!-- Contactos -->
+        <mat-list-item>
+          <div class="trigger">
+            <div class="label-container">
+              <mat-icon matListIcon>group</mat-icon>
+              <span>Utilizadores</span>
+            </div>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </div>
+          <mat-list>
+            <a mat-list-item>Funcionários</a>
+            <a mat-list-item>Clientes</a>
+          </mat-list>
+        </mat-list-item>
+        <!-- Centro de Comentários -->
+        <mat-list-item>
+          <div class="trigger">
+            <div class="label-container">
+              <mat-icon matListIcon>forum</mat-icon>
+              <span>Centro de Comentários</span>
+            </div>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </div>
+          <mat-list>
+            <a mat-list-item>Comentários</a>
+            <a mat-list-item>Resenhas</a>
+            <a mat-list-item>Testemunhos</a>
+          </mat-list>
+        </mat-list-item>
+        <!-- Utilitários -->
+        <mat-list-item>
+          <div class="trigger">
+            <div class="label-container">
+              <mat-icon matListIcon>construction</mat-icon>
+              <span>Utilitários</span>
+            </div>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </div>
+          <mat-list>
+            <a mat-list-item>Categorias</a>
+            <a mat-list-item>Sub-Categorias</a>
+            <a mat-list-item>Marcas</a>
+            <a mat-list-item>Tamanhos</a>
+          </mat-list>
+        </mat-list-item>
+        <!-- Relatórios -->
+        <a mat-list-item [routerLink]="'a'">
+          <mat-icon mat-list-icon>analytics</mat-icon>
+          <span>Relatórios</span>
+        </a>
+        <!-- Galeria -->
+        <a mat-list-item [routerLink]="'a'">
+          <mat-icon mat-list-icon>gallery_thumbnail</mat-icon>
+          <span>Galeria</span>
+        </a>
+        <!-- Configurações -->
+        <a mat-list-item [routerLink]="'a'">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <span>Configurações</span>
+        </a>
+      </mat-nav-list>
+    </div>
+    <div class="overlay" aria-hidden="true" tabindex="-1" (click)="toggleHide($event)"></div>
+  </section>
+  <!-- Button Toggle -->
+  <section class="toggler-section"><button mat-flat-button class="toggler" (click)="toggleShrink()"><mat-icon class="icon ms-filled">line_end_arrow</mat-icon></button></section>
+</aside>

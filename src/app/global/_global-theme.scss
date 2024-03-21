@@ -1,0 +1,17 @@
+@charset 'UTF-8';
+
+@use './components/layout/layout-theme' as layout;
+
+@mixin themefy($theme) {
+  .web-app {
+    display: block;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto
+  }
+
+  @include layout.themefy($theme);
+}

@@ -1,7 +1,7 @@
-@use "./components/layout/layout-theme" as layout;
-@use './components/sale-items/sale-items-theme' as saleItems;
+@charset 'UTF-8';
+
+@use './components/main-menu/main-menu-theme' as main-menu;
 
 @mixin theme($theme) {
-  @include layout.theme($theme);
-  @include saleItems.theme($theme);
+  @include main-menu.theme($theme);
 }

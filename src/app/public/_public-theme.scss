@@ -1,3 +1,7 @@
 @charset "UTF-8";
 
-@mixin theme($theme) {}
+@use './components/landing-page/landing-page-theme' as landing-page;
+
+@mixin theme($theme) {
+  @include landing-page.themefy($theme);
+}

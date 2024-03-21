@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+@use "/src/scss/utility/utilities" as utils;
+@use '/src/scss/config/variables/headers';
+@use '/src/scss/config/variables/menus';
+@use '/src/scss/config/variables/layers';
+@use '/src/scss/config/variables/classes';
+
+@mixin _layout($theme) {
+  width: menus.$main-menu;
+  height: 100%;
+
+  &,
+  .main-menu-container {
+    border-right: 1px solid gray;
+  }
+
+  .main-menu-container {
+    margin-right: 1px;
+    @include utils.make-flex($direction: "column", $justContent: "space-between");
+    height: inherit;
+    overflow-y: auto;
+  }
+
+  .main-menu-container .navs-section {
+    flex: 1 0;
+    overflow-y: auto;
+    border-bottom: 1px solid gray;
+
+    .menu-trigger {
+      display: none;
+    }
+
+    .menu-wrapper .mat-nav-list {
+      .mat-list-item:not(a) {
+        height: auto;
+
+        & > .mat-list-item-content {
+          padding: 0;
+          flex-flow: column nowrap;
+          justify-content: flex-start;
+          align-items: stretch;
+        }
+
+        .trigger {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-sizing: border-box;
+          height: 56px;
+          padding: 0 16px;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.04);
+          }
+
+          .label-container {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        .trigger + .mat-list-base .mat-list-item-content {
+          padding-left: 56px;
+        }
+      }
+
+      .mat-list-item-content,
+      .label-container {
+        gap: 8px;
+      }
+    }
+
+    .mat-list-base {
+      padding-top: 0;
+    }
+  }
+
+  .toggler-section {
+    @include utils.make-flex($justContent: "flex-end", $alignItems: "center");
+    box-sizing: border-box;
+    height: 50px;
+    padding-right: 10px;
+    z-index: 1;
+
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &#{classes.$shrink-item} {
+    width: menus.$main-menu-sm;
+    margin-right: 0;
+    border-right: none;
+
+    .logo-section {
+      .name {
+        display: none;
+      }
+    }
+
+    .navs-section {
+      .menu-trigger {
+        display: block;
+        margin: 10px auto 0;
+        transform: rotate(180deg);
+      }
+
+      .menu-wrapper {
+        left: calc(100% + 1px);
+      }
+
+      .menu-wrapper {
+        background-color: #303030;
+        width: menus.$main-menu;
+        border-right: 1px solid gray;
+        display: none;
+      }
+
+      &#{classes.$show-item} {
+        .menu-trigger {
+          transform: none;
+        }
+
+        .menu-wrapper {
+          display: block;
+        }
+
+        .menu-wrapper {
+          top: 0;
+          bottom: 0;
+        }
+      }
+    }
+
+    .toggler-section {
+      justify-content: stretch;
+      align-items: stretch;
+      padding: 0;
+
+      .toggler {
+        width: 100%;
+
+        .icon {
+          transform: none;
+        }
+      }
+    }
+  }
+}
+
+@mixin theme($theme) {
+  .app-main-menu-module {
+    @include _layout($theme);
+  }
+}

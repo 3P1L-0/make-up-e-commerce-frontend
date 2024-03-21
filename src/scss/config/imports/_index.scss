@@ -1,0 +1,8 @@
+@charset 'UTF-8';
+
+@use './third-party' as trdP;
+@use './all-theme' as allT;
+
+@mixin themefy($theme) {
+  @include allT.themefy($theme);
+}

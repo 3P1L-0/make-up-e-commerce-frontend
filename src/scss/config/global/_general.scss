@@ -3,8 +3,8 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 @use '../variables/variables' as vars;
-@use '../variables/global/classes';
-@use '../variables/global/layers';
+@use '../variables/classes';
+@use '../variables/layers';
 @use '../../utility/utilities' as utils;
 
 *::before, *::after {

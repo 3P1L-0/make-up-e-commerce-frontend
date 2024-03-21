@@ -2,9 +2,12 @@
 
 @use '/src/app/private/private-theme' as private;
 @use '/src/app/public/public-theme' as public;
+@use '/src/app/global/global-theme' as global;
+
 
 // applies theme configurations to all custom components
 @mixin themefy($theme) {
-  @include private.theme($theme);
+  @include global.themefy($theme);
   @include public.theme($theme);
+  @include private.theme($theme);
 }

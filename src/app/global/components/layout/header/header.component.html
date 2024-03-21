@@ -1,0 +1,19 @@
+<!-- LOGO -->
+<section class="left-content">
+  <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div>
+  <div class="name"><h2>Inaluma Make-Up</h2></div>
+</section>
+
+<!-- MENU NAVIGATION AREA -->
+<section class="right-content">
+  <button mat-icon-button><mat-icon>house</mat-icon></button>
+  <button mat-icon-button><mat-icon>account_circle</mat-icon></button>
+  <button mat-icon-button><mat-icon>store</mat-icon></button>
+  <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
+  <mat-slide-toggle color="accent" (change)="toggleTheme()">
+    <mat-icon>
+      <ng-container *ngIf="isDarkThemeMode else lightMode">dark_mode</ng-container>
+      <ng-template #lightMode>light_mode</ng-template>
+    </mat-icon>
+  </mat-slide-toggle>
+</section>

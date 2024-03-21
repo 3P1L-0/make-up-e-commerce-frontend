@@ -4,7 +4,8 @@ import { AppThemeService } from './services/theme/theme.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  host: {'class': "web-app"}
 })
 export class AppComponent implements OnInit {
   /* DEPENDENCIES */

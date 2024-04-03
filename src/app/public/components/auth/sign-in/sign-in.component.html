@@ -1,0 +1,34 @@
+<div class="container">
+  <form [formGroup]="signInForm">
+    <div class="inputs">
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>Utilizador</mat-label>
+        <input type="text" matInput formControlName="username">
+        <mat-error *ngIf="signInForm.get('username').hasError('required')">O nome de Utilizador é obrigatório</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-label>Senha</mat-label>
+        <input [type]="type" matInput formControlName="password">
+        <mat-error *ngIf="signInForm.get('password').hasError('required')">A senha é obrigatória</mat-error>
+        <button mat-icon-button matSuffix (click)="toggleHidden()">
+          <mat-icon>
+            <ng-container *ngIf="hidden">visibility</ng-container>
+            <ng-container *ngIf="!hidden">visibility_off</ng-container>
+          </mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="controls">
+      <button mat-flat-button (click)="home()">
+        <mat-icon>house</mat-icon>
+        <span>Cancelar</span>
+      </button>
+      <button mat-flat-button (click)="signIn()">
+        <span>Entrar</span>
+        <mat-icon>login</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>

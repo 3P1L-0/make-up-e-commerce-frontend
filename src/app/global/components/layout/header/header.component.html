@@ -7,7 +7,35 @@
 <!-- MENU NAVIGATION AREA -->
 <section class="right-content">
   <button mat-icon-button><mat-icon>house</mat-icon></button>
-  <button mat-icon-button><mat-icon>account_circle</mat-icon></button>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon></button>
+  <!-- User Menu -->
+  <mat-menu #userMenu>
+    <mat-list>
+      <mat-divider *ngIf="isSignedIn"></mat-divider>
+      <ng-container *ngIf="!isSignedIn else signedIn">
+        <mat-list-item>
+          <button mat-flat-button (click)="signIn()">
+            <mat-icon>login</mat-icon>
+            <span>Iniciar Sessão</span>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-flat-button>
+            <mat-icon>person_add</mat-icon>
+            <span>Criar Conta</span>
+          </button>
+        </mat-list-item>
+      </ng-container>
+      <ng-template #signedIn>
+        <mat-list-item>
+          <button mat-flat-button>
+            <mat-icon>logout</mat-icon>
+            <span>Terminar Sessão</span>
+          </button>
+        </mat-list-item>
+      </ng-template>
+    </mat-list>
+  </mat-menu>
   <button mat-icon-button><mat-icon>store</mat-icon></button>
   <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
   <mat-slide-toggle color="accent" (change)="toggleTheme()">

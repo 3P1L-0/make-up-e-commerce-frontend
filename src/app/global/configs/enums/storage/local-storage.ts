@@ -1,4 +1,5 @@
 
 export const enum LOCAL_STORAGE {
-  theme = "themeMode"
+  theme = "themeMode",
+  session = "session"
 }

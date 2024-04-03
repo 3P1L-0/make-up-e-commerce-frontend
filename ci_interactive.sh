@@ -27,3 +27,5 @@ else
     docker-compose up -d
   fi
 fi
+
+# docker buildx build --platform linux/amd64 -t image.tag

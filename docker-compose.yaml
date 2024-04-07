@@ -5,7 +5,7 @@ services:
     # Use the line below to run mysql version on amd64/x64 or amd64/x86 platform (Linux and Windows Intel Chip)
     #image: mysql:8.1.0
     # Use the line below to run mysql version on arm64/v8 platform (Apple Silicon M1 Chip)
-    image: mysql:8.1.0-oracle
+    image: mysql:8.1.0
     container_name: inaluma-db-anew
     healthcheck:
       test: "mysql --database='inaluma_db_anew' --password='password' --execute='SELECT now();' --skip-column-names -B"
@@ -27,7 +27,7 @@ services:
       - backendNetworkAnew
 
   spring:
-    image: 3p1l/inaluma-api-anew:arm64-v8-1.0-beta
+    image: 3p1l/inaluma-api-anew:amd64-v8-1.0-beta
     container_name: inaluma-api-anew
     ports:
       - "8080:8080"
@@ -35,7 +35,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - inaluma_api_anew:/inaluma_api.jar
+      - inaluma_api_anew:/inaluma_api_anew.jar
     networks:
       - backendNetworkAnew
 

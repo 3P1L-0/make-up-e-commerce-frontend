@@ -5,5 +5,9 @@ export abstract class AbstractDTO {
   public createdAt: string;
   public lastModifiedAt: string;
 
-  public abstract toEntity(): AbstractEntity;
+  public static toEntity<E extends AbstractEntity, D extends AbstractDTO>(dto: D, className: string): E {
+    const e = eval(``) as E;
+
+    return e;
+  }
 }

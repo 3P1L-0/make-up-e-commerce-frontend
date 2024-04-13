@@ -8,6 +8,6 @@
 // applies theme configurations to all custom components
 @mixin themefy($theme) {
   @include global.themefy($theme);
-  @include public.theme($theme);
-  @include private.theme($theme);
+  @include public.themefy($theme);
+  @include private.themefy($theme);
 }

@@ -2,6 +2,6 @@
 
 @use './components/main-menu/main-menu-theme' as main-menu;
 
-@mixin theme($theme) {
+@mixin themefy($theme) {
   @include main-menu.theme($theme);
 }

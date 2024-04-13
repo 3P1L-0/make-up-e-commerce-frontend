@@ -1,0 +1,45 @@
+<div class="close-button-wrapper">
+  <span class="company-name">Inaluma Make-Up</span>
+  <button mat-mini-fab (click)="home()" color="warn"><mat-icon>close</mat-icon></button>
+</div>
+<div class="main-content">
+  <mat-card class="content">
+    <div class="body-content">
+      <div class="company-info">
+        <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div>
+        <h1 class="title">Iniciar Sessão</h1>
+        <h3 class="hint">Inicie sessão com as suas credenciais</h3>
+      </div>
+      <form [formGroup]="signInForm" class="sign-in-form">
+        <div class="inputs">
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-label>Utilizador</mat-label>
+            <input type="text" matInput formControlName="username">
+            <mat-error *ngIf="signInForm.get('username').hasError('required')">O nome de Utilizador é obrigatório</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-label>Senha</mat-label>
+            <input [type]="type" matInput formControlName="password">
+            <mat-error *ngIf="signInForm.get('password').hasError('required')">A senha é obrigatória</mat-error>
+            <button mat-icon-button matSuffix (click)="toggleHidden()">
+              <mat-icon>
+                <ng-container *ngIf="hidden">visibility</ng-container>
+                <ng-container *ngIf="!hidden">visibility_off</ng-container>
+              </mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <div class="recover-account">
+          <p>Esqueceu a sua senha? <a (click)="recoverAccount()" class="trigger" mat-button>recuperar conta</a></p>
+        </div>
+        <div class="controls">
+          <button mat-button (click)="newAccount()">Criar Conta</button>
+          <button mat-flat-button (click)="signIn()" color="accent">Entrar</button>
+        </div>
+      </form>
+    </div>
+    <div class="footer-content"></div>
+  </mat-card>
+</div>

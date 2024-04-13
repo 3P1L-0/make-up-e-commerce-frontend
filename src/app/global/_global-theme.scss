@@ -1,6 +1,7 @@
 @charset 'UTF-8';
 
 @use './components/layout/layout-theme' as layout;
+@use './components/auth/auth.theme' as auth;
 
 @mixin themefy($theme) {
   .web-app {
@@ -14,4 +15,5 @@
   }
 
   @include layout.themefy($theme);
+  @include auth.themefy($theme);
 }

@@ -1,7 +1,9 @@
 @charset "UTF-8";
 
 @use './components/landing-page/landing-page-theme' as landing-page;
+@use './components/products/public-products.theme' as products;
 
-@mixin theme($theme) {
+@mixin themefy($theme) {
   @include landing-page.themefy($theme);
+  @include products.themefy($theme);
 }

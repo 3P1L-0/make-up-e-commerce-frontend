@@ -1,0 +1,82 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "/src/scss/utility/utilities" as utils;
+
+@mixin _layout($theme) {
+  $typography: mat.get-typography-config($theme);
+
+  @include utils.make-flex($direction: "column");
+  height: 100%;
+
+  .close-button-wrapper {
+    @include utils.make-flex($justContent: "space-between", $alignItems: "center");
+    padding: 40px;
+    padding-bottom: 0;
+
+    .company-name {
+      @include mat.typography-level($typography, title);
+    }
+  }
+
+  .main-content {
+    @include utils.make-flex($direction: "column", $alignItems: "center", $justContent: "center");
+    flex: 1 0;
+
+    .content {
+      box-sizing: border-box;
+      @include utils.make-flex($direction: "column", $alignItems: "stretch", $justContent: "stretch");
+      min-height: 75%;
+      width: 70%;
+      padding: 40px 80px;
+      border-radius: 40px;
+    }
+
+    .body-content {
+      flex: 1 0;
+      @include utils.make-flex($justContent: "space-between", $alignItems: "stretch");
+
+      .company-info {
+        .logo {
+          @include utils.make-square(80px);
+        }
+
+        .title {
+          @include mat.typography-level($typography, display-1);
+          margin: 20px 0;
+        }
+      }
+
+      .sign-up-form {
+        @include utils.make-flex($justContent: "center", $alignItems: "stretch");
+        width: 50%;
+        overflow: hidden;
+
+        .form-section {
+          @include utils.make-flex($direction: "column", $gap: "10px");
+          overflow: hidden;
+          width: 0;
+          height: 0;
+          display: none;
+
+          &.active {
+            display: flex;
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .footer-content {
+      @include utils.make-flex($justContent: 'space-between');
+      width: 100%;
+
+    }
+  }
+}
+
+@mixin themefy($theme) {
+  .app-signup-module {
+    @include _layout($theme);
+  }
+}

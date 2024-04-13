@@ -1,0 +1,77 @@
+@use '/src/scss/utility/utilities' as utils;
+@use '@angular/material' as mat;
+@use "sass:map";
+
+@mixin _layout($theme) {
+  $typography: mat.get-typography-config($theme);
+
+  @include utils.make-flex($direction: "column");
+  height: 100%;
+
+  .close-button-wrapper {
+    @include utils.make-flex($justContent: "space-between", $alignItems: "center");
+    padding: 40px;
+    padding-bottom: 0;
+
+    .company-name {
+      @include mat.typography-level($typography, title);
+    }
+  }
+
+  .main-content {
+    @include utils.make-flex($direction: "column", $alignItems: "center", $justContent: "center");
+    flex: 1 0;
+
+    .content {
+      box-sizing: border-box;
+      @include utils.make-flex($direction: "column", $alignItems: "stretch", $justContent: "stretch");
+      height: 65%;
+      width: 70%;
+      padding: 40px 80px;
+      border-radius: 40px;
+    }
+
+    .body-content {
+      flex: 1 0;
+      @include utils.make-flex($justContent: "space-between", $alignItems: "stretch");
+
+      .company-info {
+        .logo {
+          @include utils.make-square(80px);
+        }
+
+        .title {
+          @include mat.typography-level($typography, display-1);
+          margin: 20px 0;
+        }
+      }
+
+      .sign-in-form {
+        @include utils.make-flex($direction: "column", $justContent: "flex-start");
+        width: 50%;
+      }
+
+      .inputs {
+        @include utils.make-flex($direction: "column", $alignItems: "center", $justContent: "center", $gap: "20px");
+        align-items: stretch;
+      }
+
+      .recover-account {
+        @include mat.typography-level($typography, caption);
+      }
+
+
+      .controls {
+        align-self: flex-end;
+        flex: 1 0;
+        @include utils.make-flex($alignItems: "flex-end", $gap: "10px");
+      }
+    }
+  }
+}
+
+@mixin themefy($theme) {
+  .app-sign-in-module {
+    @include _layout($theme);
+  }
+}

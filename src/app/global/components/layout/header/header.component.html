@@ -1,6 +1,6 @@
 <!-- LOGO -->
 <section class="left-content">
-  <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div>
+  <!-- <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div> -->
   <div class="name"><h2>Inaluma Make-Up</h2></div>
 </section>
 
@@ -14,21 +14,21 @@
       <mat-divider *ngIf="isSignedIn"></mat-divider>
       <ng-container *ngIf="!isSignedIn else signedIn">
         <mat-list-item>
-          <button mat-flat-button (click)="signIn()">
+          <a mat-button routerLink="/{{routes.signIn}}">
             <mat-icon>login</mat-icon>
             <span>Iniciar Sessão</span>
-          </button>
+          </a>
         </mat-list-item>
         <mat-list-item>
-          <button mat-flat-button>
+          <a mat-button routerLink="/{{routes.signUp}}">
             <mat-icon>person_add</mat-icon>
             <span>Criar Conta</span>
-          </button>
+          </a>
         </mat-list-item>
       </ng-container>
       <ng-template #signedIn>
         <mat-list-item>
-          <button mat-flat-button>
+          <button mat-button (click)="signOut()">
             <mat-icon>logout</mat-icon>
             <span>Terminar Sessão</span>
           </button>

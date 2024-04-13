@@ -1,0 +1,7 @@
+@use './sign-in/sign-in.theme' as login;
+@use './sign-up/sign-up.theme' as signup;
+
+@mixin themefy($theme) {
+  @include login.themefy($theme);
+  @include signup.themefy($theme);
+}

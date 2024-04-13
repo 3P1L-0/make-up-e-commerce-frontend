@@ -9,8 +9,6 @@ export class UserDTO extends AbstractDTO {
   public blocked: boolean;
   public person: PersonDTO;
   public role: RoleDTO;
-  public privileges: Set<PrivilegeDTO>;
-  public specialties: Set<EmployeeSpecialtyDTO>;
-
-  public toEntity(): User { return new User(this); }
+  public privileges: Array<PrivilegeDTO>;
+  public specialties: Array<EmployeeSpecialtyDTO>;
 }

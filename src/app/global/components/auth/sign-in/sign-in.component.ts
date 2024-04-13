@@ -3,11 +3,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { Router } from "@angular/router";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "src/app/global/configs";
 import { Credentials, CredentialsDTO } from "src/app/global/model/auth";
-import { AppAuthService } from "src/app/global/services/auth.service";
+import { AppAuthService } from "src/app/global/components/auth/auth.service";
 
 @Component({
   selector: "app-sign-in",
-  templateUrl: "./sign-in.component.html"
+  templateUrl: "./sign-in.component.html",
+  host: {'class': 'app-sign-in-module'}
 })
 export class AppSignInComponent {
   private readonly _router = inject(Router);
@@ -35,13 +36,16 @@ export class AppSignInComponent {
   public signIn() {
     const creds = Object.assign(new CredentialsDTO(), this.signInForm.value);
 
-    console.log(this.isFormInvalid())
     if (this.isFormInvalid()) return;
 
     this._authService.signIn(creds).subscribe(session => {
       if(!(this.wrongCredentials = !!session)) return;
       this._router.navigate([PRIVATE_ROUTES.home]).then();
     });
+  }
+
+  public recoverAccount(): void {
+    this._router.navigate([PUBLIC_ROUTES.recoverAccount]).then();
   }
 
   public isFormInvalid() {
@@ -52,4 +56,6 @@ export class AppSignInComponent {
     this.type = (this.hidden = !this.hidden) ? "password" : "text";
     return this.hidden
   }
+
+  public newAccount() { this._router.navigate([PUBLIC_ROUTES.signUp]).then(); }
 }

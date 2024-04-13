@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { PUBLIC_ROUTES } from "src/app/global/configs";
-import { AppAuthService } from "src/app/global/services/auth.service";
+import { AppAuthService } from "src/app/global/components/auth/auth.service";
 import { AppThemeService } from "src/app/global/services/theme/theme.service";
 
 @Component({
@@ -17,8 +17,12 @@ export class AppHeaderComponent {
 
   /* MEMBERS */
   public isDarkThemeMode: boolean;
+  public readonly routes: typeof PUBLIC_ROUTES;
 
-  constructor() { this.isDarkThemeMode = this._themeService.isDarkMode(); }
+  constructor() {
+    this.isDarkThemeMode = this._themeService.isDarkMode();
+    this.routes = PUBLIC_ROUTES;
+  }
 
   public toggleTheme(): void {
     console.log("toggling the theme mode");
@@ -31,5 +35,9 @@ export class AppHeaderComponent {
 
   public signIn(): void {
     this._router.navigate([PUBLIC_ROUTES.signIn]).then();
+  }
+
+  public signOut() {
+    this._authService.signOut().subscribe(resp => {});
   }
 }

@@ -1,0 +1,13 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "/src/scss/utility/utilities" as utils;
+
+@mixin _layout($theme) {
+
+}
+
+@mixin themefy($theme) {
+  .app-public-product-module {
+    @include _layout($theme);
+  }
+}

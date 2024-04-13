@@ -1,0 +1,27 @@
+<table mat-table [dataSource]="datasource" matSort>
+  <!-- Product Name -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="ordenar por nome">Produto</th>
+    <td mat-cell *matCellDef="let p">{{p.name}}</td>
+  </ng-container>
+  <!-- Inventory -->
+  <ng-container matColumnDef="inventory">
+    <th mat-header-cell *matHeaderCellDef>Inventário</th>
+    <td mat-cell *matCellDef="let p">{{p.currentAmount}}</td>
+  </ng-container>
+  <!-- Category -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="ordenar por categoria">Categoria</th>
+    <td mat-cell *matCellDef="let p">{{p.category.name}}</td>
+  </ng-container>
+  <!-- Variants -->
+  <ng-container matColumnDef="variants">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="ordenar por variantes">Variantes</th>
+    <td mat-cell *matCellDef="let p">{{p.variants.length}}</td>
+  </ng-container>
+
+  <tr *matNoDataRow>Nenhum produto a mostrar</tr>
+  <tr mat-header-row *matHeaderRowDef="columns; sticky"></tr>
+  <tr mat-row *matRowDef="let products; columns: columns"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons [length]="datasource.data.length"></mat-paginator>

@@ -1,5 +1,7 @@
 import { AbstractDTO } from "../../AbstractDTO";
+import { SubCategoryDTO } from "./SubCategoryDTO";
 
 export class CategoryDTO extends AbstractDTO {
-  public nome: string;
+  public name: string;
+  public subcategories: SubCategoryDTO[];
 }

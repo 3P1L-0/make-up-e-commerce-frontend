@@ -5,7 +5,5 @@ import { PrivilegeDTO } from "./PrivilegeDTO";
 export class RoleDTO extends AbstractDTO {
   public nome: string;
   public employee: boolean;
-  public privileges: Set<PrivilegeDTO>;
-
-  public toEntity(): Role { return new Role(this) }
+  public privileges: Array<PrivilegeDTO>;
 }

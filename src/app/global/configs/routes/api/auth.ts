@@ -1,7 +1,8 @@
 export const enum AUTH_API {
   signIn = "auth/sign-in",
   signUp = "auth/sign-up",
+  isUnavailable = "auth/sign-up/isUnavailable",
   forgotPassword = "auth/forgotPassword",
   recoverAccount = "auth/recoverAccount",
-  isUnavailable = "auth/recoverAccount/isUnavailable"
+  signOut = "auth/sign-out/"
 }

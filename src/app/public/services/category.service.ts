@@ -26,4 +26,8 @@ export class AppCategoryService {
   public deleteById(id: number): Observable<boolean> {
     return this._http.delete<boolean>(this._url+CATEGORY_API.deleteById+id);
   }
+
+  public createList(categories: CategoryDTO[]): Observable<CategoryDTO[]> {
+    return this._http.post<CategoryDTO[]>(this._url+CATEGORY_API.createList, categories);
+  }
 }

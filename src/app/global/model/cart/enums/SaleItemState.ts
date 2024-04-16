@@ -1,5 +1,5 @@
 export enum SaleItemState {
   online ="Online",
 	local = "Presencial",
-	hidden = "Oculto"
+	hidden = "Online e Presencial"
 }

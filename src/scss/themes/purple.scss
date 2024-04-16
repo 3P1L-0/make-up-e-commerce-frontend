@@ -18,7 +18,7 @@ $_theme: mat.define-light-theme((
   typography: $typography
 ));
 .#{vars.$light-mode-class} {
-  color-scheme: only light;
+  color-scheme: only light!important;
   @include theme.theme($_theme);
 }
 
@@ -33,6 +33,6 @@ $_theme: mat.define-dark-theme((
   typography: $typography
 ));
 .#{vars.$dark-mode-class} {
-  color-scheme: dark;
+  color-scheme: dark!important;
   @include theme.theme($_theme);
 }

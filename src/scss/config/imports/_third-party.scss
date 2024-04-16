@@ -1,4 +1,10 @@
 @charset "UTF-8";
 
-@import 'ngx-toastr/toastr'; // toastr notifications
 @import 'material-symbols'; // material symbol icons
+@import "font-awesome/scss/font-awesome";
+@import "primeicons/primeicons";
+
+@import "primeng/resources/primeng.min";
+@import "primeng/resources/themes/md-dark-deeppurple/theme";
+
+@import 'ngx-toastr/toastr'; // toastr notifications

@@ -21,6 +21,9 @@ export class AppPublicProductsTable implements AfterViewInit, OnChanges {
   public ngAfterViewInit(): void {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.datasource.data = changes.prop.currentValue;
+    const products = changes.products;
+    if(!(products.currentValue || products.previousValue)) return;
+
+    this.products = products.currentValue;
   }
 }

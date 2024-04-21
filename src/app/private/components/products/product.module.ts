@@ -6,12 +6,17 @@ import { AppPublicProductDetailsComponent } from "./product-details/product-deta
 import { AppPublicProductsComponent } from "./public-products.component";
 import { AppPublicProductsTable } from "./product-list/products-table/products-table.component";
 import { AppPublicProductVariantsTable } from "./product-list/product-variants-table/product-variants-table.component";
+import { AppPublicProductRoutingModule } from "./product-routing.module";
+import { AppPublicProductsFormComponent } from "./product-form/product-form.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { AppPrimeNgModule } from "src/app/global/modules/primeng.module";
 
 const declarations = [
   AppPublicProductListComponent,
   AppPublicProductsComponent,
   AppPublicProductsTable,
   AppPublicProductVariantsTable,
+  AppPublicProductsFormComponent,
   AppPublicProductDetailsComponent
 ];
 
@@ -19,7 +24,10 @@ const declarations = [
   declarations: declarations,
   imports: [
     AppCommomImportsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppPublicProductRoutingModule,
+    FontAwesomeModule,
+    AppPrimeNgModule
   ],
   exports: [
     ...declarations

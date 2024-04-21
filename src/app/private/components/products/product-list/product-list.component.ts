@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, OnInit, inject } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from "@angular/core";
 import { MatTabChangeEvent } from "@angular/material/tabs";
+import { Router } from "@angular/router";
+import { PUBLIC_ROUTES } from "src/app/global/configs";
 import { ProductDTO } from "src/app/global/model/cart/dto/ProductDTO";
 import { ProductVariantDTO } from "src/app/global/model/cart/dto/ProductVariantDTO";
 import { SaleItemDTO } from "src/app/global/model/cart/dto/SaleItemDTO";
@@ -8,11 +10,14 @@ import { AppProductService } from "src/app/public/services/product.service";
 @Component({
   selector: 'app-product-list-view',
   templateUrl: './product-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {"class": "app-public-product-list-module"}
 })
 export class AppPublicProductListComponent implements OnInit, AfterViewInit {
   /* DEPENDENCIES */
+  private readonly _router = inject(Router);
   private readonly _productsService = inject(AppProductService);
+  private readonly _chDetectorRef = inject(ChangeDetectorRef);
 
   /* MEMBERS */
   private _products: ProductDTO[];
@@ -30,8 +35,16 @@ export class AppPublicProductListComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this._currectSource = this._products;
-    this._productsService.fetch().subscribe(res => { this._products = res; });
-    this._productsService.fetchVariants().subscribe(res => { this._variants = res; });
+
+    this._productsService.fetch().subscribe({
+      next: (res) => { this._currectSource = this._products = res; },
+      complete: () => { console.log("product service fetch observable completed!")}
+    });
+
+    this._productsService.fetchVariants().subscribe({
+      next: (res) => { this._variants = res; },
+      complete: () => { console.log("variants service fetch observable completed!")}
+    });
   }
 
   public ngAfterViewInit(): void {
@@ -48,4 +61,6 @@ export class AppPublicProductListComponent implements OnInit, AfterViewInit {
     console.log(evt);
     this._isProductsShowing = evt.index == 0;
   }
+
+  public newProduct(): void { this._router.navigate([PUBLIC_ROUTES.products_form]).then(); }
 }

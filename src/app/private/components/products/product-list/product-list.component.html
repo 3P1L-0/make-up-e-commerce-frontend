@@ -1,0 +1,18 @@
+<header class="main-title">
+  <h2>Produtos</h2>
+  <button pButton label="Novo" icon="pi pi-plus" (click)="newProduct()" class="p-button-sm p-button-secondary" iconPos="right"></button>
+</header>
+<section class="products-area">
+  <p-card>
+    <section class="search-area">
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="text" matInput (keyup)="filter($event)" placeholder="Filtrar productos..."/>
+      </mat-form-field>
+    </section>
+    <p-tabView>
+      <p-tabPanel header="Produtos"><ng-template pTemplate="content"><app-public-products-table-view [products]="publicProducts"></app-public-products-table-view></ng-template></p-tabPanel>
+      <p-tabPanel header="Variantes"><ng-template pTemplate="content">Coming soon</ng-template></p-tabPanel>
+    </p-tabView>
+  </p-card>
+</section>

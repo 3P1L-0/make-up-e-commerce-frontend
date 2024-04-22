@@ -10,6 +10,8 @@ import { environment } from "src/environments/environment";
 export class AppProductService {
   /* DEPENDENCIES */
   private readonly _http = inject(HttpClient);
+
+  /* MEMBERS */
   private readonly _url = environment.api;
 
   public fetch(): Observable<ProductDTO[]> {
@@ -28,9 +30,8 @@ export class AppProductService {
     return this._http.delete<boolean>(this._url+PRODUCT_API.deleteById+id);
   }
 
-  public newVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> {
-    return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant);
-  }
+  public newProduct(product: ProductDTO): Observable<ProductDTO> { return this._http.post<ProductDTO>(this._url+PRODUCT_API.create, product) }
+  public newVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> { return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant); }
 
   public newVariantList(variants: ProductVariantDTO[]): Observable<ProductVariantDTO[]> {
     return this._http.post<ProductVariantDTO[]>(this._url+PRODUCT_API.newVariantList, variants);

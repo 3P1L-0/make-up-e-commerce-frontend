@@ -1,25 +1,26 @@
-<mat-toolbar>Cadastro de Categorias</mat-toolbar>
+<h2 class="toolbar">Cadastro de Categorias</h2>
 <div class="content-container">
-  <mat-list>
-    <form [formGroup]="categoriesForm">
-      <div formArrayName="categories">
-        <ng-container *ngFor="let frmGroup of categoriesFormArray.controls; index as idx">
-          <mat-list-item [formGroupName]="idx">
+  <form [formGroup]="categoriesForm">
+    <ul class="list" formArrayName="categories">
+      <ng-container *ngFor="let frmGroup of categoriesFormArray.controls; index as idx">
+        <ng-container [formGroupName]="idx">
+          <li class="list-item">
             <div class="input-field p-float-label">
               <input type="text" pInputText id="{{'brand-'+idx}}" formControlName="name"/>
               <label for="{{'brand-'+idx}}">Nome</label>
-              <small class="p-error block" *ngIf="getControl(idx)?.hasError('required')">Campo obrigatório</small>
-              <small class="p-error block" *ngIf="getControl(idx)?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O nome não pode conter somente espaços</small>
+              <small class="p-error block" *ngIf="frmGroup.get('name')?.hasError('required')">Campo obrigatório</small>
+              <small class="p-error block" *ngIf="frmGroup.get('name')?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O nome não pode conter somente espaços</small>
             </div>
             <button pButton icon="pi pi-trash" class="p-button-rounded p-button-secondary" (click)="removeCategory(idx)"></button>
-          </mat-list-item>
+          </li>
         </ng-container>
-      </div>
-    </form>
-  </mat-list>
+      </ng-container>
+    </ul>
+  </form>
   <button pButton label="Adicionar" icon="pi pi-plus" iconPos="right" (click)="newCategory()"></button>
 </div>
 <div class="controls">
   <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top"><fa-icon icon="xmark"></fa-icon></button>
   <button pButton class="p-button-success" icon="fas check" (click)="saveCategories()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="categoriesForm.invalid"><fa-icon icon="check"></fa-icon></button>
 </div>
+<p-toast></p-toast>

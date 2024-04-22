@@ -1,47 +1,27 @@
+
 <!-- LOGO -->
 <section class="left-content">
   <!-- <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div> -->
   <div class="name"><h2>Inaluma Make-Up</h2></div>
 </section>
 
+<!-- PUBLIC NAVIGATION AREA -->
+<section class="public-navigation">
+  <nav class="public-navigation-menu">
+    <ul class="public-menu">
+      <li><a [href]="routes.products_shop">Produtos</a></li>
+      <li><a [href]="routes.services_shop">Serviços</a></li>
+    </ul>
+  </nav>
+</section>
+
 <!-- MENU NAVIGATION AREA -->
 <section class="right-content">
-  <button mat-icon-button><mat-icon>house</mat-icon></button>
-  <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon></button>
-  <!-- User Menu -->
-  <mat-menu #userMenu>
-    <mat-list>
-      <mat-divider *ngIf="isSignedIn"></mat-divider>
-      <ng-container *ngIf="!isSignedIn else signedIn">
-        <mat-list-item>
-          <a mat-button routerLink="/{{routes.signIn}}">
-            <mat-icon>login</mat-icon>
-            <span>Iniciar Sessão</span>
-          </a>
-        </mat-list-item>
-        <mat-list-item>
-          <a mat-button routerLink="/{{routes.signUp}}">
-            <mat-icon>person_add</mat-icon>
-            <span>Criar Conta</span>
-          </a>
-        </mat-list-item>
-      </ng-container>
-      <ng-template #signedIn>
-        <mat-list-item>
-          <button mat-button (click)="signOut()">
-            <mat-icon>logout</mat-icon>
-            <span>Terminar Sessão</span>
-          </button>
-        </mat-list-item>
-      </ng-template>
-    </mat-list>
-  </mat-menu>
-  <button mat-icon-button><mat-icon>store</mat-icon></button>
-  <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
-  <mat-slide-toggle color="accent" (change)="toggleTheme()">
-    <mat-icon>
-      <ng-container *ngIf="isDarkThemeMode else lightMode">dark_mode</ng-container>
-      <ng-template #lightMode>light_mode</ng-template>
-    </mat-icon>
-  </mat-slide-toggle>
+  <button type="button" pButton class="p-button-rounded" icon="house"><i class="material-symbols-rounded">house</i></button>
+  <button type="button" pButton class="p-button-rounded" icon="account_circle" (click)="usrMenu.toggle($event)"><i class="material-symbols-rounded">account_circle</i></button>
+  <button type="button" pButton class="p-button-rounded" icon="store" (click)="shopMenu.toggle($event)"><i class="material-symbols-rounded">store</i></button>
+  <button type="button" pButton class="p-button-rounded" icon="shopping_cart"><i class="material-symbols-rounded">shopping_cart</i></button>
 </section>
+
+<p-menu [model]="usrMenuConf" [popup]="true" #usrMenu></p-menu>
+<p-menu [model]="shopMenuConf" [popup]="true" #shopMenu></p-menu>

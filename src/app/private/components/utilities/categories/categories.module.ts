@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { AppCommomImportsModule } from "src/app/global/modules/commom-imports.module";
+import { AppCommonImportsModule } from "src/app/global/modules/commom-imports.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppPrimeNgModule } from "src/app/global/modules/primeng.module";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -12,9 +12,9 @@ const declarations = [
 @NgModule({
   declarations: declarations,
   imports: [
-    AppCommomImportsModule,
+    AppCommonImportsModule,
     ReactiveFormsModule,
-    AppPrimeNgModule, FontAwesomeModule
+    FontAwesomeModule
   ]
 })
 export class AppCategoriesModule {}

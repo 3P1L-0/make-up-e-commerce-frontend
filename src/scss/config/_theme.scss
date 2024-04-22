@@ -1,13 +1,6 @@
 @charset "UTF-8";
-
-@use '@angular/material' as mat;
-@use './global/general' as gen;
 @use './imports/index' as theming;
 
-@include mat.core(); // emit all angular material core styles
-
 @mixin theme($theme) {
-  @include mat.all-component-colors($theme);
-  @include gen.theme($theme);
   @include theming.themefy($theme);
 }

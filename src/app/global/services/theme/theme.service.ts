@@ -1,12 +1,10 @@
 import { Injectable, inject, RendererFactory2, Renderer2 } from "@angular/core";
-import { OverlayContainer } from "ngx-toastr";
 import { THEME_MODE, LOCAL_STORAGE } from "../../configs";
 
 @Injectable({providedIn: 'root'})
 export class AppThemeService {
   /* DEPENDENCIES */
   private readonly _rendererFactory = inject(RendererFactory2);
-  private readonly _overLayContainer = inject(OverlayContainer);
 
   /* MEMBERS */
   private _renderer: Renderer2;
@@ -45,7 +43,6 @@ export class AppThemeService {
     this._deactivateMode();
 
     this._renderer.addClass(document.body, theme);
-    this._overLayContainer.getContainerElement().classList.add(theme);
     localStorage.setItem(LOCAL_STORAGE.theme, theme);
   }
 
@@ -56,7 +53,6 @@ export class AppThemeService {
     if(theme == null) return;
 
     this._renderer.removeClass(document.body, theme);
-    this._overLayContainer.getContainerElement().classList.remove(theme);
     localStorage.removeItem(LOCAL_STORAGE.theme);
   }
 }

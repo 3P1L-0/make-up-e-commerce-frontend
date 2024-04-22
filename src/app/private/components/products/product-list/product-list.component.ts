@@ -1,11 +1,10 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from "@angular/core";
-import { MatTabChangeEvent } from "@angular/material/tabs";
 import { Router } from "@angular/router";
 import { PUBLIC_ROUTES } from "src/app/global/configs";
 import { ProductDTO } from "src/app/global/model/cart/dto/ProductDTO";
 import { ProductVariantDTO } from "src/app/global/model/cart/dto/ProductVariantDTO";
 import { SaleItemDTO } from "src/app/global/model/cart/dto/SaleItemDTO";
-import { AppProductService } from "src/app/public/services/product.service";
+import {AppProductService} from "../../../services/product.service";
 
 @Component({
   selector: 'app-product-list-view',
@@ -57,7 +56,7 @@ export class AppPublicProductListComponent implements OnInit, AfterViewInit {
 
   }
 
-  public tabChanged(evt: MatTabChangeEvent): void {
+  public tabChanged(evt: any): void {
     console.log(evt);
     this._isProductsShowing = evt.index == 0;
   }

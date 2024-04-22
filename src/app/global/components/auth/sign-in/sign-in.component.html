@@ -1,9 +1,9 @@
 <div class="close-button-wrapper">
   <span class="company-name">Inaluma Make-Up</span>
-  <button mat-mini-fab (click)="home()" color="warn"><mat-icon>close</mat-icon></button>
+  <button pButton icon="fa fa-xmark" (click)="home()"><fa-icon icon="xmark"></fa-icon></button>
 </div>
 <div class="main-content">
-  <mat-card class="content">
+  <p-card class="content">
     <div class="body-content">
       <div class="company-info">
         <div class="logo"><img src="/assets/images/carrinho_vazio.jpg"  class="circle responsive-img"/></div>
@@ -12,34 +12,34 @@
       </div>
       <form [formGroup]="signInForm" class="sign-in-form">
         <div class="inputs">
-          <mat-form-field appearance="outline">
-            <mat-icon matPrefix>person</mat-icon>
-            <mat-label>Utilizador</mat-label>
-            <input type="text" matInput formControlName="username">
-            <mat-error *ngIf="signInForm.get('username').hasError('required')">O nome de Utilizador é obrigatório</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-icon matPrefix>lock</mat-icon>
-            <mat-label>Senha</mat-label>
-            <input [type]="type" matInput formControlName="password">
-            <mat-error *ngIf="signInForm.get('password').hasError('required')">A senha é obrigatória</mat-error>
-            <button mat-icon-button matSuffix (click)="toggleHidden()">
-              <mat-icon>
-                <ng-container *ngIf="hidden">visibility</ng-container>
-                <ng-container *ngIf="!hidden">visibility_off</ng-container>
-              </mat-icon>
-            </button>
-          </mat-form-field>
+          <!-- Username -->
+          <div class="form-field">
+            <div class="field p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="material-symbols-rounded">person</i></span>
+              <label for="username-form-field">Utilizador</label>
+              <input type="text" id="username-form-field" pInputText formControlName="username">
+            </div>
+            <small class="block p-error" *ngIf="signInForm.get('username').hasError('required')">O nome de Utilizador é obrigatório</small>
+          </div>
+          <!-- Password -->
+          <div class="form-field">
+            <div class="p-inputgroup field">
+              <span class="p-inputgroup-addon"><i class="material-symbols-rounded">lock</i></span>
+              <p-password formControlName="password" [showClear]="true" promptLabel="Digite a sua senha" [feedback]="false" [toggleMask]="true"></p-password>
+            </div>
+            <small class="p-error block" *ngIf="signInForm.get('password').hasError('required')">A senha é obrigatória</small>
+          </div>
         </div>
+        <!-- Forgot password -->
         <div class="recover-account">
-          <p>Esqueceu a sua senha? <a (click)="recoverAccount()" class="trigger" mat-button>recuperar conta</a></p>
+          <p>Esqueceu a sua senha? <button type="button" pButton label="recuperar conta" (click)="recoverAccount()" class="trigger p-button-link"></button></p>
         </div>
-        <div class="controls">
-          <button mat-button (click)="newAccount()">Criar Conta</button>
-          <button mat-flat-button (click)="signIn()" color="accent">Entrar</button>
+        <div class="controls p-buttonset">
+          <button type="button" pButton label="Criar Conta" class="p-button-text" (click)="newAccount()"></button>
+          <button type="button" pButton label="Entrar" (click)="signIn()"></button>
         </div>
       </form>
     </div>
     <div class="footer-content"></div>
-  </mat-card>
+  </p-card>
 </div>

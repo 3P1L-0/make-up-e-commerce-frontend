@@ -94,18 +94,11 @@ export class AppSignUpComponent implements OnInit, AfterViewInit {
   public nextSection(): void { this.activateSection(false); }
   public previousSection(): void { this.activateSection(true); }
 
-  public signIn(): void { this._router.navigate([PUBLIC_ROUTES.signIn]); }
+  public signIn(): void { this._router.navigate([PUBLIC_ROUTES.signIn]).then(); }
 
 
   public home(): void {
     this._router.navigate([PUBLIC_ROUTES.home]).then();
-  }
-
-  public toggleHidden(): boolean {
-    this.isHidden = !this.isHidden;
-    this.inputType = this.isHidden ? "password" : "text";
-
-    return this.isHidden;
   }
 
   public getPersonControls(name: string): FormControl<any> { return this.getForm("person").get(name) as FormControl; }

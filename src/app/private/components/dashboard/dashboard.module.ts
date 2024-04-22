@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { AppCommomImportsModule } from "src/app/global/modules/commom-imports.module";
+import { AppCommonImportsModule } from "src/app/global/modules/commom-imports.module";
 import { AppDashboardLoaderComponent } from "./dashboard-loader.component";
 import { AppLoadDashboardDirective } from "./directives/load-dashboard.directive";
 
@@ -12,7 +12,7 @@ let declarations = [
 @NgModule({
   declarations: declarations,
   imports: [
-    AppCommomImportsModule,
+    AppCommonImportsModule,
     ReactiveFormsModule,
   ],
   exports: [

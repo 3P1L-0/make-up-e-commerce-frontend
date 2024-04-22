@@ -1,10 +1,8 @@
 @use "sass:map";
-@use "@angular/material" as mat;
+
 @use "/src/scss/utility/utilities" as utils;
 
 @mixin _layout($theme) {
-  $typography: mat.get-typography-config($theme);
-
   @include utils.make-flex($direction: "column");
   height: 100%;
 
@@ -12,9 +10,7 @@
     @include utils.make-flex($justContent: "space-between", $alignItems: "center");
     padding: 40px;
     padding-bottom: 0;
-
     .company-name {
-      @include mat.typography-level($typography, title);
     }
   }
 
@@ -41,7 +37,6 @@
         }
 
         .title {
-          @include mat.typography-level($typography, display-1);
           margin: 20px 0;
         }
       }
@@ -70,7 +65,6 @@
     .footer-content {
       @include utils.make-flex($justContent: 'space-between');
       width: 100%;
-
     }
   }
 }

@@ -4,6 +4,10 @@ import { AppLandingPageComponent } from "../components/landing-page/landing-page
 
 const routes: Routes = [
   {
+    path: "shop",
+    loadChildren: () => import("../components/shop/shop.module").then(m => m.AppShopModule)
+  },
+  {
     path: '',
     component: AppLandingPageComponent
   }

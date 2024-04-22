@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
-import { MatTable, MatTableDataSource } from "@angular/material/table";
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { ProductDTO } from "src/app/global/model/cart/dto/ProductDTO";
 
 @Component({
@@ -10,11 +9,11 @@ import { ProductDTO } from "src/app/global/model/cart/dto/ProductDTO";
 export class AppPublicProductsTable implements AfterViewInit, OnChanges {
   /* MEMBERS */
   @Input() products: ProductDTO[];
-  public datasource: MatTableDataSource<ProductDTO>;
+  public datasource: Array<ProductDTO>;
   public readonly columns: string[];
 
   constructor() {
-    this.datasource = new MatTableDataSource();
+    this.datasource = [];
     this.columns = ['name', 'inventory', 'category', 'variants'];
   }
 

@@ -1,94 +1,98 @@
 <aside [id]="menuParts.menu" class="main-menu-container">
   <!-- MENU NAVIGATION AREA -->
   <section [id]="menuParts.navSection" class="navs-section">
-    <button mat-flat-button class="menu-trigger" (click)="toggleHide($event)"><mat-icon>menu_open</mat-icon></button>
+    <button class="menu-trigger" (click)="toggleHide($event)"><span  class="material-symbols-rounded">menu_open</span></button>
     <div class="menu-wrapper overlay-content">
-      <mat-nav-list>
+      <ul class="main-menu-list">
         <!-- Dashboard -->
-        <a mat-list-item>
-          <mat-icon mat-list-icon>dashboard</mat-icon>
-          <span>Dashboard</span>
-        </a>
+        <li class="mat-menu-item">
+          <a>
+            <span class="material-symbols-rounded ms-filled">dashboard</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
         <!-- Despesas -->
-        <mat-list-item>
+        <li class="mat-menu-item">
           <div class="trigger">
             <div class="label-container">
-              <mat-icon matListIcon>monetization_on</mat-icon>
+              <span class="material-symbols-rounded">monetization_on</span>
               <span>Despesas</span>
             </div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <span class="material-symbols-rounded">arrow_drop_down</span>
           </div>
-          <mat-list>
-            <a mat-list-item>Agendamentos</a>
-            <a mat-list-item>Compras</a>
-            <a mat-list-item>Encomendas</a>
-            <a mat-list-item>Reembolsos</a>
-          </mat-list>
-        </mat-list-item>
+          <ul class="sub-menu-list">
+            <li class="list-item">Agendamentos</li>
+            <li class="list-item">Compras</li>
+            <li class="list-item">Encomendas</li>
+            <li class="list-item">Reembolsos</li>
+          </ul>
+        </li>
         <!-- Contactos -->
-        <mat-list-item>
+        <li class="mat-menu-item">
           <div class="trigger">
             <div class="label-container">
-              <mat-icon matListIcon>group</mat-icon>
+              <span class="material-symbols-rounded">group</span>
               <span>Utilizadores</span>
             </div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <span class="material-symbols-rounded">arrow_drop_down</span>
           </div>
-          <mat-list>
-            <a mat-list-item>Funcionários</a>
-            <a mat-list-item>Clientes</a>
-          </mat-list>
-        </mat-list-item>
+          <ul class="sub-menu-list">
+            <li class="list-item">Funcionários</li>
+            <li class="list-item">Clientes</li>
+          </ul>
+        </li>
         <!-- Centro de Comentários -->
-        <mat-list-item>
+        <li class="list-item">
           <div class="trigger">
             <div class="label-container">
-              <mat-icon matListIcon>forum</mat-icon>
+              <span  class="material-symbols-rounded">forum</span>
               <span>Centro de Comentários</span>
             </div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <span class="material-symbols-rounded">arrow_drop_down</span>
           </div>
-          <mat-list>
-            <a mat-list-item>Comentários</a>
-            <a mat-list-item>Resenhas</a>
-            <a mat-list-item>Testemunhos</a>
-          </mat-list>
-        </mat-list-item>
+          <ul class="sub-menu-list">
+            <li class="list-item">Comentários</li>
+            <li class="list-item">Resenhas</li>
+            <li class="list-item">Testemunhos</li>
+          </ul>
+        </li>
         <!-- Utilitários -->
-        <mat-list-item>
+        <li class="list-item">
           <div class="trigger">
             <div class="label-container">
-              <mat-icon matListIcon>construction</mat-icon>
+              <span class="material-symbols-rounded">construction</span>
               <span>Utilitários</span>
             </div>
-            <mat-icon>arrow_drop_down</mat-icon>
+            <span class="material-symbols-rounded">arrow_drop_down</span>
           </div>
-          <mat-list>
-            <a mat-list-item>Categorias</a>
-            <a mat-list-item>Sub-Categorias</a>
-            <a mat-list-item>Marcas</a>
-            <a mat-list-item>Tamanhos</a>
-          </mat-list>
-        </mat-list-item>
+          <ul class="sub-menu-list">
+            <li class="list-item">Categorias</li>
+            <li class="list-item">Sub-Categorias</li>
+            <li class="list-item">Marcas</li>
+            <li class="list-item">Tamanhos</li>
+          </ul>
+        </li>
         <!-- Relatórios -->
-        <a mat-list-item [routerLink]="'a'">
-          <mat-icon mat-list-icon>analytics</mat-icon>
+        <li class="list-item" [routerLink]="'a'">
+          <span class="material-symbols-rounded">analytics</span>
           <span>Relatórios</span>
-        </a>
+        </li>
         <!-- Galeria -->
-        <a mat-list-item [routerLink]="'a'">
-          <mat-icon mat-list-icon>gallery_thumbnail</mat-icon>
-          <span>Galeria</span>
-        </a>
+        <li class="list-item">
+          <a [routerLink]="'a'">
+            <span class="material-symbols-rounded">gallery_thumbnail</span>
+            <span>Galeria</span></a>
+        </li>
         <!-- Configurações -->
-        <a mat-list-item [routerLink]="'a'">
-          <mat-icon mat-list-icon>settings</mat-icon>
-          <span>Configurações</span>
-        </a>
-      </mat-nav-list>
+        <li class="material-symbols-rounded">
+          <a [routerLink]="'a'">
+            <span class="material-symbols-rounded">settings</span>
+            <span>Configurações</span></a>
+        </li>
+      </ul>
     </div>
     <div class="overlay" aria-hidden="true" tabindex="-1" (click)="toggleHide($event)"></div>
   </section>
   <!-- Button Toggle -->
-  <section class="toggler-section"><button mat-flat-button class="toggler" (click)="toggleShrink()"><mat-icon class="icon ms-filled">line_end_arrow</mat-icon></button></section>
+  <section class="toggler-section"><button class="toggler" (click)="toggleShrink()"><span class="icon material-symbols-rounded ms-filled">line_end_arrow</span></button></section>
 </aside>

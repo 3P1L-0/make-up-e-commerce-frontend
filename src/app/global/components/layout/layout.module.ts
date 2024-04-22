@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { AppHeaderModule } from "./header/header.module";
 import { AppFooterComponent } from "./footer/footer.component";
-import { AppCommomImportsModule } from "../../modules/commom-imports.module";
+import { AppCommonImportsModule } from "../../modules/commom-imports.module";
 import { AppGlobalLayoutComponent } from "./layout.component";
 import { AppMainMenuModule } from "src/app/private/components/main-menu/main-menu.module";
 import { RouterModule } from "@angular/router";
@@ -14,7 +14,7 @@ const declarations = [
 @NgModule({
   declarations: declarations,
   imports: [
-    AppCommomImportsModule,
+    AppCommonImportsModule,
     RouterModule,
     AppHeaderModule,
     AppMainMenuModule

@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+
 @use '../config/variables/variables' as vars;
 @use 'sass:string';
 
@@ -44,8 +44,6 @@
 }
 
 @mixin reset-form-field($theme) {
-  $typography: mat.get-typography-config($theme);
-
   & {
     min-width: 180px;
   }
@@ -76,7 +74,6 @@
 
       .mat-select-value {
         .mat-select-value-text {
-          @include mat.typography-level($typography, body-1);
         }
       }
       .mat-select-arrow-wrapper {

@@ -1,10 +1,10 @@
 import { Component, inject } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { emptyString } from "src/app/global/configs/validators/forms/validators";
-import { ToastrService } from "ngx-toastr";
-import { AppCategoryService } from "../../services/category.service";
 import { CategoryDTO } from "src/app/global/model/cart/dto/CategoryDTO";
+import {MessageService} from "primeng/api";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {AppCategoryService} from "../../../services/category.service";
 
 @Component({
   selector: "app-brands-view",
@@ -14,9 +14,9 @@ import { CategoryDTO } from "src/app/global/model/cart/dto/CategoryDTO";
 export class AppCategoriesComponent {
   /* DEPENDENCIES */
   private readonly _categoriesService = inject(AppCategoryService);
-  private readonly _diagRef = inject(MatDialogRef<AppCategoriesComponent, any>);
+  private readonly _diagRef = inject(DynamicDialogRef);
   private readonly _frmBuilder = inject(FormBuilder);
-  private readonly _toastrService = inject(ToastrService);
+  private readonly _toastrService = inject(MessageService);
 
   /* MEMBERS */
   public categoriesForm: FormGroup;
@@ -42,7 +42,10 @@ export class AppCategoriesComponent {
 
   public removeCategory(idx: number): void {
     this.categoriesFormArray.removeAt(idx);
-    this._toastrService.warning("Marca eliminada");
+    this._toastrService.add({
+      severity: "info",
+      detail: "Marca eliminada"
+    });
   }
 
   public closeDialog(): void {
@@ -61,7 +64,10 @@ export class AppCategoriesComponent {
     }
 
     this._categoriesService.createList(newCategories).subscribe(() => {
-      this._toastrService.success("Categorias cadastradas com sucesso");
+      this._toastrService.add({
+        severity: "success",
+        detail: "Categorias cadastradas com sucesso"
+      });
       this.categoriesFormArray.clear();
     });
   }

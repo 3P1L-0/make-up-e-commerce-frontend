@@ -1,7 +1,7 @@
 @use 'sass:map';
 @use 'sass:list';
 @use 'sass:meta';
-@use '@angular/material' as mat;
+
 
 /// Changes the color configuration for foreground and background
 /// given an angular material theme object and a configuration object
@@ -10,10 +10,6 @@
 /// new values for either foreground or background or both
 /// @returns {map} $theme reassigned with $conf if $conf and $theme are valid; otherwise $theme
 @function reconf-theme ($theme, $conf: null) {
-  @if(not (_is-valid-conf($conf) and mat.private-is-theme-object($theme))) {
-    @return $theme;
-  }
-
   $result: ();
   @each $key, $value in $conf {
     $prop: if($key == 'foreground', 'foreground', 'background');

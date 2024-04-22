@@ -2,7 +2,7 @@ import { Component, inject } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "src/app/global/configs";
-import { Credentials, CredentialsDTO } from "src/app/global/model/auth";
+import { Credentials } from "src/app/global/model/auth";
 import { AppAuthService } from "src/app/global/components/auth/auth.service";
 
 @Component({
@@ -31,14 +31,15 @@ export class AppSignInComponent {
     this.hidden = true;
   }
 
-  public home() { this._router.navigate([PUBLIC_ROUTES.home]) }
+  public home() { this._router.navigate([PUBLIC_ROUTES.home]).then() }
 
   public signIn() {
-    const creds = Object.assign(new CredentialsDTO(), this.signInForm.value);
+    const creds = new Credentials();
+    Object.assign(creds.getDTO(), this.signInForm.value);
 
     if (this.isFormInvalid()) return;
 
-    this._authService.signIn(creds).subscribe(session => {
+    this._authService.signIn(creds.getDTO()).subscribe(session => {
       if(!(this.wrongCredentials = !!session)) return;
       this._router.navigate([PRIVATE_ROUTES.home]).then();
     });

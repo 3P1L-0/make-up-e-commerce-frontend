@@ -1,9 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { AppThemeService } from './services/theme/theme.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faCheck, faCirclePlus, faFile, faPaperclip, faPenToSquare, faPlus, faRemove, faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faCirclePlus,
+  faPaperclip,
+  faPenToSquare,
+  faPlus,
+  faRemove, faRightFromBracket, faRightToBracket,
+  faSearch, faUserPlus,
+  faXmark
+} from '@fortawesome/free-solid-svg-icons';
 import { PrimeNGConfig } from 'primeng/api';
+import {faShopify} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-root',
@@ -13,19 +22,30 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   /* DEPENDENCIES */
   private readonly _themeService = inject(AppThemeService);
-  private readonly _matIconRegistry = inject(MatIconRegistry);
-  public title = 'Inaluma MakeUp';
+  public readonly title = 'Inaluma MakeUp';
   private readonly faIconLibrary = inject(FaIconLibrary);
   private readonly primeNgConfig = inject(PrimeNGConfig);
 
   constructor() {
     document.head.getElementsByTagName('title')[0].innerText = this.title;
-    this._matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
   }
 
   ngOnInit(): void {
     this.primeNgConfig.ripple = true;
     this._themeService.init();
-    this.faIconLibrary.addIcons(faPenToSquare, faCirclePlus, faPlus, faPaperclip, faXmark, faCheck, faRemove)
+    this.faIconLibrary.addIcons(
+      faPenToSquare,
+      faCirclePlus,
+      faPlus,
+      faPaperclip,
+      faXmark,
+      faCheck,
+      faRemove,
+      faSearch,
+      faRightToBracket,
+      faUserPlus,
+      faRightFromBracket,
+      faShopify
+    );
   }
 }

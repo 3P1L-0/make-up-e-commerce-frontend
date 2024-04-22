@@ -1,8 +1,10 @@
 @charset 'UTF-8';
 
 @use './third-party' as trdP;
+@use '../global/general' as gen;
 @use './all-theme' as allT;
 
 @mixin themefy($theme) {
+  @include gen.theme($theme);
   @include allT.themefy($theme);
 }

@@ -8,4 +8,5 @@ export enum PRIVATE_ROUTES {
 
   /* ------- SERVICES ------- */
   services = "/app/private/services",
+  servicesForm = "/app/private/services/form",
 }

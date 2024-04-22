@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @use 'sass:map';
-@use '@angular/material' as mat;
+
 @use '/src/scss/utility/utilities' as utils;
 @use '/src/scss/config/variables/headers';
 @use '/src/scss/config/variables/layers';
@@ -19,7 +19,7 @@
   &,
   .left-content,
   .right-content{
-    @include utils.make-flex($justContent: 'space-between');
+    @include utils.make-flex($justContent: 'space-between', $alignItems: "center");
   }
 
   .left-content,
@@ -40,6 +40,37 @@
     }
   }
 
+  .public-navigation {
+    &,
+    .public-navigation-menu {
+      height: fit-content;
+      width: fit-content;
+    }
+
+    .public-navigation-menu .public-menu {
+      @include utils.make-flex($gap: "20px", $alignItems: "center", $justContent: "center");
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style: none;
+        height: fit-content;
+        width: fit-content;
+      }
+
+      li a {
+        background-color: #1e1e1e;
+        background-color: var(--surface-a);
+        padding: 10px 15px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 10px;
+        text-transform: uppercase;
+      }
+    }
+
+  }
   .right-content {
     .mat-icon-button {
       @include utils.make-square(50px);

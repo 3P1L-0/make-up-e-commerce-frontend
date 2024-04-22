@@ -2,6 +2,10 @@ import { AbstractEntity } from "../AbstractEntity";
 import { CredentialsDTO } from "./dto";
 
 export class Credentials extends AbstractEntity {
+  public constructor() {
+    super(new CredentialsDTO());
+  }
+
   public getPassword(): string { return this.getDTO().password; }
   public getUsername(): string { return this.getDTO().username; }
 

@@ -1,4 +1,4 @@
-@charset 'UTF-8';
+@charset "UTF-8";
 
 @use '/src/scss/utility/utilities' as utils;
 @use './header/header-theme';
@@ -19,6 +19,7 @@
 
     .main-content {
       flex: 1 0;
+      overflow-y: auto;
     }
   }
 }

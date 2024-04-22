@@ -1,10 +1,8 @@
 @use '/src/scss/utility/utilities' as utils;
-@use '@angular/material' as mat;
+
 @use "sass:map";
 
 @mixin _layout($theme) {
-  $typography: mat.get-typography-config($theme);
-
   @include utils.make-flex($direction: "column");
   height: 100%;
 
@@ -14,7 +12,6 @@
     padding-bottom: 0;
 
     .company-name {
-      @include mat.typography-level($typography, title);
     }
   }
 
@@ -41,7 +38,6 @@
         }
 
         .title {
-          @include mat.typography-level($typography, display-1);
           margin: 20px 0;
         }
       }
@@ -57,7 +53,6 @@
       }
 
       .recover-account {
-        @include mat.typography-level($typography, caption);
       }
 
 

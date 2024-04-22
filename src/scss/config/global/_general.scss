@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @use 'sass:map';
-@use '@angular/material' as mat;
+
 @use '../variables/variables' as vars;
 @use '../variables/classes';
 @use '../variables/layers';
@@ -68,14 +68,41 @@ img {
   font-variation-settings: 'FILL' 1;
 }
 
+input {
+  width: 100%;
+}
+
+::placeholder
+*::placeholder,
+* ::placeholder,
+input::placeholder {
+  display: block;
+  position: relative;
+  top: 0;
+}
+
+.p-card .p-card-content {
+  padding: 0;
+}
+
+.p-float-label > label {
+  opacity: .5;
+}
+
+.p-float-label input:focus ~ label,
+.p-float-label textarea:focus ~ label,
+.p-float-label .p-inputwrapper-focus ~ label,
+.p-float-label .p-filled ~ label,
+.p-float-label .p-inputwrapper-filled ~ label {
+  opacity: 1;
+}
+
 .material-symbols-rounded,
 *.material-symbols-rounded {
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 200, 'opsz' 48;
 }
 
 @mixin theme($theme) {
-  $color: mat.get-color-config($theme);
-
   .rst-frm-fld {
     @include utils.reset-form-field($theme);
   }

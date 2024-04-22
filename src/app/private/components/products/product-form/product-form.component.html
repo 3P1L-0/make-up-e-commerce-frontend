@@ -1,0 +1,360 @@
+<header class="main-title">
+  <h2>Detalhes do Produto</h2>
+  <button pButton icon="fas xmark" (click)="abortOperation()">
+    <fa-icon icon="xmark"></fa-icon>
+  </button>
+</header>
+<section class="content-section">
+  <aside class="left-content">
+    <p-card class="card">
+      <div class="content-wrapper">
+        <div class="filter-input p-inputgroup">
+          <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
+          <input type="text" pInputText class="p-inputtext-sm" #searchInput/>
+        </div>
+        <ul class="products-list">
+          <li *ngFor="let p of publicProducts" class="product-wrapper">
+            <div class="product-item">
+              <div class="product-content-wrapper">
+                <div class="img-container"><img [src]="p.getDTO().img.url" alt="imagem do produto"/></div>
+                <div class="product-details">
+                  <p class="product-title">{{ p.getDTO().name }}</p>
+                  <p class="product-pricing">
+                    <span>{{ p.getDTO().code }}</span>
+                    <span *ngIf="p.getDTO().isOnSale">Em Promoção</span>
+                  </p>
+                  <p class="product-details">
+                    <span>{{ p.getDTO().category.name }}</span>
+                    <span>{{ p.getDTO().brand.name }}</span>
+                  </p>
+                </div>
+              </div>
+              <p-divider class="divider"></p-divider>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </p-card>
+  </aside>
+  <p-card class="middle-content" header="Produto">
+    <p-inplace [active]="!isEditingProduct" [preventClick]="true">
+      <!-- readonly -->
+      <ng-template pTemplate="display">
+        <!-- Product Name -->
+        <div class="read-only">
+          <div class="content-wrapper">
+            <div class="img-wrapper">
+              <img [src]="product?.base64Img" alt="imagem do produto"/>
+            </div>
+            <div class="content">
+              <div class="line">
+                <span>Produto</span>
+                <span>{{ product?.getDTO().name }}</span>
+              </div>
+              <!-- Product Code & State-->
+              <div class="line multi-column">
+                <div class="left-content">
+                  <span>Código</span>
+                  <span>{{ product?.getDTO().code }}</span>
+                </div>
+                <div class="right-content">
+                  <span>Disponível</span>
+                  <span>{{ product?.getDTO().code }}</span>
+                </div>
+              </div>
+              <!-- Product Brand & Category-->
+              <div class="line multi-column">
+                <div class="left-content">
+                  <span>Categoria</span>
+                  <span>{{ product?.getDTO().category.name }}</span>
+                </div>
+                <div class="right-content">
+                  <span>Marca</span>
+                  <span>{{ product?.getDTO().brand.name }}</span>
+                </div>
+              </div>
+              <!-- Product Description -->
+              <div class="line multi-line">
+                <p>Descrição</p>
+                <p>{{ product?.getDTO().description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="controls">
+            <button mat-button color="accent">
+              <span>Editar</span>
+              <fa-icon icon="pen-to-square" size="lg"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+      <!-- editable -->
+      <ng-template pTemplate="content">
+        <div class="editable">
+          <form [formGroup]="productsForm" enctype="multipart/form-data">
+            <section class="form-fields">
+              <div class="top-content">
+                <div class="left-content">
+                  <div class="img-container">
+                    <img [src]="thumbnailSrc" alt="imagem do produto"/>
+                    <button
+                      mat-mini-fab
+                      color="accent"
+                      (click)="file.click()"
+                      pTooltip="Escolher imagem"
+                      class="select-file-btn"
+                    >
+                      <fa-icon icon="paperclip" size="xl"></fa-icon>
+                    </button>
+                    <input
+                      type="file"
+                      hidden
+                      (change)="handleSelectFile($event)"
+                      #file
+                      accept="image/*"
+                    />
+                  </div>
+                </div>
+                <div class="right-content">
+                  <!-- Product name -->
+                  <div class="field p-float-label">
+                    <input id="product-field" type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
+                    <label for="product-field">Produto</label>
+                  </div>
+                  <!-- Product code -->
+                  <div class="field p-float-label">
+                    <input
+                      id="product-code-field"
+                      type="text"
+                      pInputText
+                      formControlName="code"
+                      class="p-inputtext-sm"
+                    />
+                    <label for="product-code-field">Código</label>
+                  </div>
+                  <!-- Product state -->
+                  <div class="field p-float-label">
+                    <p-dropdown [options]="saleItemState" id="product-state-field" formControlName="state" optionLabel="value" [filter]="true" filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
+                                dataKey="key" optionValue="key" placeholder="Informe a disponibilidade" filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
+                    <label for="product-state-field">Disponibilidade</label>
+                  </div>
+                  <!-- Product Category -->
+                  <div class="field p-float-label">
+                    <p-dropdown [options]="categories" id="product-category-field" formControlName="category" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true"
+                                [lazy]="true" placeholder="Escolha uma categoria" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma categoria cadastrada" class="p-dropdown-sm"></p-dropdown>
+                    <label for="product-category-field">Categoria</label>
+                    <!-- <button mat-mini-fab><fa-icon icon="plus" size="lg"></fa-icon></button> -->
+                    <button pButton icon="pi pi-plus" class="p-button-rounded p-button-sm" pTooltip="Nova categoria" [showDelay]="500" [hideDelay]="250" (click)="newCategory()"></button>
+                  </div>
+                  <!-- Product Brand -->
+                  <div class="field p-float-label">
+                    <p-dropdown [options]="brands" id="product-brand-field" formControlName="brand" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true"
+                                [lazy]="true" placeholder="Selecione uma marca" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma marca cadastrada" class="p-dropdown-sm"></p-dropdown>
+                    <label for="product-brand-field">Marca</label>
+                    <!-- <button mat-mini-fab><fa-icon icon="plus" size="lg"></fa-icon></button> -->
+                    <p-button
+                      icon="pi pi-plus"
+                      styleClass="p-button-rounded p-button-sm"
+                      pTooltip="Nova marca"
+                      [showDelay]="500"
+                      [hideDelay]="250"
+                      (onClick)="newBrand()"
+                    ></p-button>
+                  </div>
+                </div>
+              </div>
+              <!-- Product description -->
+              <div class="field p-float-label">
+                <textarea
+                  id="product-description-field"
+                  pInputTextarea
+                  cols="60"
+                  rows="5"
+                  formControlName="description"
+                  [autoResize]="true"
+                ></textarea>
+                <label for="product-description-field">Descrição</label>
+              </div>
+            </section>
+            <!-- Controls -->
+            <section class="controls">
+              <button
+                pButton
+                class="p-button-success"
+                icon="fas check"
+                (click)="saveProduct()"
+                [disabled]="productsForm.invalid"
+              >
+                <fa-icon icon="check"></fa-icon>
+              </button>
+            </section>
+          </form>
+        </div>
+      </ng-template>
+    </p-inplace>
+  </p-card>
+  <p-card class="right-content" header="Variantes">
+    <p-inplace [active]="!isEditingVariants" [preventClick]="true">
+      <ng-template pTemplate="display">
+        <p-table #dt [value]="variants[0]" [rows]="10" [paginator]="true"
+                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} variantes"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              <h5 class="m-0">Gerenciar variantes</h5>
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" placeholder="Filtrar..."/>
+              </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 4rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="code">
+                Código
+                <p-sortIcon field="code"></p-sortIcon>
+              </th>
+              <th pSortableColumn="price">
+                Preço
+                <p-sortIcon field="price"></p-sortIcon>
+              </th>
+              <th pSortableColumn="category" style="min-width: 10rem">
+                Categoria
+                <p-sortIcon field="category"></p-sortIcon>
+              </th>
+              <th pSortableColumn="currentAmount" style="min-width: 10rem">
+                Quantidade
+                <p-sortIcon field="currentAmount"></p-sortIcon>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-variant>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="variant"></p-tableCheckbox>
+              </td>
+              <td>{{ variant.code }}</td>
+              <td>{{ variant.price | currency : "AOA" }}</td>
+              <td>{{ variant.category.name }}</td>
+              <td>{{ variant.currentAmount }}</td>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+              Total de variantes {{ variants?.length ?? 0 }}
+            </div>
+          </ng-template>
+        </p-table>
+      </ng-template>
+      <!-- Variants editable area -->
+      <ng-template pTemplate="content">
+        <div class="editable">
+          <form [formGroup]="variantsForm" enctype="multipart/form-data">
+            <!-- Form fields -->
+            <section class="form-fields">
+              <ul formArrayName="variants" class="variants-list">
+                <li
+                  *ngFor="
+                    let frmGroup of getVariantsFormArray().controls;
+                    index as idx
+                  "
+                  class="variant-wrapper"
+                >
+                  <div class="fileds-container">
+                    <div class="product-variant" [formGroupName]="idx">
+                      <div class="line">
+                        <div class="field p-float-label grow">
+                          <input
+                            type="text"
+                            pInputText
+                            formControlName="code"
+                            id="variant-code-field"
+                            class="p-input-sm"
+                          />
+                          <label for="variant-code-field">Código</label>
+                        </div>
+                        <div class="field inputgroup">
+                          <div class="inputgroup-addon"><span>Cor</span></div>
+                          <p-colorPicker
+                            formControlName="color"
+                            class="colorpicker"
+                          ></p-colorPicker>
+                        </div>
+                      </div>
+                      <div class="line">
+                        <div class="field p-float-label">
+                          <input
+                            type="text"
+                            pInputText
+                            formControlName="density"
+                            id="variant-density-field"
+                            class="p-input-sm"
+                          />
+                          <label for="variant-density-field">Densidade</label>
+                        </div>
+                        <div class="field inputgroup">
+                          <div class="inputgroup-addon"><span>Preço</span></div>
+                          <p-inputNumber
+                            formControlName="price"
+                            mode="currency"
+                            currency="AOA"
+                            locale="pt-PT"
+                            [showButtons]="true"
+                            [min]="0.1"
+                            title="Preço"
+                            [showClear]="true"
+                            class="grow"
+                          ></p-inputNumber>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      pButton
+                      icon="pi pi-trash"
+                      class="p-button-rounded p-button-secondary p-button-danger"
+                      (click)="removeVariant(idx)"
+                      pTooltip="Eliminar variante"
+                      tooltipPosition="left"
+                      [showDelay]="500"
+                    ></button>
+                  </div>
+                  <p-divider></p-divider>
+                </li>
+              </ul>
+              <button
+                pButton
+                icon="pi pi-plus"
+                class="p-button-rounded"
+                pTooltip="Adicionar nova variante"
+                (click)="newVariant()"
+                tooltipPosition="top"
+                [showDelay]="500"
+              ></button>
+            </section>
+            <!-- Controls -->
+            <section class="controls">
+              <button
+                pButton
+                class="p-button-success"
+                icon="fas check"
+                (click)="saveVariants()"
+                pTooltip="Salvar"
+                [showDelay]="500"
+                tooltipPosition="left"
+                [disabled]="variantsForm.invalid"
+              >
+                <fa-icon icon="check"></fa-icon>
+              </button>
+            </section>
+          </form>
+        </div>
+      </ng-template>
+    </p-inplace>
+  </p-card>
+</section>
+<!-- Dialogs -->
+<p-confirmDialog></p-confirmDialog>
+<p-toast hideTransitionOptions="500ms" [preventOpenDuplicates]="true"></p-toast>

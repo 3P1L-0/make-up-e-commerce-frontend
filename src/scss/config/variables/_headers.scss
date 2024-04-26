@@ -3,5 +3,5 @@
 @use 'sass:math';
 @use 'sass:string';
 
-$top-header: 75px;
+$top-header: 80px;
 $top-header-row: #{math.div($top-header, 2px)}px;

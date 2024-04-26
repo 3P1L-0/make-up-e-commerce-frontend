@@ -11,6 +11,7 @@ $_theme:();
 
 $_theme:();
 .#{vars.$dark-mode-class} {
-  color-scheme: dark!important;
   @include theme.theme($_theme);
+  color-scheme: dark!important;
+  background-color: var(--surface-a);
 }

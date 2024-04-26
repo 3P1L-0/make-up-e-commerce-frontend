@@ -1,0 +1,86 @@
+<app-view-header>
+  <button pButton icon="pi pi-arrow-left" (click)="goBack()" pTooltip="Voltar" tooltipPosition="left"></button>
+  <button pButton icon="circle-xmark" pTooltip="Limpar campos" tooltipPosition="bottom" (click)="clearFields()" class="p-button-danger">
+    <fa-icon icon="circle-xmark"></fa-icon>
+  </button>
+  <button pButton icon="check" pTooltip="Salvar produto" [hideDelay]="500" tooltipPosition="left" class="p-button-success" (click)="save()" [disabled]="!canSave()">
+    <fa-icon icon="check"></fa-icon>
+  </button>
+</app-view-header>
+<p-card>
+  <form [formGroup]="servicesForm" enctype="multipart/form-data">
+    <div class="top-content">
+      <section class="img-container">
+        <img [src]="thumbnailSrc" alt="imagem do produto"/>
+        <button pButton (click)="file.click()" pTooltip="Escolher imagem" class="select-file-btn p-button-rounded">
+          <fa-icon icon="paperclip" size="xl"></fa-icon>
+        </button>
+        <input type="file" hidden (change)="handleSelectFile($event)" #file accept="image/*"/>
+      </section>
+      <section class="form-fields">
+        <!-- Service name -->
+        <div class="field">
+          <p>Nome</p>
+          <input type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
+        </div>
+        <!-- Service price -->
+        <div class="field multi-column">
+          <div class="column">
+            <p>Preço</p>
+            <p-inputNumber formControlName="price"></p-inputNumber>
+          </div>
+          <!-- Service code -->
+          <div class="column">
+            <p>Código</p>
+            <input type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
+          </div>
+        </div>
+        <!-- Service availability -->
+        <div class="field">
+          <p>Disponibilidade</p>
+          <p-dropdown [options]="saleItemState" id="product-state-field" formControlName="state" optionLabel="value" [filter]="true" filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
+                      dataKey="key" optionValue="key" placeholder="Informe a disponibilidade" filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
+        </div>
+        <!-- Service duration -->
+        <div class="field field-with-children" formGroupName="duration">
+          <p>Duração</p>
+          <div class="children">
+            <div class="control-wrapper">
+              <p-inputNumber formControlName="days"></p-inputNumber>
+              <span>Dias</span>
+            </div>
+            <div class="control-wrapper">
+              <p-inputNumber formControlName="hours"></p-inputNumber>
+              <span>Horas</span>
+            </div>
+            <div class="control-wrapper">
+              <p-inputNumber formControlName="minutes"></p-inputNumber>
+              <span>Minutos</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="field specialties">
+        <div class="control-wrapper">
+          <div class="control">
+            <p>Especialidades</p>
+            <p-multiSelect [options]="specialties" optionLabel="name" optionValue="id" formControlName="specialties"></p-multiSelect>
+          </div>
+          <button pButton icon="pi pi-plus" class="p-button-rounded p-button-sm" pTooltip="Cadastrar Especialidades"
+                  tooltipPosition="left" [showDelay]="500" [hideDelay]="250" (click)="newSpecialty()"></button>
+        </div>
+        <div class="options">
+          <p class="option"><span>Selected Specialty</span></p>
+        </div>
+      </div>
+    </div>
+    <!-- Service description -->
+    <div class="field p-float-label">
+      <textarea id="product-description-field" pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true"></textarea>
+      <label for="product-description-field">Descrição</label>
+    </div>
+  </form>
+</p-card>
+<!-- Dialogs -->
+<p-confirmDialog></p-confirmDialog>
+<p-toast hideTransitionOptions="500ms" [preventOpenDuplicates]="true"></p-toast>

@@ -1,20 +1,24 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AppDashboardLoaderComponent } from "../components/dashboard/dashboard-loader.component";
-import {AppPrivateShellViewComponent} from "../components/private-shell/private-shell.component";
+import {AppShellComponent} from "../components/app-shell/app-shell.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: AppPrivateShellViewComponent,
+    component: AppShellComponent,
     children: [
       {
-        path: "",
+        path: "home",
         component: AppDashboardLoaderComponent
       },
       {
         path: "products",
-        loadChildren: () => import("../components/products/product.module").then(m => m.AppPrivateProductsModule)
+        loadChildren: () => import("../components/store/products/product.module").then(m => m.AppPrivateProductsModule)
+      },
+      {
+        path: "services",
+        loadChildren: () => import("../components/store/service/service.module").then(m => m.AppPrivateServicesModule)
       }
     ]
   }

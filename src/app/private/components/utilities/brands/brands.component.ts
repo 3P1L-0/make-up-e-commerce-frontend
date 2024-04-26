@@ -9,7 +9,7 @@ import {AppBrandService} from "../../../services/brand.service";
 @Component({
   selector: "app-brands-view",
   templateUrl: "./brands.component.html",
-  host: {"class": "app-brands-module"}
+  host: {"class": "simple-utility-form-view"}
 })
 export class AppBrandsComponent {
   /* DEPENDENCIES */

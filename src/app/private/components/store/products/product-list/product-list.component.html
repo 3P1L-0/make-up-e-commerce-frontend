@@ -1,0 +1,21 @@
+<app-view-header><button pButton (click)="newProduct()" icon="add"><i class="material-symbols-rounded">add</i></button></app-view-header>
+<section class="products-area">
+  <p-card>
+    <section class="search-area">
+      <div class="field p-inputgroup">
+        <fa-icon icon="filter" class="p-inputgroup-addon"></fa-icon>
+        <input type="text" pInputText placeholder="Filtrar produtos..." #searchField/>
+      </div>
+    </section>
+    <section class="data-area">
+      <p-tabView>
+        <p-tabPanel header="Produtos">
+          <p-table class="data" [value]="publicProducts"></p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Variantes">
+          <p-table [value]="publicVariants"></p-table>
+        </p-tabPanel>
+      </p-tabView>
+    </section>
+  </p-card>
+</section>

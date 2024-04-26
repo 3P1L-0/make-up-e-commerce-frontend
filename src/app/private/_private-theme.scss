@@ -1,7 +1,11 @@
-@charset 'UTF-8';
-
-@use './components/main-menu/main-menu-theme' as main-menu;
+@use "./components/app-shell/app-shell.theme" as app-shell;
+@use "./components/view-header/view-header-theme" as view-header;
+@use "./components/store/store-theme" as store;
+@use "./components/utilities/utilities-theme" as utilities;
 
 @mixin themefy($theme) {
-  @include main-menu.theme($theme);
+  @include app-shell.themefy($theme);
+  @include view-header.themefy();
+  @include store.themefy($theme);
+  @include utilities.themefy($theme);
 }

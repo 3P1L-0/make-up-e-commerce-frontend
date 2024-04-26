@@ -9,7 +9,7 @@ import {AppCategoryService} from "../../../services/category.service";
 @Component({
   selector: "app-brands-view",
   templateUrl: "./categories.component.html",
-  host: {"class": "app-categories-module"}
+  host: {"class": "simple-utility-form-view"}
 })
 export class AppCategoriesComponent {
   /* DEPENDENCIES */
@@ -20,7 +20,6 @@ export class AppCategoriesComponent {
 
   /* MEMBERS */
   public categoriesForm: FormGroup;
-  public readonly
 
   constructor() {
     this.categoriesForm = this._frmBuilder.group({
@@ -42,10 +41,6 @@ export class AppCategoriesComponent {
 
   public removeCategory(idx: number): void {
     this.categoriesFormArray.removeAt(idx);
-    this._toastrService.add({
-      severity: "info",
-      detail: "Marca eliminada"
-    });
   }
 
   public closeDialog(): void {

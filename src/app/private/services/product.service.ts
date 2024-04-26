@@ -31,10 +31,12 @@ export class AppProductService {
   }
 
   public newProduct(product: ProductDTO): Observable<ProductDTO> { return this._http.post<ProductDTO>(this._url+PRODUCT_API.create, product) }
+
   public newVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> { return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant); }
 
-  public newVariantList(variants: ProductVariantDTO[]): Observable<ProductVariantDTO[]> {
-    return this._http.post<ProductVariantDTO[]>(this._url+PRODUCT_API.newVariantList, variants);
+  public createVariantList(variants: ProductVariantDTO[]): Observable<ProductVariantDTO[]> {
+    console.log("registering variants");
+    return this._http.post<ProductVariantDTO[]>(this._url+PRODUCT_API.createVariantList, variants);
   }
 
   public updateVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> {

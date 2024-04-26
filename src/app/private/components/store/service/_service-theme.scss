@@ -1,0 +1,11 @@
+@use "sass:map";
+
+@use "/src/scss/utility/utilities" as utils;
+
+@use "./service-list/service-list.theme" as list;
+@use "./service-form/service-form.theme" as form;
+
+@mixin themefy($theme) {
+  @include list.themefy($theme);
+  @include form.themefy($theme);
+}

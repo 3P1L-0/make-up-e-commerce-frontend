@@ -1,0 +1,90 @@
+@use "sass:map";
+
+@use "/src/scss/utility/utilities" as utils;
+
+@mixin _layout($theme) {
+  &,
+  .container,
+  .content-container,
+  form {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  height: 100%;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+
+  .toolbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: fit-content;
+    z-index: 1;
+    background-color: var(--surface-a);
+    margin: 0;
+    padding: 2rem 0;
+  }
+
+  .container {
+    flex: 1 0;
+    gap: 2.5rem;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 4px;
+    background-color: var(--surface-b);
+    overflow-y: auto;
+    max-height: calc(100% - 80px);
+  }
+
+  .content-container {
+    flex: 1 0;
+    gap: 2.5rem;
+
+    form {
+      flex: 1 0;
+    }
+
+    .list {
+      max-height: 100%;
+      overflow-y: auto;
+    }
+
+    .list .list-item {
+      &:not(:last-child) {
+        margin-bottom: .5rem;
+      }
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+      background-color: var(--surface-a);
+      padding: 1rem;
+      border-radius: 4px;
+
+      .input-field {
+        flex: 1 0;
+      }
+    }
+  }
+
+  .controls {
+    position: sticky;
+    bottom: -2rem;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1;
+    background-color: var(--surface-b);
+    padding: 0.5rem;
+  }
+}
+
+@mixin themefy($theme) {
+  .simple-utility-form-view {
+    @include _layout($theme);
+  }
+}

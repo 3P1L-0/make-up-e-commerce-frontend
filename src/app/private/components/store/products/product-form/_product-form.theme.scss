@@ -1,0 +1,161 @@
+@use "sass:map";
+
+@use "/src/scss/utility/utilities" as utils;
+
+@mixin _layout($theme) {
+  padding: 0 2rem;
+  overflow-y: auto;
+  $gap: 1rem;
+
+  & > .content-section {
+    &,
+    .top-content,
+    .form-fields {
+      display: grid;
+      grid-gap: $gap;
+    }
+
+    grid-template-columns: 2fr 1.5fr;
+
+    .products {
+      position: sticky;
+      top: 191px;
+      height: fit-content;
+    }
+
+    .products form {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: $gap;
+
+      .top-content {
+        grid-template-columns: 1fr 3fr;
+        grid-gap: $gap;
+
+        .img-container {
+          position: relative;
+          min-width: 300px;
+
+          .select-file-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 4rem;
+            height: 4rem;
+            display: none;
+          }
+
+          &:hover .select-file-btn {
+            display: block;
+          }
+        }
+
+        .form-fields {
+          grid-template-rows: repeat(5, 1fr);
+
+          .field:has(.p-dropdown-sm) {
+            display: flex;
+            align-items: stretch;
+            gap: $gap;
+
+            .p-dropdown-sm {
+              flex: 1 0;
+            }
+
+            .p-dropdown-sm ~ button {
+              align-self: center;
+            }
+
+            .p-dropdown {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+
+      .top-content + .field {
+      }
+    }
+
+    .products-variants form {
+      .variants-list,
+      .variant-wrapper,
+      .fields-container {
+        display: flex;
+        gap: $gap;
+      }
+
+      .variants-list,
+      .variant-wrapper {
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+      }
+
+      .variant-wrapper {
+        width: 100%;
+
+        .fields-container {
+          align-items: center;
+
+          .product-variant {
+            flex: 1 0;
+
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-gap: $gap;
+
+            .line {
+              display: flex;
+              align-items: stretch;
+              justify-content: space-between;
+              gap: $gap;
+            }
+
+            .line > :first-child {
+              flex: 1 0;
+            }
+
+            .line .inputgroup {
+              display: flex;
+              align-items: stretch;
+              justify-content: flex-start;
+            }
+
+            .line .inputgroup > :first-child {
+              width: 5rem;
+              background-color: var(--text-color-secondary);
+              border-top-left-radius: 4px;
+              border-bottom-left-radius: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .line .inputgroup input {
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+            }
+
+            .colorpicker {
+              width: 5rem;
+            }
+
+            .colorpicker .p-colorpicker {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin themefy($theme) {
+  .app-public-products-form-module {
+    @include _layout($theme);
+  }
+}

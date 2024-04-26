@@ -1,14 +1,12 @@
 import { NgModule } from "@angular/core";
 import { AppHeaderModule } from "./header/header.module";
-import { AppFooterComponent } from "./footer/footer.component";
 import { AppCommonImportsModule } from "../../modules/commom-imports.module";
 import { AppGlobalLayoutComponent } from "./layout.component";
-import { AppMainMenuModule } from "src/app/private/components/main-menu/main-menu.module";
+import { AppMainMenuModule } from "src/app/private/components/app-shell/main-menu/main-menu.module";
 import { RouterModule } from "@angular/router";
 
 const declarations = [
   AppGlobalLayoutComponent,
-  AppFooterComponent
 ]
 
 @NgModule({

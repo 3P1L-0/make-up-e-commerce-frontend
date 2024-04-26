@@ -1,0 +1,5 @@
+@use "./simple-utilities-form-view";
+
+@mixin themefy($theme) {
+  @include simple-utilities-form-view.themefy($theme);
+}

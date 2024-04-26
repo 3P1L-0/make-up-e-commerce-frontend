@@ -1,0 +1,39 @@
+@use "./header/header.theme" as header;
+@use "./main-menu/main-menu-theme" as main-menu;
+@use "/src/scss/config/variables/headers";
+@use "/src/scss/config/variables/menus";
+@use "/src/scss/config/variables/layers";
+
+@mixin _private() {
+  .app-private-header-module {
+    height: headers.$top-header;
+    position: absolute;
+    z-index: layers.$top-header-z-idx;
+    inset: 0;
+    border-block-end: 1px solid var(--surface-border);
+  }
+
+  .main-content-wrapper {
+    $have-it-your-way-webstorm: headers.$top-header; // just to satisfy webstorm's annoying error messages!!!
+
+    margin-top: headers.$top-header;
+    height: calc(100vh - $have-it-your-way-webstorm);
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-columns: menus.$main-menu 0 1fr;
+
+    .app-main-menu-module {
+      position: sticky;
+      top: 0;
+    }
+  }
+}
+
+@mixin themefy($theme) {
+  .app-private-shell-module {
+    @include _private();
+    @include header.themefy();
+    @include main-menu.themefy($theme);
+  }
+}

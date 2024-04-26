@@ -1,0 +1,33 @@
+@mixin _private() {
+  &,
+  .navigation .menu {
+    display: flex;
+    align-items: center;
+  }
+
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: var(--surface-b);
+
+  .navigation > .menu {
+    justify-content: space-evenly;
+
+    .img-container {
+      background-color: var(--surface-d);
+      padding: .5rem;
+      width: 3rem;
+      height: 3rem;
+
+      &,
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+@mixin themefy() {
+  .app-private-header-module {
+    @include _private;
+  }
+}

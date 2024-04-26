@@ -1,0 +1,83 @@
+
+@mixin themefy() {
+  .app-service-list-item-module {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    align-items: stretch;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    background-color: var(--surface-a);
+
+    .img-container {
+      width: 8rem;
+    }
+
+    .details-section {
+      flex: 1 0;
+
+      .line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:has(.prices) {
+          padding-right: 1rem;
+        }
+
+        .prices {
+          display: flex;
+          flex-flow: column nowrap;
+          justify-content: flex-start;
+          align-items: flex-end;
+        }
+      }
+    }
+
+    p-speedDial,
+    .on-sale-tag {
+      position: absolute;
+    }
+
+    .on-sale-tag {
+      top: -1.5rem;
+      right: 8rem;
+      padding: .8rem;
+      background-color: var(--orange-600);
+
+      /*&::before {
+        content: "";
+        border-bottom: 10px solid var(--orange-50);
+        //border-left: 20px solid var(--orange-100);
+        border-top: 10px solid var(--orange-200);
+        border-right: 30px solid var(--orange-300);
+      }*/
+    }
+
+    p-speedDial {
+      right: 3.7rem;
+      top: 1rem;
+
+      .p-button {
+        width: 40px;
+        height: 40px;
+      }
+
+      .p-speeddial-action {
+        background-color: var(--surface-d);
+        color: var(--surface-text);
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .p-dialog {
+      .accept {
+        background: red;
+        border: 1px solid red!important;
+        color: white;
+        font-weight: 600;
+      }
+    }
+  }
+}

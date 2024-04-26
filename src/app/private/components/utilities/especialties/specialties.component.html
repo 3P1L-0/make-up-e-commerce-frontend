@@ -1,0 +1,32 @@
+<h2 class="toolbar">Cadastro de Especialidades</h2>
+<section class="container">
+  <div class="content-container">
+    <form [formGroup]="specialtiesForm">
+      <ul class="list" formArrayName="specialties">
+        <li class="list-item" *ngFor="let frmGroup of specialtiesFormArray.controls; index as idx" [formGroupName]="idx">
+          <div class="input-field">
+            <div class="control">
+              <p>Nome da Especialidade</p>
+              <input type="text" pInputText formControlName="name"/>
+            </div>
+            <small class="p-error block" *ngIf="frmGroup.get('name')?.hasError('required')">Campo obrigatório</small>
+            <small class="p-error block"
+                   *ngIf="frmGroup.get('name')?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O
+              nome não pode conter somente espaços</small>
+          </div>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                  (click)="removeSpecialty(idx)"></button>
+        </li>
+      </ul>
+    </form>
+    <button pButton class="p-button-secondary" label="Adicionar" (click)="newSpecialty()"></button>
+  </div>
+  <div class="controls">
+    <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
+      <fa-icon icon="xmark"></fa-icon>
+    </button>
+    <button pButton class="p-button-success" icon="fas check" (click)="saveCategories()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="!canSave()">
+      <fa-icon icon="check"></fa-icon>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<app-view-header><button pButton (click)="newService()" icon="add"><i class="material-symbols-rounded">add</i></button></app-view-header>
+<section class="services-area">
+  <p-card>
+    <section class="search-area">
+      <div class="field p-inputgroup">
+        <fa-icon icon="filter" class="p-inputgroup-addon"></fa-icon>
+        <input type="text" pInputText placeholder="Filtrar Serviços..." #searchField/>
+      </div>
+    </section>
+    <section class="data-area">
+      <app-service-list-item-view></app-service-list-item-view>
+      <app-service-list-item-view></app-service-list-item-view>
+    </section>
+  </p-card>
+</section>

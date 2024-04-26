@@ -13,16 +13,21 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { TooltipModule } from "primeng/tooltip";
 import { FileUploadModule } from "primeng/fileupload";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ConfirmationService } from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import { TabViewModule } from "primeng/tabview";
 import { CardModule } from "primeng/card";
 import { DividerModule } from "primeng/divider";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 import { CheckboxModule } from "primeng/checkbox";
 import { TableModule } from "primeng/table";
-import {DynamicDialogModule} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
 import {PasswordModule} from "primeng/password";
 import {MenuModule} from "primeng/menu";
+import {BreadcrumbModule} from "primeng/breadcrumb";
+import {ChipsModule} from "primeng/chips";
+import {ChipModule} from "primeng/chip";
+import {MultiSelectModule} from "primeng/multiselect";
+import {SpeedDialModule} from "primeng/speeddial";
 
 @NgModule({
   exports: [
@@ -49,10 +54,17 @@ import {MenuModule} from "primeng/menu";
     ToastModule,
     DynamicDialogModule,
     PasswordModule,
-    MenuModule
+    MenuModule,
+    BreadcrumbModule,
+    ChipModule,
+    ChipsModule,
+    MultiSelectModule,
+    SpeedDialModule
   ],
   providers: [
-    ConfirmationService
+    ConfirmationService,
+    DialogService,
+    MessageService
   ]
 })
 export class AppPrimeNgModule {}

@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { AppGlobalLayoutComponent } from '../components/layout/layout.component';
 
 const _routes: Routes = [
   {
     path: "app",
-    component: AppGlobalLayoutComponent,
     children: [
       {
         path: "private",

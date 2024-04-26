@@ -1,25 +1,32 @@
 <h2 class="toolbar">Cadastro de Marcas</h2>
-<div class="content-container">
-  <form [formGroup]="brandsForm">
-    <ul formArrayName="brands" class="list">
-      <li class="list-item" [formGroupName]="idx" *ngFor="let frmGroup of brandsFormArray.controls; index as idx">
-        <ng-container [formGroupName]="idx">
+<section class="container">
+  <div class="content-container">
+    <form [formGroup]="brandsForm">
+      <ul formArrayName="brands" class="list">
+        <li class="list-item" [formGroupName]="idx" *ngFor="let frmGroup of brandsFormArray.controls; index as idx">
           <div class="input-field">
-            <div class="field p-float-label">
-              <input type="text" pInputText id="{{'brand-'+idx}}" formControlName="name"/>
-              <label for="{{'brand-'+idx}}">Nome</label>
+            <div class="control">
+              <p>Nome</p>
+              <input type="text" pInputText formControlName="name"/>
             </div>
             <small class="p-error block" *ngIf="getControl(idx)?.hasError('required')">Campo obrigatório</small>
-            <small class="p-error block" *ngIf="getControl(idx)?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O nome não pode conter somente espaços</small>
+            <small class="p-error block"
+                   *ngIf="getControl(idx)?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O nome não
+              pode conter somente espaços</small>
           </div>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-secondary" (click)="removeBrand(idx)"></button>
-        </ng-container>
-      </li>
-    </ul>
-  </form>
-  <button pButton label="Adicionar" icon="pi pi-plus" iconPos="right" (click)="newBrand()"></button>
-</div>
-<div class="controls">
-  <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top"><fa-icon icon="xmark"></fa-icon></button>
-  <button pButton class="p-button-success" icon="fas check" (click)="saveBrands()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="brandsForm.invalid"><fa-icon icon="check"></fa-icon></button>
-</div>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                  (click)="removeBrand(idx)"></button>
+        </li>
+      </ul>
+    </form>
+    <button pButton class="p-button-secondary" label="Adicionar" (click)="newBrand()"></button>
+  </div>
+  <div class="controls">
+    <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
+      <fa-icon icon="xmark"></fa-icon>
+    </button>
+    <button pButton class="p-button-success" icon="fas check" (click)="saveBrands()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="brandsForm.invalid">
+      <fa-icon icon="check"></fa-icon>
+    </button>
+  </div>
+</section>

@@ -3,7 +3,7 @@ import { AppThemeService } from './services/theme/theme.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import {
   faCheck,
-  faCirclePlus,
+  faCirclePlus, faCircleXmark, faFilter,
   faPaperclip,
   faPenToSquare,
   faPlus,
@@ -45,7 +45,9 @@ export class AppComponent implements OnInit {
       faRightToBracket,
       faUserPlus,
       faRightFromBracket,
-      faShopify
+      faShopify,
+      faFilter,
+      faCircleXmark
     );
   }
 }

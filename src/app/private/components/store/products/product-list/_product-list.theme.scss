@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '/src/scss/utility/utilities' as utils;
+
+@mixin _layout($theme) {
+  padding: 0 2rem;
+
+  .products-area {
+
+  }
+}
+
+@mixin themefy($theme) {
+  .app-public-product-list-module {
+    @include _layout($theme);
+  }
+}

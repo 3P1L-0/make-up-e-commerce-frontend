@@ -6,7 +6,7 @@ import { AppThemeService } from "src/app/global/services/theme/theme.service";
 import {MenuItem} from "primeng/api";
 
 @Component({
-  selector: "app-header",
+  selector: "app-header-view",
   templateUrl: "./header.component.html",
   host: {'class': 'app-header-module'}
 })

@@ -1,4 +1,4 @@
 export const enum FILE_API {
-  upload = "files/upload/",
-  download = "files/download/"
+  upload = "resource/upload/",
+  download = "resource/download/"
 }

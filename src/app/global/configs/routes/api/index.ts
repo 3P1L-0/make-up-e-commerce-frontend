@@ -13,3 +13,4 @@ export * from "./person";
 export * from "./security-question";
 export * from "./gender";
 export * from "./user";
+export * from "./specialty";

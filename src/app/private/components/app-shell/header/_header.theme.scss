@@ -9,6 +9,12 @@
   padding: 10px 20px;
   background-color: var(--surface-b);
 
+  .disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   .navigation > .menu {
     justify-content: space-evenly;
 

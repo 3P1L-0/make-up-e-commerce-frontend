@@ -1,13 +1,13 @@
 <aside [id]="menuParts.menu" class="main-menu-container">
+  <button pButton icon="pi pi-pencil" class="test-button"></button>
   <!-- MENU NAVIGATION AREA -->
   <section [id]="menuParts.navSection" class="navs-section">
-    <button class="menu-trigger" (click)="toggleHide($event)"><span  class="material-symbols-rounded">menu_open</span></button>
     <ul class="main-menu-list overlay-content" #mainMenu>
       <!-- Dashboard -->
       <li class="list-item">
         <a>
-          <i class="material-symbols-rounded ms-filled"><span>dashboard</span></i>
-          <span><span>Dashboard</span></span>
+          <i class="material-symbols-rounded ms-filled">dashboard</i>
+          <span>Dashboard</span>
         </a>
       </li>
       <!-- Despesas -->
@@ -44,14 +44,14 @@
       <li class="list-item">
         <div class="trigger">
           <div class="label-container">
-            <span class="material-symbols-rounded">group</span>
+            <i class="material-symbols-rounded">group</i>
             <span>Utilizadores</span>
           </div>
           <span class="material-symbols-rounded">arrow_drop_down</span>
         </div>
         <ul class="sub-menu-list">
-          <li class="list-item"><a><span>Funcionários</span></a></li>
-          <li class="list-item"><a><span>Clientes</span></a></li>
+          <li class="list-item"><a [routerLink]="routes.employees" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Funcionários</span></a></li>
+          <li class="list-item"><a [routerLink]="routes.clients" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Clientes</span></a></li>
         </ul>
       </li>
       <!-- Centro de Comentários -->
@@ -107,8 +107,7 @@
         </a>
       </li>
     </ul>
-    <div class="overlay" aria-hidden="true" tabindex="-1" (click)="toggleHide($event)"></div>
   </section>
   <!-- Button Toggle -->
-  <section class="toggler-section"><button pButton icon="line_end_arrow" class="toggler" (click)="toggleShrink()"><i class="material-symbols-rounded ms-filled">line_end_arrow</i></button></section>
+  <section class="toggler-section"><button pButton class="toggler" (click)="toggleShrink()"><i class="material-symbols-rounded ms-filled">line_start_arrow</i></button></section>
 </aside>

@@ -33,14 +33,11 @@ export class AppMainMenuComponent implements AfterViewInit {
         const target = (evt.target as HTMLElement);
         const expandedMenu = this.mainMenu.nativeElement.querySelector("."+expandedClass);
 
-        console.log(target)
-        console.log(expandedMenu)
-        console.log(target.parentElement.classList.contains(expandedClass))
-
         if(target.parentElement.classList.contains(expandedClass)) expandedMenu.classList.remove(expandedClass);
         else {
           expandedMenu?.classList.remove(expandedClass);
           target.parentElement.classList.add(expandedClass);
+
         }
       });
     })
@@ -48,5 +45,4 @@ export class AppMainMenuComponent implements AfterViewInit {
 
   public toggleShrink(): void { this._menuService.toggleShrinked(); }
   public toggleHide(evt: MouseEvent): void { this._menuService.toggleHide(); }
-  public hideMenu(): void { this._menuService.hideMenu(); }
 }

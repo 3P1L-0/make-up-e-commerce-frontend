@@ -6,7 +6,7 @@ echo "What would you like to do? (b -> build, r -> run, q -> quit): "
 read -r choice
 
 if [[ $choice =~ $re ]]; then
-  if [ $choice = q ]; then
+  if [ "$choice" = q ]; then
     echo see ya
   else
     echo "I understand! Technology is not easy..."
@@ -14,7 +14,7 @@ if [[ $choice =~ $re ]]; then
   exit 0
 else
   set -e
-  if [ $choice = b ]; then
+  if [ "$choice" = b ]; then
     echo "stopping and flushing containers"
     docker-compose down -v
 

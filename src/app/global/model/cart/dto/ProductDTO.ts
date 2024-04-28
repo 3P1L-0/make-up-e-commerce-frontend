@@ -10,4 +10,13 @@ export class ProductDTO extends SaleItemDTO {
   public img: FileDTO;
 	public variants: ProductVariantDTO[];
 	public currentAmount;
+
+  public constructor() {
+    super();
+
+    this.category = new CategoryDTO();
+    this.brand = new BrandDTO();
+    this.variants = [];
+    this.currentAmount = 0;
+  }
 }

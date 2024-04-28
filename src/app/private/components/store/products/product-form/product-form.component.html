@@ -1,13 +1,13 @@
 <app-view-header>
-  <button pButton icon="pi pi-arrow-left" (click)="goBack()" pTooltip="Voltar" tooltipPosition="left" class="p-button-secondary"></button>
-  <button pButton icon="circle-xmark" pTooltip="Limpar campos" tooltipPosition="bottom" (click)="clearFields()">
+  <button pButton icon="pi pi-arrow-left" (click)="goBack()" pTooltip="Voltar" tooltipPosition="left"></button>
+  <button pButton icon="circle-xmark" pTooltip="Limpar campos" tooltipPosition="bottom" (click)="clearFields()" class="p-button-danger">
     <fa-icon icon="circle-xmark"></fa-icon>
   </button>
-  <button pButton icon="check" pTooltip="Salvar produto" [hideDelay]="500" tooltipPosition="left" class="p-button-secondary" (click)="save()" [disabled]="!canSave()">
+  <button pButton icon="check" pTooltip="Salvar produto" [hideDelay]="500" tooltipPosition="left" class="p-button-success" (click)="save()" [disabled]="!canSave()">
     <fa-icon icon="check"></fa-icon>
   </button>
 </app-view-header>
-<section class="content-section">
+<section class="content-wrapper">
   <p-card class="products" header="Produto">
     <form [formGroup]="productsForm" enctype="multipart/form-data">
       <div class="top-content">
@@ -19,44 +19,55 @@
           <input type="file" hidden (change)="handleSelectFile($event)" #file accept="image/*"/>
         </section>
         <section class="form-fields">
-          <!-- Product name -->
-          <div class="field p-float-label">
-            <input id="product-field" type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
-            <label for="product-field">Nome</label>
-          </div>
           <!-- Product code -->
-          <div class="field p-float-label">
-            <input id="product-code-field" type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
-            <label for="product-code-field">Código</label>
+          <div class="field">
+            <div class="control">
+              <p>Código</p>
+              <input type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
+            </div>
+          </div>
+          <!-- Product name -->
+          <div class="field">
+            <div class="control">
+              <p>Nome</p>
+              <input type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
+            </div>
           </div>
           <!-- Product state -->
-          <div class="field p-float-label">
-            <p-dropdown [options]="saleItemState" id="product-state-field" formControlName="state" optionLabel="value" [filter]="true" filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
-                        dataKey="key" optionValue="key" placeholder="Informe a disponibilidade" filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
-            <label for="product-state-field">Disponibilidade</label>
+          <div class="field">
+            <div class="control"><p>Disponibilidade</p>
+              <p-dropdown [options]="saleItemState" formControlName="state" optionLabel="value" [filter]="true"
+                          filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
+                          dataKey="key" optionValue="key" placeholder="Informe a disponibilidade"
+                          filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
+            </div>
           </div>
           <!-- Product Category -->
-          <div class="field p-float-label">
-            <p-dropdown [options]="categories" id="product-category-field" formControlName="category" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true"
-                        [lazy]="true" placeholder="Escolha uma categoria" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma categoria cadastrada" class="p-dropdown-sm"></p-dropdown>
-            <label for="product-category-field">Categoria</label>
-            <!-- <button mat-mini-fab><fa-icon icon="plus" size="lg"></fa-icon></button> -->
+          <div class="field multi-column" formGroupName="category">
+            <div class="control">
+              <p>Categoria</p>
+              <p-dropdown [options]="categories" formControlName="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true" [lazy]="true"
+                          placeholder="Escolha uma categoria" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma categoria cadastrada" class="p-dropdown-sm"></p-dropdown>
+            </div>
             <button pButton icon="pi pi-plus" class="p-button-rounded p-button-sm" pTooltip="Nova categoria" [showDelay]="500" [hideDelay]="250" (click)="newCategory()"></button>
           </div>
           <!-- Product Brand -->
-          <div class="field p-float-label">
-            <p-dropdown [options]="brands" id="product-brand-field" formControlName="brand" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true"
-                        [lazy]="true" placeholder="Selecione uma marca" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma marca cadastrada" class="p-dropdown-sm"></p-dropdown>
-            <label for="product-brand-field">Marca</label>
-            <!-- <button mat-mini-fab><fa-icon icon="plus" size="lg"></fa-icon></button> -->
+          <div class="field multi-column" formGroupName="brand">
+            <div class="control">
+              <p>Marca</p>
+              <p-dropdown [options]="brands" formControlName="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true" [lazy]="true"
+                          placeholder="Selecione uma marca" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma marca cadastrada" class="p-dropdown-sm"></p-dropdown>
+            </div>
             <button pButton icon="pi pi-plus" pTooltip="Nova marca" [showDelay]="500" [hideDelay]="250" (click)="newBrand()" class="p-button-rounded p-button-sm"></button>
           </div>
         </section>
       </div>
       <!-- Product description -->
-      <div class="field p-float-label">
-        <textarea id="product-description-field" pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true"></textarea>
-        <label for="product-description-field">Descrição</label>
+      <div class="field">
+        <div class="control">
+          <p>Descrição</p>
+          <textarea pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true"></textarea>
+        </div>
       </div>
     </form>
   </p-card>
@@ -64,49 +75,45 @@
     <form [formGroup]="variantsForm" enctype="multipart/form-data">
       <!-- Form fields -->
       <ul formArrayName="variants" class="variants-list">
-        <li *ngFor="let frmGroup of getVariantsFormArray().controls; index as idx" class="variant-wrapper">
+        <li *ngFor="let frmGroup of getVariantsFormArray().controls; index as idx" class="variant-wrapper" [formGroupName]="idx">
           <div class="fields-container">
-            <div class="product-variant" [formGroupName]="idx">
+            <div class="product-variant" >
               <div class="line">
-                <div class="field p-float-label grow">
-                  <input type="text" pInputText formControlName="code" id="variant-code-field" class="p-input-sm"/>
-                  <label for="variant-code-field">Código</label>
+                <div class="field grow">
+                  <div class="control">
+                    <p>Código</p>
+                    <input type="text" pInputText formControlName="code" class="p-input-sm"/>
+                  </div>
                 </div>
-                <div class="field inputgroup">
-                  <div class="inputgroup-addon"><span>Cor</span></div>
-                  <p-colorPicker formControlName="color" class="colorpicker"></p-colorPicker>
+                <div class="field">
+                  <div class="control">
+                    <p>Cor</p>
+                    <p-colorPicker formControlName="color" class="colorpicker"></p-colorPicker>
+                  </div>
                 </div>
               </div>
               <div class="line">
-                <div class="field p-float-label">
-                  <input type="text" pInputText formControlName="density" id="variant-density-field" class="p-input-sm"/>
-                  <label for="variant-density-field">Densidade</label>
+                <div class="field">
+                  <div class="control">
+                    <p>Densidade</p>
+                    <input type="text" pInputText formControlName="density" class="p-input-sm"/>
+                  </div>
                 </div>
-                <div class="field inputgroup">
-                  <div class="inputgroup-addon"><span>Preço</span></div>
-                  <p-inputNumber formControlName="price" mode="currency" currency="AOA" locale="pt-PT" [showButtons]="true"
-                                 [min]="0.1" title="Preço" [showClear]="true" class="grow"></p-inputNumber>
+                <div class="field">
+                  <div class="control">
+                    <p>Preço</p>
+                    <p-inputNumber formControlName="price" mode="currency" currency="AOA" locale="pt-PT" [showButtons]="true" buttonLayout="horizontal" decrementButtonIcon="pi pi-minus" incrementButtonIcon="pi pi-plus" [min]="0.1" title="Preço" [showClear]="true" class="grow"></p-inputNumber>
+                  </div>
                 </div>
               </div>
             </div>
-            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-secondary p-button-danger"
-                    (click)="removeVariant(idx)" pTooltip="Eliminar variante" tooltipPosition="left" [showDelay]="500"></button>
+            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removeVariant(idx)" pTooltip="Eliminar" tooltipPosition="left" [showDelay]="500"></button>
           </div>
           <p-divider></p-divider>
         </li>
       </ul>
-      <button
-        pButton
-        icon="pi pi-plus"
-        class="p-button-rounded"
-        pTooltip="Adicionar nova variante"
-        (click)="newVariant()"
-        tooltipPosition="top"
-        [showDelay]="500"
-      ></button>
+      <button pButton class="btn-add" label="Adicionar" (click)="newVariant()"></button>
     </form>
   </p-card>
 </section>
-<!-- Dialogs -->
-<p-confirmDialog></p-confirmDialog>
 <p-toast hideTransitionOptions="500ms" [preventOpenDuplicates]="true"></p-toast>

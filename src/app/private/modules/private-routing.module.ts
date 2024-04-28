@@ -19,6 +19,10 @@ const routes: Routes = [
       {
         path: "services",
         loadChildren: () => import("../components/store/service/service.module").then(m => m.AppPrivateServicesModule)
+      },
+      {
+        path: "users",
+        loadChildren: () => import("../components/users/users.module").then(m => m.AppUsersModule)
       }
     ]
   }

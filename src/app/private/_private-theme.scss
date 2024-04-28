@@ -2,10 +2,12 @@
 @use "./components/view-header/view-header-theme" as view-header;
 @use "./components/store/store-theme" as store;
 @use "./components/utilities/utilities-theme" as utilities;
+@use "./components/users/users-theme" as users;
 
 @mixin themefy($theme) {
   @include app-shell.themefy($theme);
   @include view-header.themefy();
   @include store.themefy($theme);
   @include utilities.themefy($theme);
+  @include users.themefy();
 }

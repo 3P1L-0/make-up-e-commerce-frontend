@@ -11,7 +11,7 @@
   <form [formGroup]="servicesForm" enctype="multipart/form-data">
     <div class="top-content">
       <section class="img-container">
-        <img [src]="thumbnailSrc" alt="imagem do produto"/>
+        <img [src]="thumbnailSrc" alt="imagem do serviço"/>
         <button pButton (click)="file.click()" pTooltip="Escolher imagem" class="select-file-btn p-button-rounded">
           <fa-icon icon="paperclip" size="xl"></fa-icon>
         </button>
@@ -38,7 +38,7 @@
         <!-- Service availability -->
         <div class="field">
           <p>Disponibilidade</p>
-          <p-dropdown [options]="saleItemState" id="product-state-field" formControlName="state" optionLabel="value" [filter]="true" filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
+          <p-dropdown [options]="saleItemState" formControlName="state" optionLabel="value" [filter]="true" filterBy="value" [showClear]="true" [resetFilterOnHide]="true"
                       dataKey="key" optionValue="key" placeholder="Informe a disponibilidade" filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
         </div>
         <!-- Service duration -->
@@ -75,12 +75,9 @@
       </div>
     </div>
     <!-- Service description -->
-    <div class="field p-float-label">
-      <textarea id="product-description-field" pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true"></textarea>
-      <label for="product-description-field">Descrição</label>
+    <div class="field">
+      <p>Descrição</p>
+      <textarea pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true"></textarea>
     </div>
   </form>
 </p-card>
-<!-- Dialogs -->
-<p-confirmDialog></p-confirmDialog>
-<p-toast hideTransitionOptions="500ms" [preventOpenDuplicates]="true"></p-toast>

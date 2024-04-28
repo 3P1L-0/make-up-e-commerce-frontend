@@ -14,17 +14,13 @@ export class AppProductService {
   /* MEMBERS */
   private readonly _url = environment.api;
 
-  public fetch(): Observable<ProductDTO[]> {
-    return this._http.get<ProductDTO[]>(this._url+PRODUCT_API.fetch);
-  }
+  public fetch(): Observable<ProductDTO[]> { return this._http.get<ProductDTO[]>(this._url+PRODUCT_API.fetch); }
 
   public fetchByID(id: number): Observable<ProductDTO> {
     return this._http.get<ProductDTO>(this._url+PRODUCT_API.getById+id);
   }
 
-  public update(category: ProductDTO): Observable<ProductDTO> {
-    return this._http.put<ProductDTO>(this._url+PRODUCT_API.update, category);
-  }
+  public update(category: ProductDTO): Observable<ProductDTO> { return this._http.put<ProductDTO>(this._url+PRODUCT_API.update, category); }
 
   public deleteById(id: number): Observable<boolean> {
     return this._http.delete<boolean>(this._url+PRODUCT_API.deleteById+id);
@@ -35,7 +31,7 @@ export class AppProductService {
   public newVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> { return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant); }
 
   public createVariantList(variants: ProductVariantDTO[]): Observable<ProductVariantDTO[]> {
-    console.log("registering variants");
+    variants.forEach(v=> {v.product.variants = []});
     return this._http.post<ProductVariantDTO[]>(this._url+PRODUCT_API.createVariantList, variants);
   }
 

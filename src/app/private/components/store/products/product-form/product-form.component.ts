@@ -1,16 +1,14 @@
 import {Component, ElementRef, inject, OnInit, Type, ViewChild} from "@angular/core";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
 import {emptyString} from "src/app/global/configs/validators/forms/validators";
 import {BrandDTO} from "src/app/global/model/cart/dto/BrandDTO";
 import {CategoryDTO} from "src/app/global/model/cart/dto/CategoryDTO";
 import {ProductDTO} from "src/app/global/model/cart/dto/ProductDTO";
 import {SaleItemType} from "src/app/global/model/cart/enums/SaleItemType";
-import {forkJoin, map, Observable, of, switchMap, tap} from "rxjs";
+import {forkJoin, of, switchMap} from "rxjs";
 import {SaleItemState} from "src/app/global/model/cart/enums/SaleItemState";
-import {ConfirmationService, MessageService} from "primeng/api";
+import {MessageService} from "primeng/api";
 import {AppFileService} from "src/app/global/services/file.service";
-import {FileDTO} from "src/app/global/model/FileDTO";
 import {Product} from "src/app/global/model/cart/Product";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AppProductService} from "../../../../services/product.service";
@@ -20,9 +18,6 @@ import {AppCategoriesComponent} from "../../../utilities/categories/categories.c
 import {AppBrandsComponent} from "../../../utilities/brands/brands.component";
 import {AppViewHeaderService} from "../../../view-header/view-header.service";
 import {ProductVariantDTO} from "../../../../../global/model/cart/dto/ProductVariantDTO";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../../environments/environment";
-import {jsonc} from "jsonc";
 
 @Component({
   selector: "app-public-products-form",
@@ -39,7 +34,6 @@ export class AppProductsFormComponent implements OnInit {
   private readonly _diagService = inject(DialogService);
   private readonly _msgService = inject(MessageService);
   private readonly _navigationService = inject(AppViewHeaderService);
-  private readonly  _http = inject(HttpClient);
 
   /* MEMBERS */
   public readonly productsForm: FormGroup;
@@ -57,12 +51,19 @@ export class AppProductsFormComponent implements OnInit {
   @ViewChild("file", {read: ElementRef<HTMLInputElement>}) fileInput!: ElementRef<HTMLInputElement>;
 
   constructor() {
+    this.saleItemState = [];
+    for(let [k,v] of Object.entries(SaleItemState)) this.saleItemState.push({key: k, value: v});
+
     this.productsForm = this._frmBuilder.group({
       name: new FormControl<string>(null, [Validators.required, emptyString]),
       code: new FormControl<string>(null, [Validators.required, emptyString]),
       state: new FormControl<string>(null, [Validators.required]),
-      category: new FormControl<number>(null, [Validators.required]),
-      brand: new FormControl<number>(null, [Validators.required]),
+      category: this._frmBuilder.group({
+        id: new FormControl<number>(null, [Validators.required])
+      }),
+      brand: this._frmBuilder.group({
+        id: new FormControl<number>(null, [Validators.required])
+      }),
       kind: new FormControl<string>(Object.keys(SaleItemType)[0]),
       description: new FormControl<string>(null, [])
     });
@@ -70,9 +71,6 @@ export class AppProductsFormComponent implements OnInit {
     this.variantsForm = this._frmBuilder.group({
       variants: this._frmBuilder.array([])
     });
-
-    this.saleItemState = [];
-    for(let [k,v] of Object.entries(SaleItemState)) this.saleItemState.push({key: k, value: v});
   }
 
   public ngOnInit(): void {
@@ -139,12 +137,12 @@ export class AppProductsFormComponent implements OnInit {
 
   public newCategory(): void {
     this._openDynamicDialog(AppCategoriesComponent).onClose.pipe(
-      switchMap(() => this._brandsService.fetch())
-    ).subscribe(res => { this.brands = res; })
+      switchMap(() => this._categoryService.fetch())
+    ).subscribe(res => { this.categories = res; })
   }
 
   public deleteProduct(showToastr: boolean): void {
-    this._productsService.deleteById(this.product.getId()).subscribe({
+    if(this.product?.getId()) this._productsService.deleteById(this.product.getId()).subscribe({
       next: success => {
         if(success) {
           this.product = null;
@@ -168,6 +166,7 @@ export class AppProductsFormComponent implements OnInit {
   }
 
   public canSave(): boolean { return this.productsForm.valid && this.variantsForm.valid; }
+
   private _openDynamicDialog(componentName: Type<any>): DynamicDialogRef {
     return this._diagService.open(
       componentName,
@@ -183,29 +182,20 @@ export class AppProductsFormComponent implements OnInit {
     );
   }
 
-  public serveImg(imgHash: string): Observable<string> { return this._filesService.downloadFile(imgHash).pipe(switchMap(blob => this.readFile(blob))); }
-
   public save(): void {
-    console.log("Before trying to save product");
     if(!this.canSave()) return;
 
     this.product = new Product(new ProductDTO());
     Object.assign(this.product.getDTO(), this.productsForm.value);
-
-    this.product.getDTO().category = new CategoryDTO();
-    this.product.getDTO().category.id = this.productsForm.value.category;
-
-    this.product.getDTO().brand = new BrandDTO();
-    this.product.getDTO().brand.id = this.productsForm.value.brand;
+    console.log(this.product);
 
     this._productsService.newProduct(this.product.getDTO()).pipe(
       switchMap(dto => {
-        console.log("Before trying to save product (Inside SwitchMap)")
-        const variants = new Array<ProductVariantDTO>();
         this.product = new Product(dto);
 
-        this.getVariantsFormArray().controls.forEach(c => {
-          let v = Object.assign(new ProductVariantDTO(), c);
+        // to solve circular dependency issue
+        const variants = [...this.getVariantsFormArray().controls.map(c => {
+          let v = Object.assign(new ProductVariantDTO(), c.value);
           v.product = dto;
           v.name = "";
           v.kind = this.product.getDTO().kind;
@@ -214,17 +204,14 @@ export class AppProductsFormComponent implements OnInit {
           v.productStock = [];
           v.description = "";
 
-          variants.push(v);
-        });
+          return v;
+        })];
+        delete dto.variants;
 
-        // return this._productsService.createVariantList(variants);
-        return this._productsService.createVariantList(variants);
-       // return this._http.post(environment.api+'products/new/variant/list', variants)
-      }),
-      switchMap(() =>  {
-        const file = new FileDTO();
-        file.product = this.product.getDTO();
-        return this._filesService.uploadFile(this._selectedImage, this.product.getDTO().id, "product");
+        return forkJoin({
+          variants: this._productsService.createVariantList(variants),
+          img: this._filesService.uploadFile(this._selectedImage, dto.id, dto.kind)
+        });
       })
     ).subscribe({
       next: () => {
@@ -239,11 +226,6 @@ export class AppProductsFormComponent implements OnInit {
           severity:"error",
           detail:"Erro ao cadastrar produto"
         });
-        console.log(err.error);
-        console.log(err.detail?.message);
-        console.log(err);
-        console.log(jsonc.parse(jsonc.stringify(err)));
-        jsonc.log(err);
         this.deleteProduct(false);
       },
     });

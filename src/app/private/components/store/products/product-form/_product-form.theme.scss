@@ -1,156 +1,144 @@
-@use "sass:map";
-
-@use "/src/scss/utility/utilities" as utils;
+@use "/src/scss/config/variables/headers";
 
 @mixin _layout($theme) {
   padding: 0 2rem;
   overflow-y: auto;
-  $gap: 1rem;
+  $gap: 1.5rem;
 
-  & > .content-section {
-    &,
-    .top-content,
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 25rem;
+    grid-gap: $gap;
+    overflow-y: auto;
+    max-height: fit-content;
+  }
+
+  .products {
+    position: sticky;
+    top: headers.$top-header;
+    height: fit-content;
+  }
+
+  .products form {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    gap: $gap;
+
+    .top-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-gap: $gap;
+
+      .img-container {
+        width: 25rem;
+        position: relative;
+
+        .select-file-btn {
+          position: absolute;
+          top: 1.2rem;
+          right: 1.5rem;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          width: 3rem;
+          height: 3rem;
+          display: none;
+        }
+
+        &:hover .select-file-btn {
+          display: flex;
+        }
+      }
+    }
+
     .form-fields {
       display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 1fr);
       grid-gap: $gap;
     }
+  }
 
-    grid-template-columns: 2fr 1.5fr;
+  .products-variants {
+    min-width: 20rem;
+  }
 
-    .products {
-      position: sticky;
-      top: 191px;
-      height: fit-content;
-    }
+  .products-variants form,
+  .products-variants form .variants-list,
+  .variants-list .variant-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    gap: $gap;
+  }
 
-    .products form {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: flex-start;
-      align-items: stretch;
-      gap: $gap;
+  .products-variants form,
+  .variants-list .variant-wrapper {
+    gap: 0;
+  }
 
-      .top-content {
-        grid-template-columns: 1fr 3fr;
-        grid-gap: $gap;
+  .variants-list .variant-wrapper .fields-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-        .img-container {
-          position: relative;
-          min-width: 300px;
+    .line {
+      display: grid;
+      grid-gap: 1.5rem;
 
-          .select-file-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 4rem;
-            height: 4rem;
-            display: none;
-          }
-
-          &:hover .select-file-btn {
-            display: block;
-          }
-        }
-
-        .form-fields {
-          grid-template-rows: repeat(5, 1fr);
-
-          .field:has(.p-dropdown-sm) {
-            display: flex;
-            align-items: stretch;
-            gap: $gap;
-
-            .p-dropdown-sm {
-              flex: 1 0;
-            }
-
-            .p-dropdown-sm ~ button {
-              align-self: center;
-            }
-
-            .p-dropdown {
-              width: 100%;
-              height: 100%;
-            }
-          }
-        }
+      &:first-of-type {
+        padding-bottom: 1.5rem;
+        grid-template-columns: 1fr 2rem;
       }
 
-      .top-content + .field {
+      &:last-of-type {
+        grid-template-columns: 5rem 1fr;
       }
     }
 
-    .products-variants form {
-      .variants-list,
-      .variant-wrapper,
-      .fields-container {
-        display: flex;
-        gap: $gap;
-      }
+    & > :last-child {
+      width: 4rem;
+    }
+  }
 
-      .variants-list,
-      .variant-wrapper {
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: stretch;
-      }
+  .field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+  }
 
-      .variant-wrapper {
-        width: 100%;
+  .field .control {
+    height: 100%;
+    flex: 1 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
 
-        .fields-container {
-          align-items: center;
+    & > :first-child {
+      text-transform: uppercase;
+    }
 
-          .product-variant {
-            flex: 1 0;
+    & > :last-child {
+      flex: 1 0;
+    }
 
-            display: grid;
-            grid-template-rows: repeat(2, 1fr);
-            grid-gap: $gap;
+    .p-dropdown {
+      height: 100%;
+      width: 100%;
+      align-items: center;
 
-            .line {
-              display: flex;
-              align-items: stretch;
-              justify-content: space-between;
-              gap: $gap;
-            }
-
-            .line > :first-child {
-              flex: 1 0;
-            }
-
-            .line .inputgroup {
-              display: flex;
-              align-items: stretch;
-              justify-content: flex-start;
-            }
-
-            .line .inputgroup > :first-child {
-              width: 5rem;
-              background-color: var(--text-color-secondary);
-              border-top-left-radius: 4px;
-              border-bottom-left-radius: 4px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-
-            .line .inputgroup input {
-              border-top-left-radius: 0;
-              border-bottom-left-radius: 0;
-            }
-
-            .colorpicker {
-              width: 5rem;
-            }
-
-            .colorpicker .p-colorpicker {
-              height: 100%;
-            }
-          }
-        }
+      .p-dropdown-label {
+        height: fit-content;
       }
     }
+  }
+
+  .field.multi-column {
+    gap: 1rem;
+    align-items: center;
   }
 }
 

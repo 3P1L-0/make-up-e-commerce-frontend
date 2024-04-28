@@ -25,7 +25,10 @@ export class AppCategoriesComponent {
     this.categoriesForm = this._frmBuilder.group({
       categories: this._frmBuilder.array([])
     });
+    this.newCategory();
   }
+
+  public canSave(): boolean { return this.categoriesForm.valid && this.categoriesFormArray.length > 0; }
 
   private _addBrand(): void {
     this.categoriesFormArray.push(this._frmBuilder.group({
@@ -34,36 +37,31 @@ export class AppCategoriesComponent {
   }
 
   public get categoriesFormArray(): FormArray { return this.categoriesForm.get("categories") as FormArray; }
-
-  public newCategory(): void {
-    this._addBrand();
-  }
-
-  public removeCategory(idx: number): void {
-    this.categoriesFormArray.removeAt(idx);
-  }
+  public newCategory(): void { this._addBrand(); }
+  public removeCategory(idx: number): void { this.categoriesFormArray.removeAt(idx); }
 
   public closeDialog(): void {
+    this.categoriesFormArray.clear();
     this._diagRef.close();
   }
 
   public saveCategories(): void {
-    const newCategories: CategoryDTO[] = [];
+    const newCategories = [...this.categoriesFormArray.controls.map(c => Object.assign(new CategoryDTO(), c.value) as CategoryDTO)];
 
-    for(let ctrl of Object.values(this.categoriesFormArray.value)) {
-      let c: any = ctrl;
-
-      let brand = new CategoryDTO();
-      brand.name = c.name;
-      newCategories.push(brand);
-    }
-
-    this._categoriesService.createList(newCategories).subscribe(() => {
-      this._toastrService.add({
-        severity: "success",
-        detail: "Categorias cadastradas com sucesso"
-      });
-      this.categoriesFormArray.clear();
+    this._categoriesService.createList(newCategories).subscribe({
+      next: () => {
+        this._toastrService.add({
+          severity: "success",
+          detail: "Categorias cadastradas com sucesso"
+        });
+        this.closeDialog();
+      },
+      error: (err) => {
+        this._toastrService.add({
+          severity: "error",
+          detail: "Erro ao cadastrar categorias"
+        });
+      }
     });
   }
 

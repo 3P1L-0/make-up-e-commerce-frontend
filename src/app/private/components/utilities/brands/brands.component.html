@@ -14,18 +14,17 @@
                    *ngIf="getControl(idx)?.hasError('emptyString') && !getControl(idx)?.hasError('required')">O nome não
               pode conter somente espaços</small>
           </div>
-          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
-                  (click)="removeBrand(idx)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removeBrand(idx)"></button>
         </li>
       </ul>
     </form>
-    <button pButton class="p-button-secondary" label="Adicionar" (click)="newBrand()"></button>
+    <button pButton label="Adicionar" (click)="newBrand()"></button>
   </div>
   <div class="controls">
-    <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
+    <button pButton class="p-button-danger" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
       <fa-icon icon="xmark"></fa-icon>
     </button>
-    <button pButton class="p-button-success" icon="fas check" (click)="saveBrands()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="brandsForm.invalid">
+    <button pButton class="p-button-success" icon="fas check" (click)="saveBrands()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="!canSave()">
       <fa-icon icon="check"></fa-icon>
     </button>
   </div>

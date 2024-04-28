@@ -5,6 +5,8 @@ import { BrandDTO } from "src/app/global/model/cart/dto/BrandDTO";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {AppBrandService} from "../../../services/brand.service";
+import {PRIMENG_CONSTANTS} from "../../../../global/configs/enums/constants";
+import {CategoryDTO} from "../../../../global/model/cart/dto/CategoryDTO";
 
 @Component({
   selector: "app-brands-view",
@@ -26,6 +28,7 @@ export class AppBrandsComponent {
     this.brandsForm = this._frmBuilder.group({
       brands: this._frmBuilder.array([])
     });
+    this._addBrand();
   }
 
   private _addBrand(): void {
@@ -42,36 +45,25 @@ export class AppBrandsComponent {
 
   public removeBrand(idx: number): void {
     this.brandsFormArray.removeAt(idx);
-    this._toastrService.add({
-      severity: "info",
-      detail: "Marca eliminada"
-    });
   }
 
   public closeDialog(): void {
+    this.brandsFormArray.clear();
     this._diagRef.close();
   }
 
   public saveBrands(): void {
-    const newBrands: BrandDTO[] = [];
-
-    for(let ctrl of Object.values(this.brandsFormArray.value)) {
-      let c: any = ctrl;
-
-      let brand = new BrandDTO();
-      brand.name = c.name;
-      newBrands.push(brand);
-    }
-
+    const newBrands = [...this.brandsFormArray.controls.map(b => Object.assign(new BrandDTO(), b.value) as BrandDTO)];
     this._brandsService.createList(newBrands).subscribe(() => {
       this._toastrService.add({
         severity: "success",
         detail: "Marcas cadastradas com sucesso"
       });
-      this.brandsFormArray.clear();
+      this.closeDialog();
     });
   }
 
+  public canSave(): boolean { return this.brandsForm.valid && this.brandsFormArray.length > 0; }
   public getControl(idx: number): FormControl<any> {
     return (this.brandsFormArray.controls[idx] as FormGroup).get("name") as FormControl;
   }

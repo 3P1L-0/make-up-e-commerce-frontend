@@ -18,13 +18,13 @@
         </li>
       </ul>
     </form>
-    <button pButton class="p-button-secondary" label="Adicionar" (click)="newCategory()"></button>
+    <button pButton label="Adicionar" (click)="newCategory()"></button>
   </div>
   <div class="controls">
-    <button pButton class="p-button-secondary" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
+    <button pButton class="p-button-danger" icon="fas xmark" (click)="closeDialog()" pTooltip="Sair" [hideDelay]="250" [showDelay]="500" tooltipPosition="top">
       <fa-icon icon="xmark"></fa-icon>
     </button>
-    <button pButton class="p-button-success" icon="fas check" (click)="saveCategories()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="categoriesForm.invalid">
+    <button pButton class="p-button-success" icon="fas check" (click)="saveCategories()" pTooltip="Salvar" [hideDelay]="250" [showDelay]="500" tooltipPosition="top" [disabled]="!canSave()">
       <fa-icon icon="check"></fa-icon>
     </button>
   </div>

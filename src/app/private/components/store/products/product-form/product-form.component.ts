@@ -187,7 +187,6 @@ export class AppProductsFormComponent implements OnInit {
 
     this.product = new Product(new ProductDTO());
     Object.assign(this.product.getDTO(), this.productsForm.value);
-    console.log(this.product);
 
     this._productsService.newProduct(this.product.getDTO()).pipe(
       switchMap(dto => {
@@ -197,7 +196,7 @@ export class AppProductsFormComponent implements OnInit {
         const variants = [...this.getVariantsFormArray().controls.map(c => {
           let v = Object.assign(new ProductVariantDTO(), c.value);
           v.product = dto;
-          v.name = "";
+          v.name = c.value.code;
           v.kind = this.product.getDTO().kind;
           v.state = this.product.getDTO().state;
           v.category = this.product.getDTO().category;
@@ -208,11 +207,9 @@ export class AppProductsFormComponent implements OnInit {
         })];
         delete dto.variants;
 
-        return forkJoin({
-          variants: this._productsService.createVariantList(variants),
-          img: this._filesService.uploadFile(this._selectedImage, dto.id, dto.kind)
-        });
-      })
+        return this._productsService.createVariantList(variants);
+      }),
+      switchMap(() => this._filesService.uploadFile(this._selectedImage, this.product.getId(), this.product.getDTO().kind))
     ).subscribe({
       next: () => {
         this._msgService.add({

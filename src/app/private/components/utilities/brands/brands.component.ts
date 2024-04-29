@@ -1,12 +1,10 @@
-import { Component, inject } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { emptyString } from "src/app/global/configs/validators/forms/validators";
-import { BrandDTO } from "src/app/global/model/cart/dto/BrandDTO";
+import {Component, inject} from "@angular/core";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {emptyString} from "src/app/global/configs/validators/forms/validators";
+import {BrandDTO} from "src/app/global/model/cart/dto/BrandDTO";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {AppBrandService} from "../../../services/brand.service";
-import {PRIMENG_CONSTANTS} from "../../../../global/configs/enums/constants";
-import {CategoryDTO} from "../../../../global/model/cart/dto/CategoryDTO";
 
 @Component({
   selector: "app-brands-view",

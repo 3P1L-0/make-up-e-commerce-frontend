@@ -1,113 +1,110 @@
 <aside [id]="menuParts.menu" class="main-menu-container">
-  <button pButton icon="pi pi-pencil" class="test-button"></button>
   <!-- MENU NAVIGATION AREA -->
-  <section [id]="menuParts.navSection" class="navs-section">
-    <ul class="main-menu-list overlay-content" #mainMenu>
-      <!-- Dashboard -->
-      <li class="list-item">
-        <a>
-          <i class="material-symbols-rounded ms-filled">dashboard</i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <!-- Despesas -->
-      <li class="list-item">
-        <div class="trigger">
-          <div class="label-container">
-            <i class="material-symbols-rounded">monetization_on</i>
-            <span>Despesas</span>
-          </div>
-          <i class="material-symbols-rounded">arrow_drop_down</i>
+  <section [id]="menuParts.navSection" class="navs-section"><ul class="main-menu-list overlay-content" #mainMenu>
+    <!-- Dashboard -->
+    <li class="list-item">
+      <a>
+        <i class="material-symbols-rounded ms-filled">dashboard</i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <!-- Despesas -->
+    <li class="list-item">
+      <div class="trigger">
+        <div class="label-container">
+          <i class="material-symbols-rounded">monetization_on</i>
+          <span>Despesas</span>
         </div>
-        <ul class="sub-menu-list">
-          <li class="list-item"><a><span>Agendamentos</span></a></li>
-          <li class="list-item"><a><span>Compras</span></a></li>
-          <li class="list-item"><a><span>Encomendas</span></a></li>
-          <li class="list-item"><a><span>Reembolsos</span></a></li>
-        </ul>
-      </li>
-      <!-- Loja -->
-      <li class="list-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-        <div class="trigger">
-          <div class="label-container">
-            <i class="material-symbols-rounded">store</i>
-            <span>Loja</span>
-          </div>
-          <i class="material-symbols-rounded">arrow_drop_down</i>
+        <i class="material-symbols-rounded">arrow_drop_down</i>
+      </div>
+      <ul class="sub-menu-list">
+        <li class="list-item"><a><span>Agendamentos</span></a></li>
+        <li class="list-item"><a><span>Compras</span></a></li>
+        <li class="list-item"><a><span>Encomendas</span></a></li>
+        <li class="list-item"><a><span>Reembolsos</span></a></li>
+      </ul>
+    </li>
+    <!-- Loja -->
+    <li class="list-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+      <div class="trigger">
+        <div class="label-container">
+          <i class="material-symbols-rounded">store</i>
+          <span>Loja</span>
         </div>
-        <ul class="sub-menu-list">
-          <li class="list-item"><a [routerLink]="routes.products" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Produtos</span></a></li>
-          <li class="list-item"><a [routerLink]="routes.services" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Serviços</span></a></li>
-        </ul>
-      </li>
-      <!-- Users -->
-      <li class="list-item">
-        <div class="trigger">
-          <div class="label-container">
-            <i class="material-symbols-rounded">group</i>
-            <span>Utilizadores</span>
-          </div>
-          <span class="material-symbols-rounded">arrow_drop_down</span>
+        <i class="material-symbols-rounded">arrow_drop_down</i>
+      </div>
+      <ul class="sub-menu-list">
+        <li class="list-item"><a [routerLink]="routes.products" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Produtos</span></a></li>
+        <li class="list-item"><a [routerLink]="routes.services" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Serviços</span></a></li>
+      </ul>
+    </li>
+    <!-- Users -->
+    <li class="list-item">
+      <div class="trigger">
+        <div class="label-container">
+          <i class="material-symbols-rounded">group</i>
+          <span>Utilizadores</span>
         </div>
-        <ul class="sub-menu-list">
-          <li class="list-item"><a [routerLink]="routes.employees" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Funcionários</span></a></li>
-          <li class="list-item"><a [routerLink]="routes.clients" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Clientes</span></a></li>
-        </ul>
-      </li>
-      <!-- Centro de Comentários -->
-      <li class="list-item">
-        <div class="trigger">
-          <div class="label-container">
-            <i  class="material-symbols-rounded">forum</i>
-            <span>Feedback</span>
-          </div>
-          <span class="material-symbols-rounded">arrow_drop_down</span>
+        <span class="material-symbols-rounded">arrow_drop_down</span>
+      </div>
+      <ul class="sub-menu-list">
+        <li class="list-item"><a [routerLink]="routes.employees" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Funcionários</span></a></li>
+        <li class="list-item"><a [routerLink]="routes.clients" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}"><span>Clientes</span></a></li>
+      </ul>
+    </li>
+    <!-- Centro de Comentários -->
+    <li class="list-item">
+      <div class="trigger">
+        <div class="label-container">
+          <i  class="material-symbols-rounded">forum</i>
+          <span>Feedback</span>
         </div>
-        <ul class="sub-menu-list">
-          <li class="list-item"><a><span>Comentários</span></a></li>
-          <li class="list-item"><a><span>Resenhas</span></a></li>
-          <li class="list-item"><a><span>Testemunhos</span></a></li>
-        </ul>
-      </li>
-      <!-- Utilitários -->
-      <li class="list-item">
-        <div class="trigger">
-          <div class="label-container">
-            <i class="material-symbols-rounded">construction</i>
-            <span>Utilitários</span>
-          </div>
-          <span class="material-symbols-rounded">arrow_drop_down</span>
+        <span class="material-symbols-rounded">arrow_drop_down</span>
+      </div>
+      <ul class="sub-menu-list">
+        <li class="list-item"><a><span>Comentários</span></a></li>
+        <li class="list-item"><a><span>Resenhas</span></a></li>
+        <li class="list-item"><a><span>Testemunhos</span></a></li>
+      </ul>
+    </li>
+    <!-- Utilitários -->
+    <li class="list-item">
+      <div class="trigger">
+        <div class="label-container">
+          <i class="material-symbols-rounded">construction</i>
+          <span>Utilitários</span>
         </div>
-        <ul class="sub-menu-list">
-          <li class="list-item"><a><span>Categorias</span></a></li>
-          <li class="list-item"><a><span>Sub-Categorias</span></a></li>
-          <li class="list-item"><a><span>Marcas</span></a></li>
-          <li class="list-item"><a><span>Tamanhos</span></a></li>
-        </ul>
-      </li>
-      <!-- Relatórios -->
-      <li class="list-item">
-        <a>
-          <i class="material-symbols-rounded">analytics</i>
-          <span>Relatórios</span>
-        </a>
-      </li>
-      <!-- Galeria -->
-      <li class="list-item">
-        <a>
-          <i class="material-symbols-rounded">gallery_thumbnail</i>
-          <span>Galeria</span>
-        </a>
-      </li>
-      <!-- Configurações -->
-      <li class="list-item">
-        <a>
-          <i class="material-symbols-rounded">settings</i>
-          <span>Configurações</span>
-        </a>
-      </li>
-    </ul>
-  </section>
+        <span class="material-symbols-rounded">arrow_drop_down</span>
+      </div>
+      <ul class="sub-menu-list">
+        <li class="list-item"><a><span>Categorias</span></a></li>
+        <li class="list-item"><a><span>Sub-Categorias</span></a></li>
+        <li class="list-item"><a><span>Marcas</span></a></li>
+        <li class="list-item"><a><span>Tamanhos</span></a></li>
+      </ul>
+    </li>
+    <!-- Relatórios -->
+    <li class="list-item">
+      <a>
+        <i class="material-symbols-rounded">analytics</i>
+        <span>Relatórios</span>
+      </a>
+    </li>
+    <!-- Galeria -->
+    <li class="list-item">
+      <a>
+        <i class="material-symbols-rounded">gallery_thumbnail</i>
+        <span>Galeria</span>
+      </a>
+    </li>
+    <!-- Configurações -->
+    <li class="list-item">
+      <a>
+        <i class="material-symbols-rounded">settings</i>
+        <span>Configurações</span>
+      </a>
+    </li>
+  </ul></section>
   <!-- Button Toggle -->
   <section class="toggler-section"><button pButton class="toggler" (click)="toggleShrink()"><i class="material-symbols-rounded ms-filled">line_start_arrow</i></button></section>
 </aside>

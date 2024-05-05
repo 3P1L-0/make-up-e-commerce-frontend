@@ -18,7 +18,7 @@ import {ServiceDTO} from "../../../../../global/model/cart/dto/ServiceDTO";
 @Component({
   selector: 'app-service-list-view',
   templateUrl: './service-list.component.html',
-  host: {"class": "app-service-list-module"},
+  host: {"class": "app-service-list-module app-sale-item-module"},
   encapsulation: ViewEncapsulation.None
 })
 export class AppServiceListComponent implements OnInit, AfterViewInit {

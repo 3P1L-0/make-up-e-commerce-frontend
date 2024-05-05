@@ -1,0 +1,24 @@
+@use "./sale-list-item";
+
+@mixin _layout() {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2.5rem;
+
+  .data-area {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 2rem;
+  }
+}
+
+@mixin themefy() {
+  .app-sale-item-module {
+    @include _layout();
+    @include sale-list-item.themefy();
+  }
+}

@@ -8,14 +8,7 @@
       </div>
     </section>
     <section class="data-area">
-      <p-tabView>
-        <p-tabPanel header="Produtos">
-          <p-table class="data" [value]="publicProducts"></p-table>
-        </p-tabPanel>
-        <p-tabPanel header="Variantes">
-          <p-table [value]="publicVariants"></p-table>
-        </p-tabPanel>
-      </p-tabView>
+      <app-product-list-item-view *ngFor="let p of publicProducts$ | async"></app-product-list-item-view>
     </section>
   </p-card>
 </section>

@@ -1,7 +1,9 @@
 @use "./products/products-theme" as products;
 @use "./service/service-theme" as service;
+@use "./sale-item";
 
 @mixin themefy($theme) {
   @include products.themefy($theme);
   @include service.themefy($theme);
+  @include sale-item.themefy();
 }

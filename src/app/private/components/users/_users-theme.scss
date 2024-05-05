@@ -1,0 +1,5 @@
+@use "./users-list/users-list-theme" as list;
+
+@mixin themefy() {
+  @include list.themefy();
+}

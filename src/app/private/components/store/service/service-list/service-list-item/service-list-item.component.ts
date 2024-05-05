@@ -5,7 +5,7 @@ import {ConfirmationService, MenuItem} from "primeng/api";
   selector: 'app-service-list-item-view',
   templateUrl: './service-list-item.component.html',
   encapsulation: ViewEncapsulation.None,
-  host: {"class": "app-service-list-item-module"}
+  host: {"class": "app-sale-list-item-module"}
 })
 export class ServiceListItemComponent implements OnInit {
   /* DEPENDENCIES */

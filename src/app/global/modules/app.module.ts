@@ -27,8 +27,8 @@ registerLocaleData(localePt, 'pt');
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
-    Location,
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    // Location,
+    // {provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
 })

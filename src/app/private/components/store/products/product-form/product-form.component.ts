@@ -18,6 +18,7 @@ import {AppCategoriesComponent} from "../../../utilities/categories/categories.c
 import {AppBrandsComponent} from "../../../utilities/brands/brands.component";
 import {AppViewHeaderService} from "../../../view-header/view-header.service";
 import {ProductVariantDTO} from "../../../../../global/model/cart/dto/ProductVariantDTO";
+import {MAXIMUM_DESCRIPTION_SIZE} from "../../../../../global/configs";
 
 @Component({
   selector: "app-public-products-form",
@@ -46,11 +47,13 @@ export class AppProductsFormComponent implements OnInit {
   public readonly saleItemState: ({key: string, value: string})[];
   private _defaultThumbnail: string;
   private _defaultFile: File;
+  public maxDescriptionLength: number;
 
   /* Component children */
   @ViewChild("file", {read: ElementRef<HTMLInputElement>}) fileInput!: ElementRef<HTMLInputElement>;
 
   constructor() {
+    this.maxDescriptionLength = MAXIMUM_DESCRIPTION_SIZE;
     this.saleItemState = [];
     for(let [k,v] of Object.entries(SaleItemState)) this.saleItemState.push({key: k, value: v});
 
@@ -189,13 +192,13 @@ export class AppProductsFormComponent implements OnInit {
     Object.assign(this.product.getDTO(), this.productsForm.value);
 
     this._productsService.newProduct(this.product.getDTO()).pipe(
-      switchMap(dto => {
-        this.product = new Product(dto);
+      switchMap(p => {
+        this.product = p;
 
         // to solve circular dependency issue
         const variants = [...this.getVariantsFormArray().controls.map(c => {
           let v = Object.assign(new ProductVariantDTO(), c.value);
-          v.product = dto;
+          v.product = p;
           v.name = c.value.code;
           v.kind = this.product.getDTO().kind;
           v.state = this.product.getDTO().state;
@@ -205,7 +208,6 @@ export class AppProductsFormComponent implements OnInit {
 
           return v;
         })];
-        delete dto.variants;
 
         return this._productsService.createVariantList(variants);
       }),

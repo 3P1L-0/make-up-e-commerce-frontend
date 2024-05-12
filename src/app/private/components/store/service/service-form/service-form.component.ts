@@ -2,14 +2,13 @@ import {Component, ElementRef, inject, OnInit, Type, ViewChild} from "@angular/c
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {emptyString} from "src/app/global/configs/validators/forms/validators";
 import {SaleItemType} from "src/app/global/model/cart/enums/SaleItemType";
-import {Observable, of, switchMap} from "rxjs";
+import {of, switchMap} from "rxjs";
 import {SaleItemState} from "src/app/global/model/cart/enums/SaleItemState";
 import {MessageService} from "primeng/api";
 import {AppFileService} from "src/app/global/services/file.service";
 import {FileDTO} from "src/app/global/model/FileDTO";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AppBrandService} from "../../../../services/brand.service";
-import {AppViewHeaderService} from "../../../view-header/view-header.service";
 import {HttpClient} from "@angular/common/http";
 import {Service} from "../../../../../global/model/cart/Service";
 import {SpecialtyDTO} from "../../../../../global/model/cart/dto/SpecialtyDTO.ts";
@@ -17,6 +16,7 @@ import {AppServiceService} from "../../../../services/services.service";
 import {AppSpecialtyService} from "../../../../services/specialty.service";
 import {AppSpecialtiesComponent} from "../../../utilities/especialties/specialties.component";
 import {ServiceSpecialtyDTO} from "../../../../../global/model/cart/dto/ServiceSpecialtyDTO";
+import {AppNavigationService} from "../../../../../global/services/navigation.service";
 
 @Component({
   selector: "app-service-form",
@@ -30,7 +30,7 @@ export class AppServiceFormComponent implements OnInit {
   private readonly _filesService = inject(AppFileService);
   private readonly _diagService = inject(DialogService);
   private readonly _msgService = inject(MessageService);
-  private readonly _navigationService = inject(AppViewHeaderService);
+  private readonly _navigationService = inject(AppNavigationService);
   private readonly _serviceService = inject(AppServiceService);
   private readonly  _specialtyService = inject(AppSpecialtyService);
   private readonly  _http = inject(HttpClient);

@@ -22,6 +22,10 @@ export class AppProductListComponent implements OnInit, AfterViewInit {
 
   @ViewChild("searchField", {read: ElementRef<HTMLInputElement>, static: true}) searchField!: ElementRef<HTMLInputElement>;
 
+  public constructor() {
+    this.publicProducts$ = new BehaviorSubject<Product[]>([]);
+  }
+
   public ngOnInit(): void {
     this._productsService.fetch().subscribe(res => { this.publicProducts$.next(this._products = res); });
 

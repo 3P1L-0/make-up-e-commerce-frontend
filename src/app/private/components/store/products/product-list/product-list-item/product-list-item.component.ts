@@ -1,6 +1,8 @@
 import {Component, inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {Product} from "../../../../../../global/model/cart/Product";
+import {Router} from "@angular/router";
+import {PRIVATE_ROUTES} from "../../../../../../global/configs";
 
 @Component({
   selector: 'app-product-list-item-view',
@@ -11,6 +13,7 @@ import {Product} from "../../../../../../global/model/cart/Product";
 export class AppProductListItemComponent {
   /* DEPENDENCIES */
   private readonly _confirmationService = inject(ConfirmationService);
+  private readonly _router = inject(Router);
 
   /* MEMBERS */
   public readonly menuModel: MenuItem[];
@@ -32,7 +35,10 @@ export class AppProductListItemComponent {
           tooltipPosition: "left"
         },
         icon: "pi pi-info",
-        command: () => {}
+        command: () => {
+          console.log("navigating to details!");
+          this._router.navigate([PRIVATE_ROUTES.productsDetails, this.product.getId()]).then();
+        }
       },
       {
         tooltipOptions: {

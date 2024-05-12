@@ -1,0 +1,245 @@
+<app-view-header>
+  <button pButton icon="pi pi-arrow-left" (click)="goBack()" pTooltip="Voltar"></button>
+  <button pButton icon="pi pi-plus" (click)="newProduct()" class="p-button-secondary" pTooltip="Cadastrar produto"></button>
+</app-view-header>
+
+<p-card>
+  <!-- Product -->
+  <p-panel [toggleable]="true" class="panel">
+    <ng-template pTemplate="header">
+      <div class="content-wrapper">
+        <span class="p-panel-title">Produto</span>
+        <div class="controls">
+          <ng-container *ngIf="productInReadMode else productEditable">
+            <button pButton icon="pi pi-trash" class="p-button-danger p-button-outlined" pTooltip="Eliminar produto"></button>
+            <button pButton icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar produto" (click)="editProduct()"></button>
+          </ng-container>
+          <ng-template #productEditable>
+            <button pButton icon="pi pi-check" class="p-button-success" pTooltip="Salvar alterações" (click)="saveChanges()"></button>
+            <button pButton icon="pi pi-times" class="p-button-danger" pTooltip="Descartar alterações" (click)="editProduct()"></button>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+    <!-- Read only -->
+    <section class="readonly-section" *ngIf="productInReadMode">
+      <div class="top-content">
+        <div class="left-content">
+          <p class="line">
+            <span class="label">Nome do Produto</span>
+            <span class="value">{{product?.getDTO().name}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Código do produto</span>
+            <span class="value">{{product?.getDTO().code}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Disponibilidade</span>
+            <span class="value">{{product?.getDTO().state}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Quantidade em estoque</span>
+            <span class="value">{{product?.getDTO().currentAmount}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Categoria</span>
+            <span class="value">{{product?.getDTO().category.name}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Marca</span>
+            <span class="value">{{product?.getDTO().brand.name}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Variantes do produto</span>
+            <span class="value">{{product?.getDTO().variants.length}}</span>
+          </p>
+          <p class="line">
+            <span class="label">Data de registro</span>
+            <span class="value">{{product?.getCreatedAtParsed().toLocaleDateString()}}</span>
+          </p>
+        </div>
+        <div class="right-content">
+          <img [src]="productImage$ | async" alt="imagem do produto"/>
+          <div class="controls">
+            <button pButton (click)="readonlyFilePicker.click()" pTooltip="Escolher imagem" class="img-btn p-button-rounded" icon="pi pi-paperclip" *ngIf="!showSaveImg()"></button>
+            <button pButton (click)="uploadImage()" pTooltip="Salvar imagem" class="img-btn p-button-rounded" icon="pi pi-check" *ngIf="showSaveImg()"></button>
+            <input type="file" hidden accept="image/*" #readonlyFilePicker (change)="handleSelectFile($event)"/>
+          </div>
+        </div>
+      </div>
+      <div class="line">
+        <pre class="value">{{product?.getDTO().description}}</pre>
+      </div>
+    </section>
+    <!-- Editable -->
+    <form class="editable-section" [formGroup]="productsForm" *ngIf="!productInReadMode">
+      <div class="top-content">
+        <div class="left-content">
+          <section class="form-fields">
+            <!-- Product code -->
+            <div class="field">
+              <div class="control">
+                <p>Código</p>
+                <input type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
+              </div>
+            </div>
+            <!-- Product name -->
+            <div class="field">
+              <div class="control">
+                <p>Nome</p>
+                <input type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
+              </div>
+            </div>
+            <!-- Product state -->
+            <div class="field">
+              <div class="control"><p>Disponibilidade</p>
+                <p-dropdown [options]="saleItemState" formControlName="state" [filter]="true"
+                            [showClear]="true" [resetFilterOnHide]="true"
+                            placeholder="Informe a disponibilidade" filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
+              </div>
+            </div>
+            <!-- Product Category -->
+            <div class="field multi-column" formGroupName="category">
+              <div class="control">
+                <p>Categoria</p>
+                <p-dropdown [options]="categories$ | async" formControlName="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true" [lazy]="true"
+                            placeholder="Escolha uma categoria" filterPlaceholder="Filtrar..." optionValue="id" emptyMessage="Nenhuma categoria cadastrada" class="p-dropdown-sm"></p-dropdown>
+              </div>
+              <button pButton icon="pi pi-plus" class="p-button-rounded p-button-sm" pTooltip="Nova categoria" [showDelay]="500" [hideDelay]="250" (click)="newCategory()"></button>
+            </div>
+            <!-- Product Brand -->
+            <div class="field multi-column" formGroupName="brand">
+              <div class="control">
+                <p>Marca</p>
+                <p-dropdown [options]="brands$ | async" formControlName="id" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" dataKey="id" [resetFilterOnHide]="true" [lazy]="true"
+                            placeholder="Selecione uma marca" filterPlaceholder="Filtrar..." optionValue="id"></p-dropdown>
+              </div>
+              <button pButton icon="pi pi-plus" pTooltip="Nova marca" [showDelay]="500" [hideDelay]="250" (click)="newBrand()" class="p-button-rounded p-button-sm"></button>
+            </div>
+          </section>
+        </div>
+        <div class="right-content">
+          <img [src]="productImage$ | async" alt="imagem do produto"/>
+          <div class="controls">
+            <button pButton (click)="editableFilePicker.click()" pTooltip="Escolher imagem" class="img-btn p-button-rounded" icon="pi pi-paperclip" *ngIf="!showSaveImg()"></button>
+            <button pButton (click)="uploadImage()" pTooltip="Salvar imagem" class="img-btn p-button-rounded" icon="pi pi-check" *ngIf="showSaveImg()"></button>
+            <input type="file" hidden accept="image/*" #editableFilePicker (change)="handleSelectFile($event)"/>
+          </div>
+        </div>
+      </div>
+      <!-- Product description -->
+      <div class="field">
+        <div class="control">
+          <textarea pInputTextarea cols="60" rows="5" formControlName="description" [autoResize]="true" [maxlength]="maxDescriptionLength"></textarea>
+        </div>
+      </div>
+    </form>
+  </p-panel>
+  <!-- Variants -->
+  <p-panel [toggleable]="true" class="panel">
+    <ng-template pTemplate="header">
+      <div class="content-wrapper">
+        <span class="p-panel-title">Variantes</span>
+        <div class="controls">
+          <button pButton icon="pi pi-trash" class="p-button-outlined p-button-danger" pTooltip="Eliminar variantes" (click)="purgeVariants()"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar variantes" (click)="editVariants()"></button>
+          <button pButton icon="pi pi-plus" class="p-button-outlined" pTooltip="Adicionar variante" (click)="newVariant()"></button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- Read mode -->
+    <section class="readonly-section">
+      <ul class="main-list">
+        <ng-container *ngFor="let v of product?.getDTO().variants; index as idx">
+          <li class="list-item" *ngIf="!isVariantInEditMode(v.id)">
+            <div class="item-title">
+              <span>{{v.code}}</span>
+              <div class="controls">
+                <button pButton icon="pi pi-trash" class="p-button-danger p-button-outlined" pTooltip="Eliminar produto" (click)="deleteVariant(v.id)"></button>
+                <button pButton icon="pi pi-pencil" class="p-button-secondary p-button-outlined" pTooltip="Editar produto" (click)="toggleVariantReadMode(v.id)"></button>
+              </div>
+            </div>
+            <div class="list-content-wrapper">
+              <!-- Variant code -->
+              <p class="line">
+                <span class="label">Código</span>
+                <span class="value">{{ v.code }}</span>
+              </p>
+              <!-- Variant color -->
+              <p class="line" *ngIf="v.color">
+                <span class="label">Cor</span>
+                <span class="value"></span>
+              </p>
+              <!-- Variant density -->
+              <p class="line">
+                <span class="label">Densidade</span>
+                <span class="value">{{ v.density }}</span>
+              </p>
+              <!-- Variant price -->
+              <p class="line">
+                <span class="label">Preço</span>
+                <span class="value">{{ v.price | number:"2.0-2" }} AOA</span>
+              </p>
+              <!-- Variants available amount -->
+              <div class="line multi-column">
+                <p>
+                  <span class="label">Quantidade em estoque</span>
+                  <span class="value">{{v.currentAmount}}</span>
+                </p>
+                <button pButton icon="pi pi-pencil" pTooltip="editar estoque" class="p-button-rounded p-button-text" (click)="editStock(v)"></button>
+              </div>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </section>
+    <!-- Edit mode -->
+    <section class="editable-section">
+      <ul class="main-list">
+        <li class="list-item" *ngFor="let frm of variantsForms$ | async; index as idx">
+          <form [formGroup]="frm">
+            <div class="item-title">
+              <span  *ngIf="frm.value.id">{{ getVariantById(frm.value.id).code }}</span>
+              <span  *ngIf="!frm.value.id">Nova Variante</span>
+              <div class="controls">
+                <button pButton icon="pi pi-check" class="p-button-success" pTooltip="Salvar alterações" (click)="saveVariantChanges(idx)" [disabled]="frm.invalid"></button>
+                <button pButton icon="pi pi-times" class="p-button-danger" pTooltip="Descartar alterações" (click)="discardChangesForVariant(idx)"></button>
+              </div>
+            </div>
+            <div class="list-content-wrapper editable">
+              <!-- Variant code -->
+              <div class="field">
+                <div class="control">
+                  <p>Código</p>
+                  <input type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
+                </div>
+              </div>
+              <!-- Variant color -->
+              <div class="field">
+                <div class="control">
+                  <p>Cor</p>
+                  <input type="text" pInputText formControlName="code" class="p-inputtext-sm"/>
+                </div>
+              </div>
+              <!-- Variant density -->
+              <div class="field">
+                <div class="control">
+                  <p>Densidade</p>
+                  <input type="text" pInputText formControlName="density" class="p-inputtext-sm"/>
+                </div>
+              </div>
+              <!-- Variant price -->
+              <div class="field">
+                <div class="control">
+                  <p>Preço</p>
+                  <input type="text" pInputText formControlName="price" class="p-inputtext-sm"/>
+                </div>
+              </div>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </section>
+  </p-panel>
+</p-card>
+<p-confirmDialog icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger" rejectButtonStyleClass="reject" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>

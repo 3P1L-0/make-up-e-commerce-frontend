@@ -4,10 +4,12 @@
 
 @use "./product-list/product-list.theme" as list;
 @use "./product-form/product-form.theme" as form;
-@use "./product-preview/product-preview.theme" as preview;
+@use "./product-preview/product-preview-theme" as preview;
+@use "./product-details/product-details-theme" as details;
 
 @mixin themefy($theme) {
   @include list.themefy($theme);
   @include form.themefy($theme);
   @include preview.themefy($theme);
+  @include details.themefy();
 }

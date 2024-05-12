@@ -1,0 +1,38 @@
+<h2>Editando Stock</h2>
+<section class="container">
+  <div class="content-container">
+    <form [formGroup]="stockForm">
+      <div class="input-field">
+        <div class="control">
+          <p>Quantidade</p>
+          <p-inputNumber formControlName="quantity" [showButtons]="true" buttonLayout="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="1" [showClear]="true"></p-inputNumber>
+        </div>
+        <small class="p-error block" *ngIf="stockForm.get('quantity')?.hasError('required')">Campo obrigatório</small>
+        <small class="p-error block" *ngIf="stockForm.get('quantity')?.hasError('min')">A quantidade não deve ser inferior a 1</small>
+      </div>
+      <div class="input-field">
+        <div class="control">
+          <p>Operação</p>
+          <div class="control-wrapper">
+            <p-radioButton name="operation" formControlName="operationType" [value]="operationTypes.increase" [label]="operationTypes.increase"></p-radioButton>
+            <p-radioButton name="operation" formControlName="operationType" [label]="operationTypes.decrease"></p-radioButton>
+          </div>
+        </div>
+      </div>
+      <div class="input-field">
+        <div class="control">
+          <p>Descrição</p>
+          <input type="text" pInputText formControlName="notes">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="controls">
+    <button pButton class="p-button-danger" icon="fas xmark" (click)="discard()" pTooltip="Cancelar" tooltipPosition="top">
+      <fa-icon icon="xmark"></fa-icon>
+    </button>
+    <button pButton class="p-button-success" icon="fas check" (click)="persist()" pTooltip="Salvar" tooltipPosition="top" [disabled]="!canSave()">
+      <fa-icon icon="check"></fa-icon>
+    </button>
+  </div>
+</section>

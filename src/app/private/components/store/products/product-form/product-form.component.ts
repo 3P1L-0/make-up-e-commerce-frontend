@@ -16,9 +16,10 @@ import {AppBrandService} from "../../../../services/brand.service";
 import {AppCategoryService} from "../../../../services/category.service";
 import {AppCategoriesComponent} from "../../../utilities/categories/categories.component";
 import {AppBrandsComponent} from "../../../utilities/brands/brands.component";
-import {AppViewHeaderService} from "../../../view-header/view-header.service";
 import {ProductVariantDTO} from "../../../../../global/model/cart/dto/ProductVariantDTO";
-import {MAXIMUM_DESCRIPTION_SIZE} from "../../../../../global/configs";
+import {MAXIMUM_DESCRIPTION_SIZE, PRIVATE_ROUTES} from "../../../../../global/configs";
+import {Router} from "@angular/router";
+import {AppNavigationService} from "../../../../../global/services/navigation.service";
 
 @Component({
   selector: "app-public-products-form",
@@ -34,7 +35,8 @@ export class AppProductsFormComponent implements OnInit {
   private readonly _filesService = inject(AppFileService);
   private readonly _diagService = inject(DialogService);
   private readonly _msgService = inject(MessageService);
-  private readonly _navigationService = inject(AppViewHeaderService);
+  private readonly _navigationService = inject(AppNavigationService);
+  private _router = inject(Router);
 
   /* MEMBERS */
   public readonly productsForm: FormGroup;
@@ -188,30 +190,24 @@ export class AppProductsFormComponent implements OnInit {
   public save(): void {
     if(!this.canSave()) return;
 
-    this.product = new Product(new ProductDTO());
+    this.product = new Product();
     Object.assign(this.product.getDTO(), this.productsForm.value);
+    this.product.getDTO().variants.push(...this.getVariantsFormArray().controls.map(c => {
+      let v = Object.assign(new ProductVariantDTO(), c.value);
+      v.name = c.value.code;
+      v.kind = this.product.getDTO().kind;
+      v.state = this.product.getDTO().state;
+      v.category = this.product.getDTO().category;
+      v.description = "";
+
+      return v;
+    }));
 
     this._productsService.newProduct(this.product.getDTO()).pipe(
       switchMap(p => {
         this.product = p;
-
-        // to solve circular dependency issue
-        const variants = [...this.getVariantsFormArray().controls.map(c => {
-          let v = Object.assign(new ProductVariantDTO(), c.value);
-          v.product = p;
-          v.name = c.value.code;
-          v.kind = this.product.getDTO().kind;
-          v.state = this.product.getDTO().state;
-          v.category = this.product.getDTO().category;
-          v.productStock = [];
-          v.description = "";
-
-          return v;
-        })];
-
-        return this._productsService.createVariantList(variants);
-      }),
-      switchMap(() => this._filesService.uploadFile(this._selectedImage, this.product.getId(), this.product.getDTO().kind))
+        return this._filesService.uploadFile(this._selectedImage, p.getId(), p.getDTO().kind)
+      })
     ).subscribe({
       next: () => {
         this._msgService.add({
@@ -219,6 +215,7 @@ export class AppProductsFormComponent implements OnInit {
           detail: "Produto cadastrado"
         });
         this.clearFields();
+        this._router.navigate([PRIVATE_ROUTES.productsDetails, this.product.getId()]).then();
       },
       error: (err) => {
         this._msgService.add({

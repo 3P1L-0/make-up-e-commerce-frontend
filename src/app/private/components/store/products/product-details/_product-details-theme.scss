@@ -1,0 +1,39 @@
+@mixin themefy() {
+  .readonly-section {
+    .top-content {
+      .left-content {
+        .line:last-child {
+          border-bottom: 1px solid var(--surface-border);
+        }
+      }
+      .right-content {
+        max-height: calc(2.75rem * 8);
+      }
+    }
+  }
+
+  .editable-section .top-content .right-content {
+    max-height: calc(2.75rem * 8);
+  }
+
+  .app-product-details-module {
+    .main-list .line.multi-column:last-child {
+      &,
+      & > :first-child {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      & > :first-child {
+        flex: 1 0;
+        justify-content: space-between;
+      }
+
+      & > :last-child.p-button {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+}

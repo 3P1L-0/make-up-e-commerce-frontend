@@ -14,10 +14,32 @@
       flex: 1 0;
       display: flex;
       flex-flow: column nowrap;
+      gap: 1rem;
+    }
+
+    .main-content .p-panel-content {
+      .app-cart-item-module {
+        padding: 1rem 0;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--surface-border);
+        }
+      }
     }
 
     .cart-total {
       width: 25rem;
+
+      .p-panel-content {
+        .line {
+          line-height: 1.75rem;
+        }
+
+        .p-button {
+          width: 100%;
+          margin-top: 1rem;
+        }
+      }
     }
   }
 }

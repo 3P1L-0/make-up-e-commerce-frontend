@@ -10,5 +10,7 @@ export const enum PRODUCT_API {
   createVariantList = "products/new/variant/list",
   updateVariant = "products/update/variant",
   deleteVariantById = "products/delete/variantBy/id/",
-  deleteVariantsList = "products/delete/variant/list"
+  deleteVariantsList = "products/delete/variant/list",
+  fetchVariantsByProductId = "products/fetch/variantsBy/productId/",
+  fetchVariantById = "products/fetch/variantBy/id/",
 }

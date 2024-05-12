@@ -48,6 +48,8 @@
       list-style: none;
 
       .list-item {
+        color: var(--text-color);
+
         a:hover,
         .trigger:hover {
           background-color: var(--surface-c);

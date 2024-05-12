@@ -26,6 +26,15 @@
       position: sticky;
       top: 0;
     }
+
+    & > :nth-child(3) {
+      padding: 2rem;
+    }
+  }
+
+  .app-view-header-module ~ p-card .p-card {
+    width: 99%;
+    margin: 0 auto;
   }
 }
 

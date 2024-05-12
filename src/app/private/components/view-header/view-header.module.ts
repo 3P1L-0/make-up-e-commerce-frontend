@@ -2,15 +2,15 @@ import {NgModule} from "@angular/core";
 import {AppViewHeaderComponent} from "./view-header.component";
 import {AppCommonImportsModule} from "../../../global/modules/commom-imports.module";
 import {RouterModule} from "@angular/router";
-import {AppViewHeaderService} from "./view-header.service";
+import {AppBreadcrumbModule} from "../../../global/components/breadcrumb/breadcrumb.module";
 
 @NgModule({
   declarations: [AppViewHeaderComponent],
-  imports: [
-    AppCommonImportsModule,
-    RouterModule
-  ],
+    imports: [
+        AppCommonImportsModule,
+        RouterModule,
+        AppBreadcrumbModule
+    ],
   exports: [AppViewHeaderComponent],
-  providers: [AppViewHeaderService]
 })
 export class AppViewHeaderModule {}

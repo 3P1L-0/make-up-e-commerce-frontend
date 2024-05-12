@@ -1,5 +1,5 @@
-<section class="breadcrumbs"><p-breadcrumb [model]="breadcrumbModel"></p-breadcrumb></section>
+<section class="breadcrumbs"><app-breadcrumb-view></app-breadcrumb-view></section>
 <section class="view-header">
-  <h2 class="view-title"><span>{{ viewTitle }}</span></h2>
+  <h2 class="view-title"><span>{{ viewTitle$ | async}}</span></h2>
   <div class="controls-section p-buttonset"><ng-content></ng-content></div>
 </section>

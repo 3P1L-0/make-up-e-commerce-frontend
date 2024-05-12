@@ -6,7 +6,6 @@
     background-color: var(--surface-a);
     z-index: 1;
     display: block;
-    padding: 2rem 0;
     height: fit-content;
 
     .breadcrumbs .p-breadcrumb {
@@ -16,7 +15,7 @@
     .view-header {
       display: flex;
       justify-content: space-between;
-      margin-top: 2rem;
+      padding-block: 2rem;
 
       .view-title {
         margin: 0;

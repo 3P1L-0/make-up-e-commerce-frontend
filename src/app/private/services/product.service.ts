@@ -26,18 +26,17 @@ export class AppProductService {
     return this._http.post<ProductVariantDTO[]>(this._url+PRODUCT_API.createVariantList, variants.map(v=> {v.product.variants = []}));
   }
 
-  public newVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> { return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant); }
-  public updateVariant(variant: ProductVariantDTO): Observable<ProductVariantDTO> { return this._http.put<ProductVariantDTO>(this._url+PRODUCT_API.updateVariant, variant); }
-  public deleteVariantById(id: number): Observable<boolean> { return this._http.delete<boolean>(this._url+PRODUCT_API.deleteVariantById+id); }
-  public deleteVariantsList(variants: ProductVariantDTO[]): Observable<boolean> { return this._http.post<boolean>(this._url+PRODUCT_API.deleteVariantsList, variants); }
-  public fetchVariants(): Observable<ProductVariantDTO[]> { return this._http.get<ProductVariantDTO[]>(this._url+PRODUCT_API.fetchVariants); }
+  public newVariant(variant: ProductVariantDTO) { return this._http.post<ProductVariantDTO>(this._url+PRODUCT_API.newVariant, variant); }
+  public updateVariant(variant: ProductVariantDTO) { return this._http.put<ProductVariantDTO>(this._url+PRODUCT_API.updateVariant, variant); }
+  public fetchVariantById(id: number) { return this._http.get<ProductVariantDTO>(this._url+PRODUCT_API.fetchVariantById+id); }
+  public deleteVariantById(id: number) { return this._http.delete<boolean>(this._url+PRODUCT_API.deleteVariantById+id); }
+  public deleteVariantsList(variants: ProductVariantDTO[]) { return this._http.post<boolean>(this._url+PRODUCT_API.deleteVariantsList, variants); }
+  public fetchVariants() { return this._http.get<ProductVariantDTO[]>(this._url+PRODUCT_API.fetchVariants); }
+  public fetchVariantsByProductId(productId: number) { return this._http.get<ProductVariantDTO[]>(this._url+PRODUCT_API.fetchVariantsByProductId+productId); }
 
   private toEntityList(src$: Observable<ProductDTO[]>): Observable<Product[]> { return src$.pipe(map(d => d.map(e => new Product(e)))); }
   private toEntity(src$: Observable<ProductDTO>): Observable<Product> { return src$.pipe(map(d => new Product(d))); }
 
-  private toEntityListV(src$: Observable<ProductVariantDTO[]>): Observable<ProductVariant[]> {
-    return src$.pipe(map(d => d.map(e => new ProductVariant(e))));
-  }
-
-  private toEntityV(src$: Observable<ProductVariantDTO>): Observable<ProductVariant> { return src$.pipe(map(d => new ProductVariant(d))); }
+  private toEntityListV(src$: Observable<ProductVariantDTO[]>) { return src$.pipe(map(d => d.map(e => new ProductVariant(e)))); }
+  private toEntityV(src$: Observable<ProductVariantDTO>){ return src$.pipe(map(d => new ProductVariant(d))); }
 }

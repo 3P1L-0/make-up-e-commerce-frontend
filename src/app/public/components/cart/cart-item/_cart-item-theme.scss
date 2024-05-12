@@ -1,0 +1,26 @@
+@mixin themefy() {
+  .app-cart-item-module {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+
+    .img-container {
+      width: 8rem;
+      height: 8rem;
+      background: orange
+    }
+
+    .controls {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      .p-inputnumber {
+        width: 8rem;
+      }
+    }
+  }
+}

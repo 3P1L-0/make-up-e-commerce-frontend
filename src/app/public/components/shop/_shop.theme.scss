@@ -1,5 +1,0 @@
-@use "./products-shop/products-shop.theme" as products;
-
-@mixin themefy($theme) {
-  @include products.themefy($theme);
-}

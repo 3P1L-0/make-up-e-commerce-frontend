@@ -1,0 +1,33 @@
+<div class="content-container">
+  <section class="main-content">
+    <!-- Services panel -->
+    <p-panel header="Serviços" class="services" [toggleable]="true">
+      <app-cart-item-view></app-cart-item-view>
+    </p-panel>
+    <!-- Products panel -->
+    <p-panel header="Produtos" class="products" [toggleable]="true">
+      <app-cart-item-view></app-cart-item-view>
+    </p-panel>
+  </section>
+  <aside class="cart-total">
+    <p-panel header="Total do Carrinho">
+      <div class="details">
+        <p class="line">
+          <span>Subtotal</span>
+          <span></span>
+        </p>
+        <p class="line">
+          <span>Total desconto</span>
+          <span></span>
+        </p>
+        <p-divider></p-divider>
+        <p class="line">
+          <span>Total</span>
+          <span></span>
+        </p>
+      </div>
+      <button pButton label="Fazer checkout" class="p-button-success"></button>
+    </p-panel>
+  </aside>
+</div>
+<p-confirmDialog icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger" rejectButtonStyleClass="reject" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>

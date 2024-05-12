@@ -1,0 +1,30 @@
+@use "./cart-item/cart-item-theme" as item-theme;
+
+@mixin _private() {
+  .content-container {
+    padding: 2.5rem 0;
+    max-width: 80%;
+    margin: 0 auto;
+
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+
+    .main-content {
+      flex: 1 0;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+
+    .cart-total {
+      width: 25rem;
+    }
+  }
+}
+
+@mixin themefy() {
+  .app-cart-module {
+    @include _private();
+    @include item-theme.themefy();
+  }
+}

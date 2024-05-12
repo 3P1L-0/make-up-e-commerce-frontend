@@ -1,0 +1,10 @@
+<div class="img-container"><img [src]="imgSrc" [alt]="'imagem do ' + saleItemName"></div>
+<div class="details">
+  <p class="line title">{{name}}</p>
+  <p class="line">{{density}}</p>
+  <p class="line">{{price}}</p>
+</div>
+<div class="controls">
+  <p-inputNumber [showButtons]="true" [min]="1" #itemAmount locale="pt-PT"></p-inputNumber>
+  <button pButton icon="pi pi-trash" label="Remover" class="p-button-text p-button-sm p-button-danger" (click)="removeFromCart()"></button>
+</div>

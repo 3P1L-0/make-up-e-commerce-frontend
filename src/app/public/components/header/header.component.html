@@ -1,0 +1,38 @@
+<section class="row first">
+  <div class="left-content">
+    <span><i class="pi pi-clock"></i><small>Aberto Segunda à Sexta:09-18</small></span>
+    <span><i class="pi pi-phone"></i><small>Contacte-nos: +244 695 325 456</small></span>
+  </div>
+  <div class="right-content">
+    <ng-container *ngIf="isSignedIn else noSession">
+      <button pButton icon="pi pi-sign-out" label="Sair"></button>
+    </ng-container>
+    <ng-template #noSession>
+      <button pButton class="p-button-text" icon="pi pi-sign-in" label="Entrar"></button>
+      <button pButton class="p-button-text" icon="pi pi-user-plus" label="Cadastrar-se"></button>
+    </ng-template>
+  </div>
+</section>
+<section class="row second">
+  <!-- LOGO -->
+  <a class="company-name" [routerLink]="routes.home" routerLinkActive="active-link"><h2>Inaluma Make-Up</h2></a>
+  <!-- PUBLIC NAVIGATION AREA -->
+  <nav class="public-navigation">
+    <ul class="public-menu">
+      <li><a [routerLink]="routes.products_shop" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: false}">Produtos</a></li>
+      <li><a [routerLink]="routes.services_shop">Serviços</a></li>
+      <li><a [routerLink]="routes.cart">Carrinho</a></li>
+    </ul>
+  </nav>
+  <!-- MENU CONTROLS AREA -->
+  <div class="controls">
+    <button type="button" pButton class="p-button-rounded" icon="pi pi-search"></button>
+    <button type="button" pButton class="p-button-rounded" icon="pi pi-user" (click)="goToProfile()"></button>
+    <!--<button type="button" pButton class="p-button-rounded" icon="store" (click)="shopMenu.toggle($event)"><i class="material-symbols-rounded">store</i></button>
+    <button type="button" pButton class="p-button-rounded" icon="shopping_cart"><i class="material-symbols-rounded">shopping_cart</i></button>-->
+  </div>
+</section>
+<section class="row third">
+  <span class="page-name">{{pageName$ | async}}</span>
+  <app-breadcrumb-view></app-breadcrumb-view>
+</section>

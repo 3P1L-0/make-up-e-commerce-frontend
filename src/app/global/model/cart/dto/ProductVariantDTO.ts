@@ -17,4 +17,8 @@ export class ProductVariantDTO extends SaleItemDTO {
   public state: SaleItemState;
   public kind: SaleItemType;
   public productStock: ProductStockDTO[];
+
+  public constructor() {
+    super();
+  }
 }

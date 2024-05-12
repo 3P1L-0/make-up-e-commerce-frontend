@@ -6,4 +6,9 @@ export class ProductStockDTO extends AbstractDTO {
 	public quantity: number;
 	public operationType: StockOperationType;
 	public product: ProductVariantDTO;
+
+  public constructor() {
+    super();
+    this.product = new ProductVariantDTO();
+  }
 }

@@ -1,20 +1,12 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { MaterialModule } from "../../modules/material.module";
-import { AppBreadcrumbComponent } from "./breadcrumb.component";
+import {NgModule} from "@angular/core";
+import {AppBreadcrumbComponent} from "./breadcrumb.component";
+import {AppCommonImportsModule} from "../../modules/commom-imports.module";
 
 const declarations = [AppBreadcrumbComponent];
 
 @NgModule({
   declarations: declarations,
-  exports: [
-    ...declarations
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    MaterialModule
-  ]
+  exports: declarations,
+  imports: [AppCommonImportsModule]
 })
 export class AppBreadcrumbModule {}

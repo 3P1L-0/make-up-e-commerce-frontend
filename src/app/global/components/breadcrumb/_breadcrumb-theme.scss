@@ -1,2 +1,8 @@
-
-@mixin theme($theme) {}
+@mixin themefy() {
+  .app-breadcrumb-module {
+    .p-breadcrumb {
+      background-color: var(--surface-b);
+      border: none;
+    }
+  }
+}

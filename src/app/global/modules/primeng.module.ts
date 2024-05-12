@@ -20,7 +20,7 @@ import { DividerModule } from "primeng/divider";
 import { TriStateCheckboxModule } from "primeng/tristatecheckbox";
 import { CheckboxModule } from "primeng/checkbox";
 import { TableModule } from "primeng/table";
-import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogConfig, DynamicDialogModule} from "primeng/dynamicdialog";
 import {PasswordModule} from "primeng/password";
 import {MenuModule} from "primeng/menu";
 import {BreadcrumbModule} from "primeng/breadcrumb";
@@ -28,6 +28,8 @@ import {ChipsModule} from "primeng/chips";
 import {ChipModule} from "primeng/chip";
 import {MultiSelectModule} from "primeng/multiselect";
 import {SpeedDialModule} from "primeng/speeddial";
+import {PanelModule} from "primeng/panel";
+import {RadioButtonModule} from "primeng/radiobutton";
 
 @NgModule({
   exports: [
@@ -59,12 +61,14 @@ import {SpeedDialModule} from "primeng/speeddial";
     ChipModule,
     ChipsModule,
     MultiSelectModule,
-    SpeedDialModule
+    SpeedDialModule,
+    PanelModule,
+    RadioButtonModule
+
   ],
   providers: [
     ConfirmationService,
     DialogService,
-    MessageService
   ]
 })
 export class AppPrimeNgModule {}

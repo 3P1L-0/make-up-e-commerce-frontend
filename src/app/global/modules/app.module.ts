@@ -4,11 +4,11 @@ import {AppRoutingModule} from './routing.module';
 import {AppComponent} from '../app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import {HashLocationStrategy, Location, LocationStrategy, registerLocaleData} from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import {AppGlobalModule} from './global.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppPrimeNgModule} from "./primeng.module";
+import {MessageService} from "primeng/api";
 
 registerLocaleData(localePt, 'pt');
 
@@ -23,12 +23,10 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     FontAwesomeModule,
     AppPrimeNgModule,
-    AppGlobalModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
-    // Location,
-    // {provide: LocationStrategy, useClass: HashLocationStrategy},
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,19 +1,9 @@
-@charset "UTF-8";
-
-@use './components/layout/layout-theme' as layout;
+@use "./components/footer/footer-theme" as footer;
 @use './components/auth/auth.theme' as auth;
+@use "./components/breadcrumb/breadcrumb-theme" as breadcrumb;
 
 @mixin themefy($theme) {
-  .web-app {
-    display: block;
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto
-  }
-
-  @include layout.themefy($theme);
+  @include footer.themefy();
   @include auth.themefy($theme);
+  @include breadcrumb.themefy();
 }

@@ -4,7 +4,7 @@ import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "src/app/global/configs";
 import {AppAuthService} from "src/app/global/components/auth/auth.service";
 import {AppThemeService} from "src/app/global/services/theme/theme.service";
 import {AppNavigationService} from "../../../global/services/navigation.service";
-import {Observable, Subscription} from "rxjs";
+import {map, Observable, Subscription} from "rxjs";
 
 @Component({
   selector: "app-header-view",
@@ -23,7 +23,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   public readonly routes: typeof PUBLIC_ROUTES;
   public pageName$: Observable<string>;
   private _subscriptions: Subscription[];
-  private _activatedRoute = inject(ActivatedRoute);
+  public notHome$: Observable<boolean>;
 
   constructor() {
     this.isDarkThemeMode = this._themeService.isDarkMode();
@@ -33,7 +33,9 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this._navigationService.requestViewTitle();
+    this._navigationService.requestCurrentRoute();
     this.pageName$ = this._navigationService.viewTitleEmitted$;
+    this.notHome$ = this._navigationService.currentRouteEmitted$.pipe(map(r => r === PUBLIC_ROUTES.home));
   }
 
   public ngOnDestroy() {
@@ -44,7 +46,8 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     return this._authService.isSignedIn();
   }
 
-  public signIn(): void { this._router.navigate([PUBLIC_ROUTES.signIn]).then(); }
+  public signIn(): void { this._navigationService.navigateTo([PUBLIC_ROUTES.signIn]); }
   public signOut() { this._authService.signOut().subscribe(resp => {}); }
+  public signUp(): void { this._navigationService.navigateTo([PUBLIC_ROUTES.signUp]); }
   public goToProfile(): void { this._navigationService.navigateTo([PRIVATE_ROUTES.home]); }
 }

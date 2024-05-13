@@ -8,7 +8,7 @@
 @mixin themefy($theme) {
   @include shell.themefy();
   @include header.themefy();
-  @include landing-page.themefy($theme);
+  @include landing-page.themefy();
   @include cart.themefy();
   @include checkout.themefy();
   @include sale-item.themefy();

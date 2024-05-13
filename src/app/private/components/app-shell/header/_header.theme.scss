@@ -17,12 +17,13 @@
 
   .navigation > .menu {
     justify-content: space-evenly;
+    gap: .5rem;
 
     .img-container {
       background-color: var(--surface-d);
       padding: .5rem;
-      width: 3rem;
-      height: 3rem;
+      width: 2.5rem;
+      height: 2.5rem;
 
       &,
       img {

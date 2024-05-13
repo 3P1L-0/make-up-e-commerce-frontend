@@ -38,6 +38,16 @@ services:
       - inaluma_api_anew:/inaluma_api_anew.jar
     networks:
       - backendNetworkAnew
+      - frontEndNetworkAnew
+
+  inaluma_ui:
+    image: 3p1l/inaluma-api-anew-ui:amd64-v8-1.0-beta
+    container_name: inaluma-api-anew-ui
+    ports:
+      - "3000:80"
+    networks:
+      - backendNetworkAnew
+      - frontEndNetworkAnew
 
 volumes:
   inaluma_db_anew:
@@ -45,3 +55,4 @@ volumes:
 
 networks:
   backendNetworkAnew:
+  frontEndNetworkAnew:

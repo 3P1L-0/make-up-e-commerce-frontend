@@ -4,6 +4,7 @@ import { AppLandingPageComponent } from "../components/landing-page/landing-page
 import {AppPublicShellComponent} from "../components/app-shell/app-shell.component";
 import * as path from "node:path";
 import {AppCartComponent} from "../components/cart/cart.component";
+import {AppCheckoutComponent} from "../components/checkout/checkout.component";
 
 const routes: Routes = [
   {
@@ -16,9 +17,18 @@ const routes: Routes = [
         component: AppLandingPageComponent
       },
       {
-        title: "Carrinho",
-        path: "cart",
-        component: AppCartComponent
+        path: "shop",
+        children: [
+          {
+            title: "Carrinho",
+            path: "cart",
+            component: AppCartComponent
+          },
+          {
+            path: "checkout",
+            component: AppCheckoutComponent
+          }
+        ]
       },
       {
         path: "",

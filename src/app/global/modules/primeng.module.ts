@@ -30,6 +30,7 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {SpeedDialModule} from "primeng/speeddial";
 import {PanelModule} from "primeng/panel";
 import {RadioButtonModule} from "primeng/radiobutton";
+import {CalendarModule} from "primeng/calendar";
 
 @NgModule({
   exports: [
@@ -63,8 +64,8 @@ import {RadioButtonModule} from "primeng/radiobutton";
     MultiSelectModule,
     SpeedDialModule,
     PanelModule,
-    RadioButtonModule
-
+    RadioButtonModule,
+    CalendarModule
   ],
   providers: [
     ConfirmationService,

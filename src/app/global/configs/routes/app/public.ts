@@ -16,5 +16,6 @@ export enum PUBLIC_ROUTES {
   services_variants_form = "/app/public/services/form-variants",
   services_shop = "/app/public/shop/services",
 
-  cart = "/app/public/cart",
+  cart = "/app/public/shop/cart",
+  checkout = "/app/public/shop/checkout",
 }

@@ -1,0 +1,120 @@
+<section class="content-section">
+  <p-panel header="Endereço para Faturação" [toggleable]="true">
+    <form [formGroup]="billingAddressForm">
+      <div class="form-fields">
+        <div class="field multi-column">
+          <!-- name -->
+          <div class="column">
+            <div class="control">
+              <p>Nome</p>
+              <input type="text" pInputText formControlName="name" class="p-inputtext-sm"/>
+            </div>
+          </div>
+          <!-- surname -->
+          <div class="column">
+            <div class="control">
+              <p>Sobrenome</p>
+              <input type="text" pInputText formControlName="surname" class="p-inputtext-sm"/>
+            </div>
+          </div>
+        </div>
+        <!-- country -->
+        <div class="field">
+          <div class="control">
+            <p>País</p>
+            <input type="text" pInputText formControlName="country" class="p-inputtext-sm"/>
+          </div>
+        </div>
+        <div class="field multi-column">
+          <!-- address line 1 -->
+          <div class="column">
+            <div class="control">
+              <p>Linha de Endereço 1</p>
+              <input type="text" pInputText formControlName="addressLine1" class="p-inputtext-sm"/>
+            </div>
+          </div>
+          <!-- address line 2 -->
+          <div class="column">
+            <div class="control">
+              <p>Linha de Endereço 2</p>
+              <input type="text" pInputText formControlName="addressLine2" class="p-inputtext-sm"/>
+            </div>
+          </div>
+        </div>
+        <div class="field multi-column">
+          <!-- cellphone -->
+          <div class="column">
+            <div class="control">
+              <p>Contacto</p>
+              <input type="text" pInputText formControlName="contactNumber" class="p-inputtext-sm"/>
+            </div>
+          </div>
+          <!-- zipcode -->
+          <div class="column">
+            <div class="control">
+              <p>Código Postal</p>
+              <input type="text" pInputText formControlName="zipcode" class="p-inputtext-sm"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </p-panel>
+  <p-panel header="Pagamento" [toggleable]="true">
+    <form [formGroup]="paymentForm">
+      <div class="form-fields" formGroupName="methodDetails">
+        <!-- Card number -->
+        <div class="field">
+          <div class="control">
+            <p>Número do Cartão</p>
+            <input type="text" pInputText formControlName="cardNumber" class="p-inputtext-sm"/>
+          </div>
+        </div>
+        <!-- Card name -->
+        <div class="field">
+          <div class="control">
+            <p>Nome do Cartão</p>
+            <input type="text" pInputText formControlName="cardName" class="p-inputtext-sm"/>
+          </div>
+        </div>
+        <div class="field multi-column">
+          <!-- expiry month/year -->
+          <div class="column">
+            <div class="control">
+              <p>Mês/Ano</p>
+              <!--<input type="text" pInputText formControlName="expiryMonth" class="p-inputtext-sm"/>-->
+              <p-calendar view="month" dateFormat="mm/yy" formControlName="expiryMonth"></p-calendar>
+            </div>
+          </div>
+          <!-- cve -->
+          <div class="column">
+            <div class="control">
+              <p>CVV</p>
+              <input type="text" pInputText formControlName="cve" class="p-inputtext-sm"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </p-panel>
+</section>
+<aside class="summary-section">
+  <p-panel header="Valor Total">
+    <section class="details">
+      <p class="line">
+        <span class="label">Subtotal</span>
+        <span class="value">0.00 AOA</span>
+      </p>
+      <p class="line">
+        <span class="label">Descontos</span>
+        <span class="value">0.00 AOA</span>
+      </p>
+      <p-divider></p-divider>
+      <p class="line">
+        <span class="label">Total</span>
+        <span class="value">0.00 AOA</span>
+      </p>
+    </section>
+    <button pButton label="Confirmar Pagamento" class="p-button-success p-button-raised"></button>
+  </p-panel>
+</aside>

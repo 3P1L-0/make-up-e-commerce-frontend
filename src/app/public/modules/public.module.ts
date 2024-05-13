@@ -4,6 +4,7 @@ import { AppLandingPageComponent } from "../components/landing-page/landing-page
 import { AppCommonImportsModule } from "src/app/global/modules/commom-imports.module";
 import {AppPublicShellModule} from "../components/app-shell/app-shell.module";
 import {AppCartModule} from "../components/cart/cart.module";
+import {AppCheckoutModule} from "../components/checkout/checkout.module";
 
 const declarations = [
   AppLandingPageComponent,
@@ -19,6 +20,7 @@ const declarations = [
     AppPublicShellModule,
     AppCartModule,
     AppPublicRoutingModule,
+    AppCheckoutModule
   ],
   providers: []
 })

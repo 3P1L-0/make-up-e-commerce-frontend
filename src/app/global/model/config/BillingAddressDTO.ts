@@ -11,5 +11,6 @@ export class BillingAddressDTO extends AbstractDTO {
   private addressLine1: string;
   private addressLine2: string;
   private zipCode: string;
+  private contactNumber: string;
   private main: boolean;
 }

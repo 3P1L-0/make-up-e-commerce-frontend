@@ -2,10 +2,12 @@
 @use "./components/header/header-theme" as header;
 @use './components/landing-page/landing-page-theme' as landing-page;
 @use "./components/cart/cart-theme" as cart;
+@use "./components/checkout/checkout-theme" as checkout;
 
 @mixin themefy($theme) {
   @include shell.themefy();
   @include header.themefy();
   @include landing-page.themefy($theme);
   @include cart.themefy();
+  @include checkout.themefy();
 }

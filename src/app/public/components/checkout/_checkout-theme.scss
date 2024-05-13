@@ -1,0 +1,72 @@
+@mixin themefy() {
+  .app-checkout-module {
+    display: grid;
+    grid-template-columns: 1fr 23rem;
+    width: 80%;
+    margin: 0 auto;
+    grid-gap: 6rem;
+    padding: 3rem 0;
+
+    .content-section {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      gap: 2rem;
+    }
+
+    .form-fields {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 1rem;
+
+      .field {
+        .p-calendar {
+          width: 100%;
+        }
+      }
+
+      .field.multi-column {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        gap: 1rem;
+
+        .column {
+          flex: 1 0;
+        }
+      }
+    }
+
+    .summary-section .p-panel-content {
+      .details {
+        line-height: 2rem;
+        .line {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 2rem;
+
+          .label {
+            color: var(--text-color-secondary);
+          }
+
+          &:last-child {
+            .label {
+              color: var(--text-color);
+            }
+
+            .label,
+            .value {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      .p-button {
+        width: 100%;
+        margin-top: 2rem;
+      }
+    }
+  }
+}

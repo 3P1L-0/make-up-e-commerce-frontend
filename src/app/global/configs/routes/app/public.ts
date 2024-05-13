@@ -4,7 +4,7 @@ export enum PUBLIC_ROUTES {
   signUp = "auth/sign-up",
   recoverAccount = "auth/recover-account",
 
-  home = "/app/public",
+  home = "/app/public/home",
 
   products = "/app/public/products/list",
   products_form = "/app/public/products/form",

@@ -3,6 +3,7 @@
 @use './components/landing-page/landing-page-theme' as landing-page;
 @use "./components/cart/cart-theme" as cart;
 @use "./components/checkout/checkout-theme" as checkout;
+@use "./components/sale-item/sale-item-theme" as sale-item;
 
 @mixin themefy($theme) {
   @include shell.themefy();
@@ -10,4 +11,5 @@
   @include landing-page.themefy($theme);
   @include cart.themefy();
   @include checkout.themefy();
+  @include sale-item.themefy();
 }

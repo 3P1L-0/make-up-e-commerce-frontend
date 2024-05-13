@@ -1,0 +1,39 @@
+@mixin themefy() {
+  .sale-item-preview-module {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .details,
+    .img-container {
+      width: 15rem;
+    }
+
+    .img-container {
+      background-color: var(--surface-500);
+      height: 16rem;
+    }
+
+    .details {
+      &,
+      .lines {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+
+      gap: 20px;
+      border: 1px solid var(--surface-border);
+      border-top: none;
+      padding-top: 10px;
+
+      .lines {
+        align-items: center;
+        gap: .4rem;
+
+        .line:nth-child(1) {
+          color: var(--text-color-secondary);
+          font-size: 10pt;
+        }
+      }
+    }
+  }
+}

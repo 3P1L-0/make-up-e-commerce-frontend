@@ -1,0 +1,32 @@
+@use "./sale-item-preview/sale-item-preview-theme" as preview;
+
+@mixin _private() {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  grid-gap: 1.5rem;
+  padding: 2rem 1rem;
+
+  .filters,
+  .main-content {
+    display: flex;
+  }
+
+  .filters {
+    flex-flow: column nowrap;
+    gap: 1rem;
+  }
+
+  .main-content {
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    column-gap: 10px;
+    row-gap: 2rem;
+  }
+}
+
+@mixin themefy() {
+  .sale-item-module {
+    @include _private();
+    @include preview.themefy();
+  }
+}

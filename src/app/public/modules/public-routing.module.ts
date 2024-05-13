@@ -5,6 +5,7 @@ import {AppPublicShellComponent} from "../components/app-shell/app-shell.compone
 import * as path from "node:path";
 import {AppCartComponent} from "../components/cart/cart.component";
 import {AppCheckoutComponent} from "../components/checkout/checkout.component";
+import {AppSaleItemComponent} from "../components/sale-item/sale-item.component";
 
 const routes: Routes = [
   {
@@ -25,8 +26,19 @@ const routes: Routes = [
             component: AppCartComponent
           },
           {
+            title: "Fazer Checkout",
             path: "checkout",
             component: AppCheckoutComponent
+          },
+          {
+            title: "Produtos",
+            path: "products",
+            component: AppSaleItemComponent
+          },
+          {
+            title: "Serviços",
+            path: "services",
+            component: AppSaleItemComponent
           }
         ]
       },

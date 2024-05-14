@@ -15,4 +15,7 @@ export class ItemDTO extends AbstractDTO {
   public invoice: InvoiceDTO;
   public cart: CartDTO;
   public order: OrderDTO
+  public total: number;
+  public discountedPrice: number;
+  public finalPrice: number;
 }

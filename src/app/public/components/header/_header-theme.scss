@@ -30,6 +30,7 @@
 
         .left-content {
           gap: 2rem;
+          color: var(--text-color-secondary);
 
           span {
             gap: .5rem;
@@ -40,14 +41,16 @@
       &.second {
         .company-name {
           text-decoration: none;
-          color: var(--text-color);
+          color: var(--primary-color);
+          border-bottom-color: var(--primary-color);
+          border-bottom-style: solid;
 
           &.active-link {
-            border-bottom: 5px solid var(--text-color);
+            border-bottom-width: 5px;
           }
 
           &:hover {
-            border-bottom: 2.5px solid var(--text-color);
+            border-bottom-width: 2.5px;
           }
         }
 

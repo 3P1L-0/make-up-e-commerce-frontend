@@ -33,6 +33,11 @@ export class AppBreadcrumbComponent implements OnInit, OnDestroy {
     this._subscriptions.push(this._navigationService.viewTitleRequested$.subscribe(navigate => {
       this._navigationService.requestViewTitleEmitted(this._activatedRoute.snapshot.routeConfig.title as string);
     }));
+
+    this._subscriptions.push(this._navigationService.currentRouteRequested$.subscribe(navigate => {
+      console.log(this.breadcrumbModel[this.breadcrumbModel.length-1].routerLink);
+      this._navigationService.requestCurrentRouteEmitted(this.breadcrumbModel[this.breadcrumbModel.length-1].routerLink);
+    }))
   }
 
   public ngOnInit(): void {
@@ -77,6 +82,8 @@ export class AppBreadcrumbComponent implements OnInit, OnDestroy {
 
     return parts.slice(0, ++limit).join("/");
   }
+
+  public get currentRoute(): string { return this.breadcrumbModel[this.breadcrumbModel.length-1].routerLink; }
 
   private _getPreviousRoute(): string { return this.breadcrumbModel[this.breadcrumbModel.length-2].routerLink; }
 }

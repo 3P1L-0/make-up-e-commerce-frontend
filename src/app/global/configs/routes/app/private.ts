@@ -13,5 +13,9 @@ export enum PRIVATE_ROUTES {
 
   /* ------- USERS ------- */
   employees = "/app/private/users/employees",
+  employeesDetails = "/app/private/users/employeeDetails/",
+  employeesNew = "/app/private/users/employees/new",
+
   clients = "/app/private/users/clients",
+  clientsDetails = "/app/private/users/clientDetails/",
 }

@@ -1,0 +1,31 @@
+@mixin themefy() {
+  .app-user-list-item-module {
+    .content-container {
+      padding: 1rem;
+      background-color: var(--surface-a);
+      border-radius: var(--border-radius);
+
+      display: grid;
+      grid-template-columns: 10rem 1fr max-content;
+      grid-gap: 1rem;
+
+      .img-container {
+        height: 8rem;
+        padding: .5rem;
+        border: 1px solid var(--surface-border);
+      }
+
+      .details-section {
+        background-color: darkgoldenrod;
+      }
+
+      .controls {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: .5rem;
+      }
+    }
+  }
+}

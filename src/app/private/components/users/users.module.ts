@@ -6,13 +6,15 @@ import {AppCommonImportsModule} from "../../../global/modules/commom-imports.mod
 import { AppUserListItemComponent } from './users-list/user-list-item/user-list-item.component';
 import {AppUserDetailsComponent} from "./user-details/user-details.component";
 import {AppCardsComponent} from "./cards/cards.component";
+import {AppBillingAddressComponent} from "./billing-address/billing-address.component";
 
 @NgModule({
   declarations: [
     AppUsersComponent,
     AppUserListItemComponent,
     AppUserDetailsComponent,
-    AppCardsComponent
+    AppCardsComponent,
+    AppBillingAddressComponent
   ],
   imports: [
     AppCommonImportsModule,

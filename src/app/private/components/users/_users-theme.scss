@@ -1,7 +1,11 @@
 @use "./users-list/users-list-theme" as list;
 @use "./user-details/user-details-theme" as details;
+@use "./cards/cards-theme" as cards;
+@use "./billing-address/billing-address-theme" as billingAddress;
 
 @mixin themefy() {
   @include list.themefy();
   @include details.themefy();
+  @include cards.themefy();
+  @include billingAddress.themefy();
 }

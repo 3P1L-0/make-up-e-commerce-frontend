@@ -1,8 +1,19 @@
 export const enum USER_API {
+  fetchBlocked = "users/fetch/blocked",
+  fetchByUserId = "users/fetchBy/userId/",
+  fetchByRoleId = "users/fetchBy/roleId/",
+  deleteByUserId = "users/deleteBy/userId/",
+  fetchEmployees = "users/fetch/employees",
+  fetchSpecialties = "users/fetch/specialties",
+  createSpecialty = "users/new/specialty",
+  createSpecialties = "users/new/specialties",
+  updateSpecialty = "users/update/specialty",
+  deleteSpecialtyById = "users/delete/specialtyBy/id/",
+  deleteSpecialtyList = "users/delete/specialty/list",
   fetch = "users/fetch/all",
-  getById = "users/fetchBy/id/",
-  deleteById = "users/deleteBy/id/",
   create = "users/new",
   createList = "users/new/list",
-  update = "users/update"
+  update = "users/update",
+  blockById = "users/blockById/",
+  fetchUsers = "users/fetch/users",
 }

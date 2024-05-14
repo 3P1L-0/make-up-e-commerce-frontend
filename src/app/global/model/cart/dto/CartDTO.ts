@@ -9,4 +9,8 @@ export class CartDTO extends AbstractDTO {
   public state: CartState;
   public owner: UserDTO;
   public items: ItemDTO[];
+  public servicesSubtotal: number;
+  public productsSubtotal: number;
+  public total: number;
+  public totalWithDiscount: number;
 }

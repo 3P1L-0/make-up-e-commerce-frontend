@@ -6,4 +6,5 @@ export class PersonDTO extends AbstractDTO {
   public name: string;
   public surname: string;
   public gender: GenderDTO;
+  public contact: string;
 }

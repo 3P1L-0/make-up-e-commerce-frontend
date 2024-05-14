@@ -5,9 +5,11 @@
 @use "/src/scss/config/variables/layers";
 
 @mixin _private() {
+  position: relative;
+
   .app-private-header-module {
     height: headers.$top-header;
-    position: absolute;
+    position: fixed;
     z-index: layers.$top-header-z-idx;
     inset: 0;
     border-block-end: 1px solid var(--surface-border);
@@ -25,6 +27,7 @@
     .app-main-menu-module {
       position: sticky;
       top: 0;
+      z-index: 500;
     }
 
     & > :nth-child(3) {
@@ -43,5 +46,11 @@
     @include _private();
     @include header.themefy();
     @include main-menu.themefy($theme);
+
+    @at-root {
+      body:has(.app-private-shell-module) {
+        height: calc(100vh - #{headers.$top-header});
+      }
+    }
   }
 }

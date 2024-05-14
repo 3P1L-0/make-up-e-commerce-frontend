@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: "",
     component: AppShellComponent,
+    resolve: [(activatedRoute, router) => { console.log(activatedRoute, router); console.log(router.url) }],
     children: [
       {
         path: "home",

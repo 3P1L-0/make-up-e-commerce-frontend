@@ -1,0 +1,18 @@
+<div class="content-container">
+  <section class="img-container"><img [src]="user?.img?.url" alt="imagem do utilizador"></section>
+  <section class="details-section">
+    <p class="line">
+      <span>{{ user?.person.name }}</span>
+      <span>{{ user?.person.surname }}</span></p>
+    <p class="line">
+      <span>{{ user?.blocked }}</span>
+      <span>{{ user?.person.contact }}</span></p>
+    <p class="line"><span>{{ user?.role.name }}</span></p>
+  </section>
+  <section class="controls">
+    <button pButton icon="pi pi-info" class="p-button-rounded" (click)="info()" pTooltip="Detalhes"></button>
+    <button pButton icon="pi pi-ban" class="p-button-rounded p-button-danger" (click)="block()" pTooltip="Bloquear"></button>
+    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="trash()" pTooltip="Eliminar"></button>
+  </section>
+</div>
+<p-confirmDialog icon="pi pi-exclamation-triangle" acceptButtonStyleClass="p-button-danger" rejectButtonStyleClass="reject" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>

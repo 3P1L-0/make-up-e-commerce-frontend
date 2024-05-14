@@ -5,6 +5,7 @@ import {AppAuthService} from "src/app/global/components/auth/auth.service";
 import {AppThemeService} from "src/app/global/services/theme/theme.service";
 import {AppNavigationService} from "../../../global/services/navigation.service";
 import {map, Observable, Subscription} from "rxjs";
+import {AppCartService} from "../cart/cart.service";
 
 @Component({
   selector: "app-header-view",
@@ -17,6 +18,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   private readonly _authService = inject(AppAuthService);
   private readonly _router = inject(Router);
   private readonly _navigationService = inject(AppNavigationService);
+  private readonly _cartService = inject(AppCartService);
 
   /* MEMBERS */
   public isDarkThemeMode: boolean;
@@ -37,6 +39,8 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     this.pageName$ = this._navigationService.viewTitleEmitted$;
     this.notHome$ = this._navigationService.currentRouteEmitted$.pipe(map(r => r === PUBLIC_ROUTES.home));
   }
+
+  public get itenmsInCart(): Observable<number> { return }
 
   public ngOnDestroy() {
     this._subscriptions.forEach(s => s.unsubscribe());

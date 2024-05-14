@@ -1,0 +1,72 @@
+<section class="content-container">
+  <p-card>
+    <p-panel header="Dados Pessoais" class="personal-info-panel" [toggleable]="true">
+      <section class="readonly-section">
+        <div class="details">
+          <span class="detail"><span class="label">Nome</span><span class="value">{{user?.person.name}}</span></span>
+          <span class="detail"><span class="label">Sobrenome</span><span class="value">{{user?.person.surname}}</span></span>
+          <span class="detail"><span class="label">Gênero</span><span class="value">{{user?.person.gender.name}}</span></span>
+          <span class="detail"><span class="label">Perfil</span><span class="value">{{user?.role.name}}</span></span>
+          <span class="detail"><span class="label">Bloqueado</span><span class="value">{{userStatus}}</span></span>
+          <span class="detail"><span class="label">Contacto</span><span class="value">{{user?.person.contact}}</span></span>
+          <span class="detail"><span class="label">Data de cadastro</span><span class="value">{{registrationDate  | date}}</span></span>
+          <span class="detail"><span class="label">Última actualização</span><span class="value">{{lastModificationDate  | date}}</span></span>
+        </div>
+        <div class="profile-image">
+          <img [src]="user?.img.url" alt="imagem de perfil" />
+        </div>
+      </section>
+      <section class="editable"></section>
+    </p-panel>
+    <p-panel header="Credenciais" class="credentials-panel" [toggleable]="true">
+      <div class="details">
+        <span class="detail"><span class="label">Login</span><span class="value">{{ credentials?.username }}</span></span>
+        <span class="detail"><span class="label">Email</span><span class="value">{{ credentials?.username }}</span></span>
+      </div>
+      <form>
+        <div class="form-fields">
+          <div class="field">
+            <div class="control">
+              <p class="label">Login</p>
+              <input type="text" pInputText />
+            </div>
+          </div>
+          <div class="field">
+            <div class="p control">
+              <p class="label">Email</p>
+              <input type="text" pInputText />
+            </div>
+          </div>
+          <div class="field">
+            <div class="p control">
+              <p class="label">Nova senha</p>
+              <input type="text" pInputText />
+            </div>
+          </div>
+          <div class="field">
+            <div class="p control">
+              <p class="label">Repetir nova senha</p>
+              <input type="text" pInputText />
+            </div>
+          </div>
+        </div>
+      </form>
+    </p-panel>
+    <p-panel header="Recuperação de Conta">
+      <div class="details">
+        <span class="detail" *ngFor="let sq of securityQuestions; index as idx"><span class="label">Pergunta {{idx+1}}</span><span class="value">{{sq.question}}</span></span>
+        <span class="detail"><span class="label">Pergunta {{1}}</span><span class="value">Pergunta</span></span>
+      </div>
+      <form>
+        <div class="form-fields">
+          <div class="field">
+            <div class="control">
+              <p class="label">Pergunta</p>
+              <input type="text" pInputText />
+            </div>
+          </div>
+        </div>
+      </form>
+    </p-panel>
+  </p-card>
+</section>

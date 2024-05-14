@@ -1,3 +1,7 @@
 <app-view-header>
   <button pButton icon="pi pi-plus" (click)="newEmployee()" *ngIf="isEmployee"></button>
 </app-view-header>
+<p-card class="content-section">
+  <app-user-list-item (updateInList)="onUpdate($event)" (removeFromList)="onRemove($event)"></app-user-list-item>
+  <app-user-list-item *ngFor="let u of users" [user]="u" (updateInList)="onUpdate($event)" (removeFromList)="onRemove($event)"></app-user-list-item>
+</p-card>

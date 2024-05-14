@@ -2,10 +2,12 @@
 @use "./user-details/user-details-theme" as details;
 @use "./cards/cards-theme" as cards;
 @use "./billing-address/billing-address-theme" as billingAddress;
+@use "./orders/orders-theme" as orders;
 
 @mixin themefy() {
   @include list.themefy();
   @include details.themefy();
   @include cards.themefy();
   @include billingAddress.themefy();
+  @include orders.themefy();
 }

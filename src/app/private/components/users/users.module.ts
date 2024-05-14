@@ -5,12 +5,14 @@ import {AppUsersComponent} from "./users-list/users.component";
 import {AppCommonImportsModule} from "../../../global/modules/commom-imports.module";
 import { AppUserListItemComponent } from './users-list/user-list-item/user-list-item.component';
 import {AppUserDetailsComponent} from "./user-details/user-details.component";
+import {AppCardsComponent} from "./cards/cards.component";
 
 @NgModule({
   declarations: [
     AppUsersComponent,
     AppUserListItemComponent,
-    AppUserDetailsComponent
+    AppUserDetailsComponent,
+    AppCardsComponent
   ],
   imports: [
     AppCommonImportsModule,

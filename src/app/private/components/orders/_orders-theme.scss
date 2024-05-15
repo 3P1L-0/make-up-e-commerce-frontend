@@ -1,7 +1,9 @@
 @use "./order-list/orders-list-theme" as list;
 @use "./order-detail/order-detail-theme" as detail;
+@use "./order-list-item/order-list-item-theme" as list-item;
 
 @mixin themefy() {
   @include list.themefy();
-  @include list.themefy();
+  @include detail.themefy();
+  @include list-item.themefy();
 }

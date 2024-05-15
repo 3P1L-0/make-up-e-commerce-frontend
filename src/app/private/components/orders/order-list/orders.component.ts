@@ -6,4 +6,4 @@ import {Component, ViewEncapsulation} from "@angular/core";
   host: {"class": "app-orders-module"},
   encapsulation: ViewEncapsulation.None
 })
-export class AppOrdersComponent {}
+export class AppOrderListComponent {}

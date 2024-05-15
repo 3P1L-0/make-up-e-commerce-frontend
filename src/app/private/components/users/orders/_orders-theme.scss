@@ -1,1 +1,7 @@
-@mixin themefy() {}
+@use "./order-list/orders-list-theme" as list;
+@use "./order-detail/order-detail-theme" as detail;
+
+@mixin themefy() {
+  @include list.themefy();
+  @include list.themefy();
+}

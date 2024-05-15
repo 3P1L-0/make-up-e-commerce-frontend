@@ -3,6 +3,7 @@
 @use "./components/store/store-theme" as store;
 @use "./components/utilities/utilities-theme" as utilities;
 @use "./components/users/users-theme" as users;
+@use "./components/orders/orders-theme" as orders;
 
 @mixin themefy($theme) {
   @include app-shell.themefy($theme);
@@ -10,4 +11,5 @@
   @include store.themefy($theme);
   @include utilities.themefy($theme);
   @include users.themefy();
+  @include orders.themefy();
 }

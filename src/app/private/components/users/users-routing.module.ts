@@ -2,6 +2,8 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {AppUsersComponent} from "./users-list/users.component";
 import {AppUserDetailsComponent} from "./user-details/user-details.component";
+import {AppOrderListComponent} from "../orders/order-list/orders.component";
+import {AppOrderDetailComponent} from "../orders/order-detail/order-detail.component";
 
 const routes: Routes = [
   {
@@ -25,7 +27,17 @@ const routes: Routes = [
     title: "Detalhes do Cliente",
     path: "clientDetails/:id",
     component: AppUserDetailsComponent
-  }
+  },
+  {
+    title: "Encomendas",
+    path: "orders",
+    component: AppOrderListComponent
+  },
+  {
+    title: "Detalhes da Encomenda",
+    path: "orders",
+    component: AppOrderDetailComponent
+  },
 ];
 
 @NgModule({

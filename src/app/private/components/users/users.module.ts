@@ -7,7 +7,6 @@ import { AppUserListItemComponent } from './users-list/user-list-item/user-list-
 import {AppUserDetailsComponent} from "./user-details/user-details.component";
 import {AppCardsComponent} from "./cards/cards.component";
 import {AppBillingAddressComponent} from "./billing-address/billing-address.component";
-import {AppOrdersComponent} from "./orders/orders.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import {AppOrdersComponent} from "./orders/orders.component";
     AppUserDetailsComponent,
     AppCardsComponent,
     AppBillingAddressComponent,
-    AppOrdersComponent
   ],
   imports: [
     AppCommonImportsModule,

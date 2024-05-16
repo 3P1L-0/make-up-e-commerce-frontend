@@ -29,7 +29,7 @@ export class CardService {
   }
 
   public modify(paymentMethod: PaymentMethodDTO): Observable<PaymentMethodDTO> {
-    return this._http.post<PaymentMethodDTO>(this._url + PAYMENT_METHOD_API.createList, paymentMethod);
+    return this._http.post<PaymentMethodDTO>(this._url + PAYMENT_METHOD_API.update, paymentMethod);
   }
 
   public delete(id?: number, paymentMethods?: PaymentMethodDTO[]): Observable<void> {

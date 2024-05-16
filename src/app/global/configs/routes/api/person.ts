@@ -1,6 +1,6 @@
 export const enum PERSON_API {
   fetch = "person/fetch/all",
-  fetchByGenderId = "/v1/person/fetchBy/genderId/",
+  fetchByGenderId = "person/fetchBy/genderId/",
   getById = "person/fetchBy/id/",
 
   create = "person/new",

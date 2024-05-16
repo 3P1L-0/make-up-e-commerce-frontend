@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs";
-import { PAYMENT_METHOD_API } from "src/app/global/configs";
-import { PaymentMethodDTO } from "src/app/global/model/documents/dto/PaymentMethodDTO";
+import { PAYMENT_API } from "src/app/global/configs";
+import { PaymentDTO } from "src/app/global/model/documents/dto/PaymentDTO";
 import { environment } from "src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
@@ -13,29 +13,37 @@ export class CardService {
   /* MEMBERS */
   private readonly _url = environment.api;
 
-  public getPaymentMethodById(id: number): Observable<PaymentMethodDTO> {
-    return this._http.get<PaymentMethodDTO>(this._url + PAYMENT_METHOD_API.getById + id);
+  public getPaymentById(id: number): Observable<PaymentDTO> {
+    return this._http.get<PaymentDTO>(this._url + PAYMENT_API.getById + id);
   }
 
-  public fetchAll(): Observable<PaymentMethodDTO[]> {
-    return this._http.get<PaymentMethodDTO[]>(this._url + PAYMENT_METHOD_API.fetch);
+  public fetchAll(): Observable<PaymentDTO[]> {
+    return this._http.get<PaymentDTO[]>(this._url + PAYMENT_API.fetch);
   }
 
-  public save(paymentMethod?: PaymentMethodDTO, paymentMethods?: PaymentMethodDTO[]): Observable<PaymentMethodDTO> | Observable<PaymentMethodDTO[]> {
-    if (paymentMethod !== undefined || paymentMethod !== null) {
-      return this._http.post<PaymentMethodDTO>(this._url + PAYMENT_METHOD_API.create, paymentMethod);
+  public fetchPaymentByFacturaId(id: number): Observable<PaymentDTO> {
+    return this._http.get<PaymentDTO>(this._url + PAYMENT_API.fetchByFacturaId + id);
+  }
+
+  public fetchPaymentByOperadorId(id: number): Observable<PaymentDTO> {
+    return this._http.get<PaymentDTO>(this._url + PAYMENT_API.fetchByOperatorId + id);
+  }
+
+  public save(payment?: PaymentDTO, payments?: PaymentDTO[]): Observable<PaymentDTO> | Observable<PaymentDTO[]> {
+    if (payment !== undefined || payment !== null) {
+      return this._http.post<PaymentDTO>(this._url + PAYMENT_API.create, payment);
     }
-    return this._http.post<PaymentMethodDTO[]>(this._url + PAYMENT_METHOD_API.createList, paymentMethods);
+    return this._http.post<PaymentDTO[]>(this._url + PAYMENT_API.createList, payments);
   }
 
-  public modify(paymentMethod: PaymentMethodDTO): Observable<PaymentMethodDTO> {
-    return this._http.post<PaymentMethodDTO>(this._url + PAYMENT_METHOD_API.createList, paymentMethod);
+  public modify(paymentMethod: PaymentDTO): Observable<PaymentDTO> {
+    return this._http.post<PaymentDTO>(this._url + PAYMENT_API.update, paymentMethod);
   }
 
-  public delete(id?: number, paymentMethods?: PaymentMethodDTO[]): Observable<void> {
-    if (paymentMethods === undefined || paymentMethods === null) {
-      return this._http.delete<void>(this._url + PAYMENT_METHOD_API.deleteById + id);
+  public delete(id?: number, payments?: PaymentDTO[]): Observable<void> {
+    if (payments === undefined || payments === null) {
+      return this._http.delete<void>(this._url + PAYMENT_API.deleteById + id);
     }
-    return this._http.delete<void>(this._url + PAYMENT_METHOD_API.deleteList, { body: paymentMethods });
+    return this._http.delete<void>(this._url + PAYMENT_API.deleteList, { body: payments });
   }
 }

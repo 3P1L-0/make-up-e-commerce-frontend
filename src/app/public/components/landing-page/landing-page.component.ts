@@ -1,6 +1,5 @@
 import {Component, inject} from "@angular/core";
 import {take} from "rxjs";
-import {Product} from "../../../global/model/cart/Product";
 import {ProductVariantDTO} from "../../../global/model/cart/dto/ProductVariantDTO";
 import {ServiceDTO} from "../../../global/model/cart/dto/ServiceDTO";
 import {PUBLIC_ROUTES} from "../../../global/configs";

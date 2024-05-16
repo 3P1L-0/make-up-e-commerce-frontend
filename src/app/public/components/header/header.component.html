@@ -28,12 +28,15 @@
   <div class="controls">
     <button type="button" pButton class="p-button-rounded" icon="pi pi-search"></button>
     <button type="button" pButton class="p-button-rounded" icon="pi pi-user" (click)="goToProfile()"></button>
-    <button pButton icon="pi pi-shopping-cart" class="p-button-rounded"></button>
+    <div class="cart-button-wrapper">
+      <button pButton icon="pi pi-shopping-cart" class="p-button-rounded"></button>
+      <i pBadge value="{{itemsInCart | async}}" severity="{{(itemsInCart | async) ? 'danger' : 'info'}}" class="badge"></i>
+    </div>
     <!--<button type="button" pButton class="p-button-rounded" icon="store" (click)="shopMenu.toggle($event)"><i class="material-symbols-rounded">store</i></button>
     <button type="button" pButton class="p-button-rounded" icon="shopping_cart"><i class="material-symbols-rounded">shopping_cart</i></button>-->
   </div>
 </section>
-<section class="row third" *ngIf="notHome$ | async">
-  <span class="page-name">{{pageName$ | async}}</span>
+<section class="row third" *ngIf="!(hideBreadcrumbSection$ | async)">
+  <h3 class="page-name">{{pageName$ | async}}</h3>
   <app-breadcrumb-view></app-breadcrumb-view>
 </section>

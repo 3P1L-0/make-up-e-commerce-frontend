@@ -27,7 +27,7 @@ services:
       - backendNetworkAnew
 
   spring:
-    image: 3p1l/inaluma-api-anew:amd64-v8-1.0-beta
+    image: 3p1l/inaluma-api-anew:arm64-v8-1.0-beta
     container_name: inaluma-api-anew
     ports:
       - "8080:8080"
@@ -40,14 +40,14 @@ services:
       - backendNetworkAnew
       - frontEndNetworkAnew
 
-  inaluma_ui:
-    image: 3p1l/inaluma-api-anew-ui:amd64-v8-1.0-beta
-    container_name: inaluma-api-anew-ui
-    ports:
-      - "3000:80"
-    networks:
-      - backendNetworkAnew
-      - frontEndNetworkAnew
+  # inaluma_ui:
+  #   image: 3p1l/inaluma-api-anew-ui:amd64-v8-1.0-beta
+  #   container_name: inaluma-api-anew-ui
+  #   ports:
+  #     - "3000:80"
+  #   networks:
+  #     - backendNetworkAnew
+  #     - frontEndNetworkAnew
 
 volumes:
   inaluma_db_anew:

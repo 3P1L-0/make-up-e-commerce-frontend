@@ -19,7 +19,7 @@ const _routes: Routes = [
     path: "auth",
     loadChildren: () => import("../components/auth/auth.module").then(m => m.AppAuthModule)
   },
-  { path: '', redirectTo: '/app/public', pathMatch: 'full' },
+  { path: '', redirectTo: '/app/public/home', pathMatch: 'full' },
   { path: '**', redirectTo: 'app/private/products' }
 ];
 

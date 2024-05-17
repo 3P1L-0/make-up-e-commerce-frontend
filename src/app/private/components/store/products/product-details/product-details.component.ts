@@ -1,5 +1,5 @@
-import {Component, inject, OnInit, Type, ViewEncapsulation} from '@angular/core';
-import {BehaviorSubject, fromEvent, map, Observable, of, switchMap} from "rxjs";
+import {Component, inject, OnInit, Type, ViewChild, ViewEncapsulation} from '@angular/core';
+import {BehaviorSubject, fromEvent, map, Observable, of, switchMap, tap} from "rxjs";
 import {Product} from "../../../../../global/model/cart/Product";
 import {AppProductService} from "../../../../services/product.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -17,9 +17,9 @@ import {SaleItemState} from "../../../../../global/model/cart/enums/SaleItemStat
 import {AppBrandsComponent} from "../../../utilities/brands/brands.component";
 import {AppCategoriesComponent} from "../../../utilities/categories/categories.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ProductVariantDTO} from "../../../../../global/model/cart/dto/ProductVariantDTO";
 import {AppAddStockDialogComponent} from "./add-stock-dialog/add-stock-dialog.component";
 import {AppNavigationService} from "../../../../../global/services/navigation.service";
+import {ProductDTO} from "../../../../../global/model/cart/dto/ProductDTO";
 
 @Component({
   selector: 'app-product-details-view',
@@ -50,13 +50,14 @@ export class AppProductDetailsComponent implements OnInit {
   public brands$: BehaviorSubject<BrandDTO[]>;
   public categories$: BehaviorSubject<CategoryDTO[]>;
   private _file: File;
-  public saleItemState: string[];
+  public saleItemState: {label: string, value: string}[];
   public selectedBrand: number;
   public selectedCategory: number;
   public selectedState: string;
   public variantsFormMap: Map<number, FormGroup>;
   public variantsFlagMap: Map<number, Boolean>;
   public variantsForms$: BehaviorSubject<FormGroup[]>;
+  @ViewChild("d") d;
 
   public constructor() {
     this.productInReadMode = true;
@@ -80,17 +81,23 @@ export class AppProductDetailsComponent implements OnInit {
       kind: new FormControl<string>(Object.keys(SaleItemType)[0]),
       description: new FormControl<string>(null)
     });
-    this.saleItemState = [...Object.values(SaleItemState)];
+    this.saleItemState = [...Object.entries(SaleItemState).map(([label, value]) => {
+      return {label, value};
+    })]
   }
 
   public ngOnInit() {
     if (!this._activatedRoute.snapshot.params.id) this._navigationService.requestGoBack();
-
     this._fetchProductById();
   }
 
   public handleSelectFile(evt): void {
-    of(evt).subscribe(evt => this.productImage$ = (this._file = evt.target.files[0]) ?  this.readFile(this._file): of(this.product?.getDTO().img.url))
+    this.productImage$ = (this._file = evt.target.files[0]) ? this.readFile(this._file) : of(this.product?.getDTO().img.url);
+  }
+
+  public revertImageSelect(): void {
+    this._file = null;
+    this.productImage$ = of(this.product?.getDTO().img.url);
   }
 
   private _fetchData(): void {
@@ -103,21 +110,12 @@ export class AppProductDetailsComponent implements OnInit {
       next: p => {
         this.product = p;
         this.productImage$ = of(p.getDTO().img.url);
-        this._updateVariantsMap(...this.product.getDTO().variants);
       },
       error: () => {
         this._showToast("error", "Erro ao carregar producto");
         this.goBack();
       }
     });
-  }
-
-  private _updateVariantsMap(...variants: ProductVariantDTO[]): void {
-    for(let p of variants){
-      if(this.variantsFlagMap.has(p.id)) continue;
-      if(!this.getVariantById(p.id)) this.product.getDTO().variants.push(p);
-      this.variantsFlagMap.set(p.id, false);
-    }
   }
 
   private readFile(file: File): Observable<string> {
@@ -129,10 +127,16 @@ export class AppProductDetailsComponent implements OnInit {
   }
 
   public uploadImage(): void {
-    this._filesService.uploadFile(this.productsForm.value.file, this.product.getId(), "product").subscribe({
+    this._filesService.uploadFile(this._file, this.product.getId(), "product").pipe(
+      tap(p => {
+        console.log(p);
+      })
+    ).subscribe({
       next: p => {
         this._fetchProductById();
-        this.productsForm.reset({emitEvent: false});
+        console.log(this.productImage$)
+        this._file = null;
+        console.log(this.productImage$)
         this._showToast("success", "Imagem actualizada com sucesso");
       },
       error: () => this._showToast("error", "Erro ao atualizar imagem"),
@@ -143,7 +147,7 @@ export class AppProductDetailsComponent implements OnInit {
 
   private _showToast(severity: string, detail: string): void { this._msgService.add({severity, detail}); }
 
-  public showSaveImg(): boolean { return this.productsForm.get("file")?.value?.file }
+  public showSaveImg(): boolean { return !!this._file }
 
   public newProduct(): void { this._router.navigate([PRIVATE_ROUTES.productsForm]).then(); }
 
@@ -173,12 +177,8 @@ export class AppProductDetailsComponent implements OnInit {
         name: this.product.getDTO().name,
         code: this.product.getDTO().code,
         state: this.product.getDTO().state,
-        category: this._frmBuilder.group({
-          id: this.product.getDTO().category.id
-        }),
-        brand: this._frmBuilder.group({
-          id: this.product.getDTO().brand.name
-        }),
+        category: this.product.getDTO().category,
+        brand: this.product.getDTO().brand,
         kind: this.product.getDTO().kind,
         description: this.product.getDTO().description
       });
@@ -221,140 +221,9 @@ export class AppProductDetailsComponent implements OnInit {
 
   private _askForConfirmation(header: string, message: string, accept: () => void): void { this._confirmationService.confirm({ header, message, accept}); }
 
-  public toggleVariantReadMode(variantId: number): void {
-    this.variantsFlagMap.set(variantId, !this.isVariantInEditMode(variantId));
-    if (this.isVariantInEditMode(variantId)) this.newVariant(this.getVariantById(variantId));
-  }
-
-  public newVariant(variant: ProductVariantDTO = null): void {
-    const patch = variant !== null;
-
-    this.variantsFormMap.set(this.variantsFormMap.size, this._frmBuilder.group({
-      id: new FormControl<number>(patch ? variant.id : NaN),
-      code: new FormControl<string>(patch ? variant.code : null, [Validators.required]),
-      price: new FormControl<number>(patch ? variant.price : null, [Validators.required]),
-      color: new FormControl<string>(patch ? variant.color : null),
-      density: new FormControl<string>(patch ? variant.density : null),
-    }));
-
-    this._updateView();
-  }
-
-  private _updateView(): void {
-    this.variantsForms$.next([...this.variantsFormMap.values()]);
-  }
-
-  public isVariantInEditMode(variantId: number): boolean { return this.variantsFlagMap.get(variantId).valueOf(); }
-
-  public deleteVariant(variantId: number): void {
-    this._askForConfirmation(
-      "Eliminar Variante",
-      "Tem a certeza de que deseja eliminar esta variante?",
-      () => {
-        this._productsService.deleteVariantById(this.getVariantById(variantId).id).subscribe({
-          next: () => this.variantsFlagMap.delete(variantId),
-          error: error => this._showToast("error", "Erro ao eliminar Variante"),
-        })
-      }
-    );
-  }
-
-  public discardChangesForVariant(formMapKey: number, askForConfirmation = true): void {
-    const variantId = this._getVariantForm(formMapKey).value.id;
-
-    if(this.variantsFormMap.get(formMapKey).untouched) {
-      if (isFinite(variantId)) this.toggleVariantReadMode(variantId);
-      this.variantsFormMap.delete(formMapKey);
-      this._updateView();
-      return;
-    }
-
-    if(askForConfirmation) {
-      this._askForConfirmation(
-        "Descartar Alterações",
-        "Deseja descartar todas as alterações?",
-        () => {
-          if (isFinite(variantId)) this.toggleVariantReadMode(variantId);
-          this.variantsFormMap.delete(formMapKey);
-          this._updateView();
-        }
-      );
-    }
-  }
-
-  public saveVariantChanges(formMapKey: number): void {
-    const variant = Object.assign(new ProductVariantDTO(), this.variantsFormMap.get(formMapKey).value) as ProductVariantDTO;
-    variant.product = this.product.getDTO();
-    variant.category = this.product.getDTO().category;
-    variant.kind = this.product.getDTO().kind;
-    variant.state = this.product.getDTO().state;
-    variant.name = variant.code;
-
-    let verb = "editada";
-
-    const success = (v: ProductVariantDTO) => {
-      this._showToast("success", `Variante ${verb} com sucesso`);
-      this.discardChangesForVariant(formMapKey, false);
-      this._updateVariantsMap(v);
-    };
-
-    const error = () => this._showToast("error", `Erro ao ${verb} variante`);
-
-    if(isNaN(variant.id)) {
-      delete variant.id;
-      this._productsService.newVariant(variant).subscribe({ next: v => {
-        verb = "criada";
-          success(v);
-        }, error: () => {
-          verb = "criar";
-          error();
-        }
-      });
-
-      return;
-    }
-
-    this._productsService.updateVariant(variant).subscribe({
-      next: (v) => success(v),
-      error: () => {
-        verb = "editar";
-        error();
-      }
+  public editStock(product: ProductDTO): void {
+    this._openDynamicDialog(AppAddStockDialogComponent, {product}).onClose.subscribe(persisted => {
+      if(persisted) this._fetchProductById();
     });
-  }
-
-  public getVariantById(variantId: number) { return this.product.getDTO().variants.find(v => v.id === variantId); }
-  private _getVariantForm(variantKey: number): FormGroup { return this.variantsFormMap.get(variantKey); }
-
-  public editStock(variant: ProductVariantDTO): void {
-    this._openDynamicDialog(AppAddStockDialogComponent, {variant}).onClose.pipe(
-      switchMap((v: ProductVariantDTO) => this._productsService.fetchVariantById(v.id))
-    ).subscribe(res => this._updateVariantsMap(res));
-  }
-
-  public purgeVariants(): void {
-    this._askForConfirmation(
-      "Eliminar Variantes",
-      "Deseja eliminar todas as variantes?",
-      () => {
-        this._productsService.deleteVariantsList(this.product.getDTO().variants).subscribe({
-          next: v => {
-            this.product.getDTO().variants = [];
-            this.variantsFormMap.clear();
-            this.variantsFlagMap.clear();
-            this._updateView();
-            this._showToast("success", "Variantes eliminadas com sucesso");
-          },
-          error: () => this._showToast("error", "Error ao eliminar variantes")
-        });
-      }
-    );
-  }
-
-  public editVariants(): void {
-    for(let v of this.product.getDTO().variants) {
-      if(this.isVariantInEditMode(v.id)) continue;
-      this.toggleVariantReadMode(v.id);
-    }
   }
 }

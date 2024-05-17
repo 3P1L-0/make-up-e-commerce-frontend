@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpEvent} from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Observable, from, map, switchMap } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -9,6 +9,7 @@ import { FileDTO } from "../model/FileDTO";
 export class AppFileService {
   /* DEPENDENCIES */
   private readonly _http = inject(HttpClient);
+  public b;
 
   /* MEMBERS */
   private readonly _url = environment.api;

@@ -2,6 +2,7 @@
   .sale-item-preview-module {
     display: flex;
     flex-flow: column nowrap;
+    position: relative;
 
     .details,
     .img-container {
@@ -23,7 +24,7 @@
       gap: 20px;
       border: 1px solid var(--surface-border);
       border-top: none;
-      padding-top: 10px;
+      padding-block: 10px;
 
       .lines {
         align-items: center;
@@ -34,6 +35,28 @@
           font-size: 10pt;
         }
       }
+    }
+
+    .controls-wrapper {
+      visibility: hidden;
+      position: absolute;
+      top: .75rem;
+      right: .75rem;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      transition: visibility .5s cubic-bezier(.25,.8,.25,1);
+
+      .p-button {
+        width: 1rem;
+        height: 2rem;
+      }
+    }
+
+    &:hover .controls-wrapper {
+      visibility: visible;
     }
   }
 }

@@ -56,11 +56,9 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-
-          }
-
-          &:hover .controls {
-            display: block;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 8px;
           }
         }
       }

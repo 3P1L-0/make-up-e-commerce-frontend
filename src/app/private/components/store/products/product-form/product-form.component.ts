@@ -1,11 +1,10 @@
 import {Component, ElementRef, inject, OnInit, Type, ViewChild} from "@angular/core";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {emptyString} from "src/app/global/configs/validators/forms/validators";
 import {BrandDTO} from "src/app/global/model/cart/dto/BrandDTO";
 import {CategoryDTO} from "src/app/global/model/cart/dto/CategoryDTO";
-import {ProductDTO} from "src/app/global/model/cart/dto/ProductDTO";
 import {SaleItemType} from "src/app/global/model/cart/enums/SaleItemType";
-import {forkJoin, of, switchMap} from "rxjs";
+import {of, switchMap} from "rxjs";
 import {SaleItemState} from "src/app/global/model/cart/enums/SaleItemState";
 import {MessageService} from "primeng/api";
 import {AppFileService} from "src/app/global/services/file.service";
@@ -16,7 +15,6 @@ import {AppBrandService} from "../../../../services/brand.service";
 import {AppCategoryService} from "../../../../services/category.service";
 import {AppCategoriesComponent} from "../../../utilities/categories/categories.component";
 import {AppBrandsComponent} from "../../../utilities/brands/brands.component";
-import {ProductVariantDTO} from "../../../../../global/model/cart/dto/ProductVariantDTO";
 import {MAXIMUM_DESCRIPTION_SIZE, PRIVATE_ROUTES} from "../../../../../global/configs";
 import {Router} from "@angular/router";
 import {AppNavigationService} from "../../../../../global/services/navigation.service";
@@ -40,7 +38,6 @@ export class AppProductsFormComponent implements OnInit {
 
   /* MEMBERS */
   public readonly productsForm: FormGroup;
-  public readonly variantsForm: FormGroup;
   public product: Product;
   public categories: CategoryDTO[];
   public brands: BrandDTO[];
@@ -56,8 +53,7 @@ export class AppProductsFormComponent implements OnInit {
 
   constructor() {
     this.maxDescriptionLength = MAXIMUM_DESCRIPTION_SIZE;
-    this.saleItemState = [];
-    for(let [k,v] of Object.entries(SaleItemState)) this.saleItemState.push({key: k, value: v});
+    this.saleItemState = [...Object.entries(SaleItemState).map(([key, value]) => ({key, value}))];
 
     this.productsForm = this._frmBuilder.group({
       name: new FormControl<string>(null, [Validators.required, emptyString]),
@@ -70,17 +66,13 @@ export class AppProductsFormComponent implements OnInit {
         id: new FormControl<number>(null, [Validators.required])
       }),
       kind: new FormControl<string>(Object.keys(SaleItemType)[0]),
-      description: new FormControl<string>(null, [])
-    });
-
-    this.variantsForm = this._frmBuilder.group({
-      variants: this._frmBuilder.array([])
+      description: new FormControl<string>(null, []),
+      price: new FormControl<number>(null, [Validators.required, Validators.min(1)]),
     });
   }
 
   public ngOnInit(): void {
     this._fetchData()
-    this._addVariant();
     this._filesService.fetchImgThumbnail().pipe(
       switchMap(blob => {
         this._defaultFile = this._selectedImage = new File([blob], "no_image", {type: blob.type});
@@ -93,7 +85,6 @@ export class AppProductsFormComponent implements OnInit {
 
   public clearFields(): void {
     this.productsForm.reset({emitEvent: false});
-    this.variantsForm.reset({emitEvent: false});
   }
 
   public handleSelectFile(evt): void {
@@ -113,25 +104,6 @@ export class AppProductsFormComponent implements OnInit {
   private _fetchData(): void {
     this._brandsService.fetch().subscribe(res => this.brands = res);
     this._categoryService.fetch().subscribe(res => { this.categories = res; });
-  }
-
-  private _addVariant() {
-    this.getVariantsFormArray().push(this._frmBuilder.group({
-      code: new FormControl<string>(null, [Validators.required]),
-      price: new FormControl<number>(null, [Validators.required]),
-      color: new FormControl<string>(null),
-      density: new FormControl<string>(null),
-    }));
-  }
-
-  public getVariantsFormArray(): FormArray { return this.variantsForm.get("variants") as FormArray; }
-
-  public newVariant(): void {
-    this._addVariant();
-  }
-
-  public removeVariant(idx: number): void {
-    this.getVariantsFormArray().removeAt(idx);
   }
 
   public newBrand(): void {
@@ -170,7 +142,7 @@ export class AppProductsFormComponent implements OnInit {
     });
   }
 
-  public canSave(): boolean { return this.productsForm.valid && this.variantsForm.valid; }
+  public canSave(): boolean { return this.productsForm.valid }
 
   private _openDynamicDialog(componentName: Type<any>): DynamicDialogRef {
     return this._diagService.open(
@@ -192,16 +164,6 @@ export class AppProductsFormComponent implements OnInit {
 
     this.product = new Product();
     Object.assign(this.product.getDTO(), this.productsForm.value);
-    this.product.getDTO().variants.push(...this.getVariantsFormArray().controls.map(c => {
-      let v = Object.assign(new ProductVariantDTO(), c.value);
-      v.name = c.value.code;
-      v.kind = this.product.getDTO().kind;
-      v.state = this.product.getDTO().state;
-      v.category = this.product.getDTO().category;
-      v.description = "";
-
-      return v;
-    }));
 
     this._productsService.newProduct(this.product.getDTO()).pipe(
       switchMap(p => {

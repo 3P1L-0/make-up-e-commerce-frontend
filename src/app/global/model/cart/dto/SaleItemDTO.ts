@@ -18,4 +18,6 @@ export abstract class SaleItemDTO extends AbstractDTO {
   public brand: BrandDTO;
   public currentAmount: number;
   public promotions: SaleItemPromotionDTO[];
+  public price: number;
+  public promotionalPrice: number;
 }

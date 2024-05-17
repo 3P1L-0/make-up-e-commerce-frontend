@@ -1,10 +1,10 @@
 import {Component, inject} from "@angular/core";
-import {take} from "rxjs";
-import {ProductVariantDTO} from "../../../global/model/cart/dto/ProductVariantDTO";
+import {map, take} from "rxjs";
 import {ServiceDTO} from "../../../global/model/cart/dto/ServiceDTO";
 import {PUBLIC_ROUTES} from "../../../global/configs";
 import {AppProductService} from "../../../private/services/product.service";
 import {AppServiceService} from "../../../private/services/services.service";
+import {ProductDTO} from "../../../global/model/cart/dto/ProductDTO";
 
 @Component({
   selector: 'app-landing-page',
@@ -17,12 +17,15 @@ export class AppLandingPageComponent {
   private readonly _servicesService = inject(AppServiceService);
 
   /* MEMBERS */
-  public produtos: ProductVariantDTO[];
+  public produtos: ProductDTO[];
   public servicos: ServiceDTO[];
   public readonly routes = PUBLIC_ROUTES;
 
   constructor() {
-    this._productsService.fetchVariants().pipe(take(4)).subscribe(items => { this.produtos = items });
+    this._productsService.fetch().pipe(
+      take(4),
+      map(v => v.map(p => p.getDTO()))
+    ).subscribe(items => { this.produtos = items });
     this._servicesService.fetch().pipe(take(4)).subscribe(items => { this.servicos = items });
   }
 }

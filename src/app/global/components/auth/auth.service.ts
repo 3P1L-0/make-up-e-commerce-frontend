@@ -1,13 +1,13 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable, OnInit, inject } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { Session } from "../../model/auth/Session";
-import { AUTH_API, LOCAL_STORAGE, PUBLIC_ROUTES } from "../../configs";
-import { Observable, fromEvent, map, of, switchMap, tap } from "rxjs";
-import { SessionDTO } from "../../model/auth/dto/SessionDTO";
-import { CredentialsDTO } from "../../model/auth";
-import { AccountDTO } from "../../model/user/dto/AccountDTO";
-import { Router } from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {inject, Injectable, OnInit} from "@angular/core";
+import {environment} from "src/environments/environment";
+import {Session} from "../../model/auth/Session";
+import {AUTH_API, LOCAL_STORAGE, PUBLIC_ROUTES} from "../../configs";
+import {filter, fromEvent, map, Observable, of, switchMap, tap} from "rxjs";
+import {SessionDTO} from "../../model/auth/dto/SessionDTO";
+import {CredentialsDTO} from "../../model/auth";
+import {AccountDTO} from "../../model/user/dto/AccountDTO";
+import {NavigationStart, Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class AppAuthService implements OnInit {
@@ -21,16 +21,6 @@ export class AppAuthService implements OnInit {
 
   public ngOnInit(): void {
     console.log("loading auth service");
-  }
-
-  public validateSession(): void {
-    if(this.isSessionAlive) {
-      fromEvent(document, "load").pipe(
-        switchMap(() => this._fetchById(this.activeSession.id))
-      ).subscribe(resp => {
-        if(!resp) this._destroySession();
-      }).unsubscribe();
-    }
   }
 
   public signIn(creds: CredentialsDTO): Observable<Session> {
@@ -63,11 +53,11 @@ export class AppAuthService implements OnInit {
   }
 
   public isSessionAlive(): boolean {
-    try { return new Session(this.activeSession).isAlive(); }
+    try { return !(new Session(this.activeSession).isDeadDate()); }
     catch (error) { return false; }
   }
 
-  isSignedIn(): boolean { return this.activeSession != null; }
+  public isSignedIn(): boolean { return this.activeSession != null; }
 
   public isUsernameTaken(username: string): Observable<boolean> {
     const creds = new CredentialsDTO();
@@ -80,7 +70,7 @@ export class AppAuthService implements OnInit {
     localStorage.setItem(LOCAL_STORAGE.session, JSON.stringify(dto));
   }
 
-  signUp(account: AccountDTO): void {
+  public signUp(account: AccountDTO): void {
     this._http.post<SessionDTO>(this._url+AUTH_API.signUp, account).subscribe(session => {
       if(session === null) return;
       this.addToLocalStorage(session);
@@ -97,5 +87,9 @@ export class AppAuthService implements OnInit {
     }
   }
 
-  private _fetchById(id: number): Observable<SessionDTO> { return this._http.get<SessionDTO>(this._url+AUTH_API.getById+id); }
+  public destroy(): Observable<boolean> {
+    return this._http.delete<boolean>(this._url+AUTH_API.destroy, {body: this.activeSession}).pipe(tap(() => {
+      this._destroySession();
+    }));
+  }
 }

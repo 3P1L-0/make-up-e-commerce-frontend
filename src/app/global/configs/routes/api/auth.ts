@@ -5,5 +5,6 @@ export const enum AUTH_API {
   forgotPassword = "auth/forgotPassword",
   recoverAccount = "auth/recoverAccount",
   signOut = "auth/sign-out/",
-  getById = "auth/fetchBy/id/"
+  getById = "auth/fetchBy/id/",
+  destroy = "auth/destroy/session",
 }

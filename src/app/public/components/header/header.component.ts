@@ -26,6 +26,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   public pageName$: Observable<string>;
   private _subscriptions: Subscription[];
   public hideBreadcrumbSection$: Observable<boolean>;
+  public profileAvatar: string;
 
   constructor() {
     this.isDarkThemeMode = this._themeService.isDarkMode();
@@ -40,6 +41,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
+    this.profileAvatar = this._authService.activeSession?.user.img.url;
   }
 
   public get itemsInCart(): Observable<number> { return of(0); }

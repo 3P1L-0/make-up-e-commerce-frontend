@@ -16,7 +16,6 @@
           <div class="form-field">
             <div class="field p-inputgroup">
               <span class="p-inputgroup-addon"><i class="material-symbols-rounded">person</i></span>
-              <label for="username-form-field">Utilizador</label>
               <input type="text" id="username-form-field" pInputText formControlName="username">
             </div>
             <small class="block p-error" *ngIf="signInForm.get('username').hasError('required')">O nome de Utilizador é obrigatório</small>

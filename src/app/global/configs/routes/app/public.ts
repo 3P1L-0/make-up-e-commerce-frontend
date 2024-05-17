@@ -1,8 +1,8 @@
 
 export enum PUBLIC_ROUTES {
-  signIn = "auth/sign-in",
-  signUp = "auth/sign-up",
-  recoverAccount = "auth/recover-account",
+  signIn = "/auth/sign-in",
+  signUp = "/auth/sign-up",
+  recoverAccount = "/auth/recover-account",
 
   home = "/app/public/home",
 

@@ -42,6 +42,14 @@
                           filterPlaceholder="Filtrar..." class="p-dropdown-sm"></p-dropdown>
             </div>
           </div>
+          <!-- Product price -->
+          <div class="field">
+            <div class="control">
+              <p>Preço</p>
+              <p-inputNumber [showButtons]="true" buttonLayout="horizontal" decrementButtonIcon="pi pi-minus" incrementButtonIcon="pi pi-plus" formControlName="price"
+                             locale="pt-PT" class="p-inputtext-sm" mode="currency" [maxFractionDigits]="2" currency="AOA"></p-inputNumber>
+            </div>
+          </div>
           <!-- Product Category -->
           <div class="field multi-column" formGroupName="category">
             <div class="control">

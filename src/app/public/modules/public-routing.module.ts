@@ -6,6 +6,7 @@ import * as path from "node:path";
 import {AppCartComponent} from "../components/cart/cart.component";
 import {AppCheckoutComponent} from "../components/checkout/checkout.component";
 import {AppSaleItemComponent} from "../components/sale-item/sale-item.component";
+import {AppAuthGuard} from "../../global/guards/AuthGuard";
 
 const routes: Routes = [
   {
@@ -21,11 +22,13 @@ const routes: Routes = [
         path: "shop",
         children: [
           {
+            canActivate: [AppAuthGuard],
             title: "Carrinho",
             path: "cart",
             component: AppCartComponent
           },
           {
+            canActivate: [AppAuthGuard],
             title: "Fazer Checkout",
             path: "checkout",
             component: AppCheckoutComponent

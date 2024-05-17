@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { PrimeNGConfig } from 'primeng/api';
 import {faShopify} from "@fortawesome/free-brands-svg-icons";
+import {AppAuthService} from "./components/auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
   public readonly title = 'Inaluma MakeUp';
   private readonly faIconLibrary = inject(FaIconLibrary);
   private readonly primeNgConfig = inject(PrimeNGConfig);
+  private readonly authService = inject(AppAuthService);
 
   constructor() {
     document.head.getElementsByTagName('title')[0].innerText = this.title;

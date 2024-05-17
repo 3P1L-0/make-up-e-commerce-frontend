@@ -40,8 +40,9 @@ export class AppSignInComponent {
     if (this.isFormInvalid()) return;
 
     this._authService.signIn(creds.getDTO()).subscribe(session => {
-      if(!(this.wrongCredentials = !!session)) return;
-      this._router.navigate([PRIVATE_ROUTES.home]).then();
+      console.log(session);
+      if((this.wrongCredentials = !this._authService.isSessionAlive())) return;
+      else this._router.navigate([PRIVATE_ROUTES.home]).then();
     });
   }
 
@@ -51,11 +52,6 @@ export class AppSignInComponent {
 
   public isFormInvalid() {
     return !this.signInForm.valid
-  }
-
-  public toggleHidden() {
-    this.type = (this.hidden = !this.hidden) ? "password" : "text";
-    return this.hidden
   }
 
   public newAccount() { this._router.navigate([PUBLIC_ROUTES.signUp]).then(); }

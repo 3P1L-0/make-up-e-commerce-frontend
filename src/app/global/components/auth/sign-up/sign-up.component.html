@@ -29,13 +29,13 @@
             <small class="p-error" *ngIf="getPersonControls('surname').hasError('required')">Campo obrigatório</small>
           </div>
           <!-- Gender -->
-          <section id="gender-section" formGroupName="gender">
-            <div class="form-control" class="form-control">
+          <div id="gender-section" formGroupName="gender" class="form-control" class="form-control">
+            <div class="field">
               <label for="id-form-field">Gênero</label>
               <p-dropdown id="id-form-field" formControlName="id" [options]="genders" optionLabel="name" dataKey="id" placeholder="Escolha um gênero" optionValue="id" class="p-dropdown-sm"></p-dropdown>
-              <small class="p-error" *ngIf="getGenderControls('id').hasError('required')">Campo obrigatório</small>
             </div>
-          </section>
+            <small class="p-error" *ngIf="getGenderControls('id').hasError('required')">Campo obrigatório</small>
+          </div>
           <!-- Contact -->
           <div class="form-control">
             <div class="field">
@@ -76,13 +76,13 @@
             <small class="p-error" *ngIf="getCredentialsControls('confirm_password').hasError('fieldsMismatch')">As senhas são diferentes</small>
           </div>
         </section>
-        <section formArrayName="securityQuestions" #formSection class="form-section" data-section-title="Perguntas de Segurança">
+        <section formArrayName="securityQuestions" #formSection class="form-section questions" data-section-title="Perguntas de Segurança">
           <ng-container *ngFor="let ctrl of getSecurityQuestions().controls; index as idx">
             <ng-container [formGroupName]="idx">
               <!-- Question -->
               <div class="form-control">
                 <div class="field">
-                  <label for="question-form-field-{{idx}}">Pergunta</label>
+                  <label for="question-form-field-{{idx}}">Pergunta {{idx+1}}</label>
                   <input type="text" id="question-form-field-{{idx}}" pInputText formControlName="question"/>
                 </div>
                 <small class="p-error" *ngIf="getSecurityQuestion(idx,'question').hasError('required')">Campo obrigatório</small>
@@ -91,7 +91,7 @@
               <!-- Answer -->
               <div class="form-control">
                 <div class="field">
-                  <label for="answer-form-field-{{idx}}">Resposta</label>
+                  <label for="answer-form-field-{{idx}}">Resposta {{idx+1}}</label>
                   <input id="answer-form-field-{{idx}}" type="text" pInputText formControlName="answer"/>
                 </div>
                 <small class="p-error" *ngIf="getSecurityQuestion(idx, 'answer').hasError('required')">Campo obrigatório</small>

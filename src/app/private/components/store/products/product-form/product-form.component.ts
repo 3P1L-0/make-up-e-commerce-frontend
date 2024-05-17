@@ -58,7 +58,7 @@ export class AppProductsFormComponent implements OnInit {
     this.productsForm = this._frmBuilder.group({
       name: new FormControl<string>(null, [Validators.required, emptyString]),
       code: new FormControl<string>(null, [Validators.required, emptyString]),
-      state: new FormControl<string>(null, [Validators.required]),
+      state: new FormControl<string>(this.saleItemState[2].value, [Validators.required]),
       category: this._frmBuilder.group({
         id: new FormControl<number>(null, [Validators.required])
       }),
@@ -67,7 +67,7 @@ export class AppProductsFormComponent implements OnInit {
       }),
       kind: new FormControl<string>(Object.keys(SaleItemType)[0]),
       description: new FormControl<string>(null, []),
-      price: new FormControl<number>(null, [Validators.required, Validators.min(1)]),
+      price: new FormControl<number>(1, [Validators.required, Validators.min(1)]),
     });
   }
 

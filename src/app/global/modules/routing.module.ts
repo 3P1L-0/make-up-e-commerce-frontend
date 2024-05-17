@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import {AppAuthGuard} from "../guards/AuthGuard";
 
 const _routes: Routes = [
   {
@@ -17,6 +18,7 @@ const _routes: Routes = [
   },
   {
     path: "auth",
+    canActivate: [AppAuthGuard],
     loadChildren: () => import("../components/auth/auth.module").then(m => m.AppAuthModule)
   },
   { path: '', redirectTo: '/app/public/home', pathMatch: 'full' },

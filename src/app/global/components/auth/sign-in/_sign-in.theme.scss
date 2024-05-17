@@ -50,9 +50,24 @@
       .inputs {
         @include utils.make-flex($direction: "column", $alignItems: "center", $justContent: "center", $gap: "20px");
         align-items: stretch;
+
+        .p-inputtext,
+        .p-password {
+          width: 100%;
+          height: 100%;
+        }
+
+        .p-inputtext {
+          align-self: stretch;
+        }
       }
 
       .recover-account {
+        margin-top: 2rem;
+
+        .p-button {
+          padding: 0;
+        }
       }
 
 

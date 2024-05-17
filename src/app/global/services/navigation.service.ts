@@ -1,28 +1,38 @@
 import {EventEmitter, inject, Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {Router} from "@angular/router";
+import {filter, Observable} from "rxjs";
+import {NavigationEnd, Router} from "@angular/router";
+import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../configs";
 
 @Injectable({providedIn: "root"})
 export class AppNavigationService {
+  private readonly _router = inject(Router);
   private readonly _goBackRequestedSource: EventEmitter<boolean>;
+  private readonly _hideBreadcrumbSectionSource: EventEmitter<boolean>;
+
   private readonly _previousRouteRequestedSource: EventEmitter<void>;
   private readonly _previousRouteEmittedSource: EventEmitter<string>;
+
   private readonly _currentRouteRequestedSource: EventEmitter<void>;
   private readonly _currentRouteEmittedSource: EventEmitter<string>;
+
   private readonly _viewTitleRequestedSource: EventEmitter<void>;
   private readonly _viewTitleEmittedSource: EventEmitter<string>;
-  private readonly _router = inject(Router);
 
   public readonly goBackRequested$: Observable<boolean>;
+  public readonly hideBreadcrumbSection$: Observable<boolean>;
+
   public readonly previousRouteRequested$: Observable<void>;
   public readonly previousRouteEmitted$: Observable<string>;
+
   public readonly currentRouteRequested$: Observable<void>;
   public readonly currentRouteEmitted$: Observable<string>;
+
   public readonly viewTitleRequested$: Observable<void>;
   public readonly viewTitleEmitted$: Observable<string>;
 
   constructor() {
     this._goBackRequestedSource = new EventEmitter();
+    this._hideBreadcrumbSectionSource = new EventEmitter();
     this._previousRouteRequestedSource = new EventEmitter();
     this._previousRouteEmittedSource = new EventEmitter();
     this._currentRouteRequestedSource = new EventEmitter();
@@ -31,15 +41,24 @@ export class AppNavigationService {
     this._viewTitleEmittedSource = new EventEmitter();
 
     this.goBackRequested$ = this._goBackRequestedSource.asObservable();
+    this.hideBreadcrumbSection$ = this._hideBreadcrumbSectionSource.asObservable();
     this.previousRouteRequested$ = this._previousRouteRequestedSource.asObservable();
     this.previousRouteEmitted$ = this._previousRouteEmittedSource.asObservable();
     this.currentRouteRequested$ = this._currentRouteRequestedSource.asObservable();
     this.currentRouteEmitted$ = this._currentRouteEmittedSource.asObservable();
     this.viewTitleRequested$ = this._viewTitleRequestedSource.asObservable();
     this.viewTitleEmitted$ = this._viewTitleEmittedSource.asObservable();
+
+    this._router.events.pipe(filter(evt => evt instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      setTimeout( () => {
+        const home = event.url.includes("private") ? PRIVATE_ROUTES.home.toString() : PUBLIC_ROUTES.home.toString();
+        this.requestHideBreadcrumbSection(home === event.url);
+      },100);
+    })
   }
 
   public requestGoBack(): void { this._goBackRequestedSource.emit(true); }
+  public requestHideBreadcrumbSection(hide: boolean): void {this._hideBreadcrumbSectionSource.emit(hide); }
   public requestViewTitle(): void { this._viewTitleRequestedSource.emit(); }
   public requestPreviousRoute(): void { this._previousRouteRequestedSource.emit(); }
   public requestCurrentRoute(): void { this._currentRouteRequestedSource.emit(); }
@@ -51,5 +70,6 @@ export class AppNavigationService {
   public navigateTo(route: string[], extras?: any): void {
     this._router.navigate(route, extras).then();
     this.requestCurrentRoute();
+    this.requestViewTitle();
   }
 }

@@ -16,10 +16,8 @@
       gap: 1rem;
       padding: 0 2rem;
 
-
-
       &.first {
-        background: var(--surface-50);
+        border-bottom: 1px solid var(--surface-border);
 
         .left-content,
         .right-content,
@@ -46,11 +44,11 @@
           border-bottom-style: solid;
 
           &.active-link {
-            border-bottom-width: 5px;
+            border-bottom-width: 3px;
           }
 
           &:hover {
-            border-bottom-width: 2.5px;
+            border-bottom-width: 1.5px;
           }
         }
 
@@ -63,12 +61,12 @@
             text-decoration: none;
             padding: .5rem .75rem;
 
-            &:hover {
+            &.active-link {
               border-bottom: 2px solid var(--primary-color);
             }
 
-            &.active-link {
-              border-bottom: 2.5px solid var(--primary-color);
+            &:hover {
+              border-bottom: 1px solid var(--primary-color);
             }
           }
 
@@ -76,11 +74,35 @@
 
         .controls {
           gap: .5rem;
+
+          .cart-button-wrapper {
+            position: relative;
+
+            .p-badge {
+              position: absolute;
+              top: -2.2rem;
+              width: 1.45rem;
+              height: 1.45rem;
+              line-height: initial;
+              min-width: 1rem;
+              transform: none;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
         }
       }
 
       &.third {
-        padding: 2rem 6rem;
+        margin-block: 2rem;
+        padding-inline: 6rem;
+
+        .page-name {
+          font-weight: 700;
+          padding: 0;
+          margin: 0;
+        }
       }
     }
   }

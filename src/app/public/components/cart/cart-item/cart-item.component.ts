@@ -9,13 +9,13 @@ import {
   ViewChild,
   ViewEncapsulation
 } from "@angular/core";
-import {ProductVariantDTO} from "../../../../global/model/cart/dto/ProductVariantDTO";
 import {ServiceDTO} from "../../../../global/model/cart/dto/ServiceDTO";
 import {ConfirmationService} from "primeng/api";
 import {ItemDTO} from "../../../../global/model/cart/dto/ItemDTO";
 import {SaleItemDTO} from "../../../../global/model/cart/dto/SaleItemDTO";
 import {InputNumber} from "primeng/inputnumber";
 import {debounceTime} from "rxjs";
+import {ProductDTO} from "../../../../global/model/cart/dto/ProductDTO";
 
 @Component({
   selector: "app-cart-item-view",
@@ -52,7 +52,7 @@ export class AppCartItemComponent implements OnInit, OnChanges, AfterViewInit {
   public get density(): string { return this.product?.density; }
 
   public get price(): number {
-    if(this.saleItem instanceof ProductVariantDTO) { return this.product?.price; }
+    if(this.saleItem instanceof ProductDTO) { return this.product?.price; }
     return this.service?.price;
   }
 
@@ -68,7 +68,7 @@ export class AppCartItemComponent implements OnInit, OnChanges, AfterViewInit {
 
   private _askForConfirmation(header: string, message: string, key: string, accept: () => void): void { this._confirmationService.confirm({ header, message, accept}); }
 
-  public get product(): ProductVariantDTO { return this.saleItem as ProductVariantDTO ?? null; }
+  public get product(): ProductDTO { return this.saleItem as ProductDTO ?? null; }
   public get service(): ServiceDTO { return this.saleItem as ServiceDTO ?? null; }
   public get saleItem(): SaleItemDTO { return (this.item?.product ? this.item?.product : this.item?.service) as SaleItemDTO; }
 }

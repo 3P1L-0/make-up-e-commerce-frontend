@@ -1,4 +1,5 @@
 @use "./sale-item-preview/sale-item-preview-theme" as preview;
+@use "./sale-item-details/sale-item-details-theme" as details;
 
 @mixin _private() {
   display: grid;
@@ -28,5 +29,6 @@
   .sale-item-module {
     @include _private();
     @include preview.themefy();
+    @include details.themefy();
   }
 }

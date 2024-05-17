@@ -1,0 +1,16 @@
+@mixin themefy() {
+  .app-sale-item-details-module {
+    @at-root .dialog-anchor .p-dialog {
+      max-height: 100%;
+
+      .p-dialog-header,
+      .p-dialog-content {
+        background-color: var(--surface-c);
+      }
+
+      .p-dialog-content {
+        padding-top: 2rem;
+      }
+    }
+  }
+}

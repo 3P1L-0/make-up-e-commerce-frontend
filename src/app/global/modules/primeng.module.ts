@@ -32,6 +32,7 @@ import {PanelModule} from "primeng/panel";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {CalendarModule} from "primeng/calendar";
 import {BadgeModule} from "primeng/badge";
+import {ProgressBarModule} from "primeng/progressbar";
 
 @NgModule({
   exports: [
@@ -67,7 +68,8 @@ import {BadgeModule} from "primeng/badge";
     PanelModule,
     RadioButtonModule,
     CalendarModule,
-    BadgeModule
+    BadgeModule,
+    ProgressBarModule
   ],
   providers: [
     ConfirmationService,

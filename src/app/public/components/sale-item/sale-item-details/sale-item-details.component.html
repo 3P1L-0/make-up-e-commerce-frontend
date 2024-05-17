@@ -1,0 +1,17 @@
+<header class="dialog-header">
+  <button pButton icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="exit()"></button>
+  <section class="img-section"><img alt="imagem do {{itemName}}"/></section>
+  <section class="details-section">
+    <header class="details-header">
+      <p class="line"> <small>{{ brand }}</small></p>
+      <p class="line"><span>{{title}}</span></p>
+    </header>
+    <div class="details-body">
+
+    </div>
+    <form class="details-footer">
+      <p-inputNumber [showButtons]="true" [min]="1" [step]="1" buttonLayout="horizontal" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+      <button pButton icon="pi pi-cart-plus" class="p-button-success" label="Adicionar ao carrinho" (click)="addToCart()"></button>
+    </form>
+  </section>
+</header>

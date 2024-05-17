@@ -1,14 +1,14 @@
 import { AbstractDTO } from "../../AbstractDTO";
 import { StockOperationType } from "../enums/StockOperationType";
-import { ProductVariantDTO } from "./ProductVariantDTO";
+import {ProductDTO} from "./ProductDTO";
 
 export class ProductStockDTO extends AbstractDTO {
 	public quantity: number;
 	public operationType: StockOperationType;
-	public product: ProductVariantDTO;
+	public product: ProductDTO;
 
   public constructor() {
     super();
-    this.product = new ProductVariantDTO();
+    this.product = new ProductDTO();
   }
 }

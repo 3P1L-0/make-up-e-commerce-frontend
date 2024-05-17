@@ -1,7 +1,7 @@
-<section class="img-container"><img [src]="product.getDTO().img.url"/></section>
+<section class="img-container"><img [src]="product.getDTO()?.img?.url"/></section>
 <section class="details-section">
   <p class="line">
-    <span>{{ product.getDTO().name }}</span>
+    <span>{{ product?.getDTO()?.name }}</span>
   </p>
   <p class="line">
     <span>
@@ -9,7 +9,7 @@
     </span>
   </p>
   <p class="line">
-    <span>{{ product.getDTO().code }}</span>
+    <span>{{ product?.getDTO()?.code }}</span>
   </p>
 </section>
 <div class="on-sale-tag">-20%</div>

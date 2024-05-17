@@ -71,49 +71,5 @@
       </div>
     </form>
   </p-card>
-  <p-card class="products-variants" header="Variantes">
-    <form [formGroup]="variantsForm" enctype="multipart/form-data">
-      <!-- Form fields -->
-      <ul formArrayName="variants" class="variants-list">
-        <li *ngFor="let frmGroup of getVariantsFormArray().controls; index as idx" class="variant-wrapper" [formGroupName]="idx">
-          <div class="fields-container">
-            <div class="product-variant" >
-              <div class="line">
-                <div class="field grow">
-                  <div class="control">
-                    <p>Código</p>
-                    <input type="text" pInputText formControlName="code" class="p-input-sm"/>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <p>Cor</p>
-                    <p-colorPicker formControlName="color" class="colorpicker"></p-colorPicker>
-                  </div>
-                </div>
-              </div>
-              <div class="line">
-                <div class="field">
-                  <div class="control">
-                    <p>Densidade</p>
-                    <input type="text" pInputText formControlName="density" class="p-input-sm"/>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <p>Preço</p>
-                    <p-inputNumber formControlName="price" mode="currency" currency="AOA" locale="pt-PT" [showButtons]="true" buttonLayout="horizontal" decrementButtonIcon="pi pi-minus" incrementButtonIcon="pi pi-plus" [min]="0.1" title="Preço" [showClear]="true" class="grow"></p-inputNumber>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removeVariant(idx)" pTooltip="Eliminar" tooltipPosition="left" [showDelay]="500"></button>
-          </div>
-          <p-divider></p-divider>
-        </li>
-      </ul>
-      <button pButton class="btn-add" label="Adicionar" (click)="newVariant()"></button>
-    </form>
-  </p-card>
 </section>
 <p-toast hideTransitionOptions="500ms" [preventOpenDuplicates]="true"></p-toast>

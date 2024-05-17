@@ -30,12 +30,7 @@ export class AppBreadcrumbComponent implements OnInit, OnDestroy {
       if(navigate) this._router.navigate([this._getPreviousRoute()]).then();
     }));
 
-    this._subscriptions.push(this._navigationService.viewTitleRequested$.subscribe(navigate => {
-      this._navigationService.requestViewTitleEmitted(this._activatedRoute.snapshot.routeConfig.title as string);
-    }));
-
     this._subscriptions.push(this._navigationService.currentRouteRequested$.subscribe(navigate => {
-      console.log(this.breadcrumbModel[this.breadcrumbModel.length-1].routerLink);
       this._navigationService.requestCurrentRouteEmitted(this.breadcrumbModel[this.breadcrumbModel.length-1].routerLink);
     }))
   }
@@ -51,7 +46,7 @@ export class AppBreadcrumbComponent implements OnInit, OnDestroy {
   private _buildBreadcrumb(): void {
     const root = location.hash.slice(this._computeHomeLink().length+2);
     const parts = root.split("/").filter(p => p.trim().length > 0).slice(2);
-
+    const ignoredParts = "shopuser"
     this.home = {
       icon: "pi pi-home",
       routerLink: this._computeHomeLink(),
@@ -60,6 +55,7 @@ export class AppBreadcrumbComponent implements OnInit, OnDestroy {
     if(parts.length) {
       for (let p of parts) {
         if (Number.isFinite(Number(p))) continue;
+        if(ignoredParts.includes(p)) continue;
 
         this.breadcrumbModel.push({
           label: p,
